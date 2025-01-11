@@ -3,24 +3,25 @@ body, html {
     padding: 0;
     width: 100%;
     height: 100%;
-    overflow: hidden;
     background: #000;
+    overflow: auto; /* Allow scrolling */
 }
 
 .matrix-link {
-    position: relative;
     color: #00FF00;
     font-size: 24px;
     text-decoration: none;
     z-index: 2;
+    position: relative; /* Ensure the link remains in its original place */
 }
 
 #matrixCanvas {
-    position: absolute;
+    position: fixed; /* Use fixed positioning to cover the entire screen */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     display: none;
     z-index: 1;
+    pointer-events: none; /* Allow interactions with the rest of the page */
 }
