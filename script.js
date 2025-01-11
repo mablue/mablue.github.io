@@ -25,13 +25,17 @@ const drawMatrix = () => {
     });
 };
 
+let intervalId;
+
 link.addEventListener('mouseover', () => {
     canvas.style.display = 'block';
     document.body.style.backgroundColor = '#000';
-    setInterval(drawMatrix, 50);
+    intervalId = setInterval(drawMatrix, 50);
 });
 
 link.addEventListener('mouseout', () => {
     canvas.style.display = 'none';
     document.body.style.backgroundColor = '#000';
+    clearInterval(intervalId);
 });
+
