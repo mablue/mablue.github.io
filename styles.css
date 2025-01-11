@@ -8,6 +8,9 @@ body, html {
 }
 
 .matrix-link {
+    color: #00FF00;
+    font-size: 24px;
+    text-decoration: none;
     z-index: 2;
 }
 
