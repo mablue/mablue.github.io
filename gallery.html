@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Mosavet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="styles.css?v=20261023-1007" rel="stylesheet">
+<style>
+/* Critical CSS - inline to avoid dependency issues */
+:root{
+  --bg:#0a0908;--ink:#f0ece4;--ink-dim:#a8a094;--ink-mute:#6b655c;
+  --amber:#e8b96a;--line:rgba(240,236,228,.08);--line-strong:rgba(240,236,228,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;line-height:1.6;min-height:100vh;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.25rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,9,8,.85);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:.75rem;}
+nav .brand{color:var(--ink);text-decoration:none;font-weight:500;}
+nav .brand span{color:var(--amber);}
+nav .links a{color:var(--ink-dim);text-decoration:none;}
+nav .links a:hover{color:var(--amber);}
+.container{max-width:1100px;margin:0 auto;padding:0 2rem;}
+.page-hero{padding:8rem 0 3rem;}
+.page-hero h1{font-family:'Instrument Serif',serif;font-size:clamp(2.5rem,6vw,4rem);font-weight:400;letter-spacing:-.02em;margin-bottom:1rem;}
+.page-hero h1 .italic{font-style:italic;color:var(--amber);}
+.page-hero .lead{color:var(--ink-dim);max-width:600px;}
+.back-link{display:inline-block;margin:2rem 0;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--amber);text-decoration:none;}
+.back-link:hover{text-decoration:underline;}
+
+/* MASONRY GRID - this is the key */
+.gallery-masonry{
+  display:grid !important;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr)) !important;
+  gap:10px !important;
+  padding:1rem 0 3rem !important;
+}
+.gallery-masonry .tile{
+  position:relative;
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:8px;
+  cursor:pointer;
+  background:#1a1816;
+  border:1px solid var(--line);
+  transition:transform .25s,border-color .25s;
+}
+.gallery-masonry .tile:hover{transform:translateY(-2px);border-color:var(--amber);}
+.gallery-masonry .tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.gallery-masonry .tile:hover img{transform:scale(1.05);}
+.gallery-masonry .tile .cap{
+  position:absolute;inset:auto 0 0 0;padding:.55rem .65rem;
+  font-family:'JetBrains Mono',monospace;font-size:.65rem;color:#f0ece4;
+  background:linear-gradient(transparent,rgba(0,0,0,.85));
+  opacity:0;transition:opacity .25s;
+}
+.gallery-masonry .tile:hover .cap{opacity:1;}
+
+/* Lightbox */
+.lb{position:fixed;inset:0;z-index:1000;background:rgba(5,5,8,.95);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;padding:2rem;}
+.lb.open{display:flex;}
+.lb img{max-width:90vw;max-height:85vh;object-fit:contain;border-radius:4px;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+.lb .lb-close{position:absolute;top:1.25rem;right:1.25rem;width:44px;height:44px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:50%;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;}
+.lb .lb-close:hover{background:rgba(255,255,255,.2);}
+.lb .lb-nav{position:absolute;top:50%;transform:translateY(-50%);width:50px;height:50px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);color:#fff;border-radius:50%;cursor:pointer;font-size:1.4rem;display:flex;align-items:center;justify-content:center;}
+.lb .lb-nav:hover{background:rgba(255,255,255,.2);}
+.lb .lb-prev{left:1.25rem;}
+.lb .lb-next{right:1.25rem;}
+.lb .lb-caption{position:absolute;bottom:1.5rem;left:0;right:0;text-align:center;color:#a8a094;font-family:'JetBrains Mono',monospace;font-size:.8rem;}
+
+@media(max-width:640px){
+  .container{padding:0 1rem;}
+  .gallery-masonry{grid-template-columns:repeat(2,1fr) !important;gap:6px !important;}
+  .lb{padding:.5rem;}
+  .lb .lb-prev{left:.5rem;}
+  .lb .lb-next{right:.5rem;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="brand">MASOUD<span>.</span></a>
+  <div class="links"><a href="index.html">← Home</a></div>
+</nav>
+<div class="container">
+  <header class="page-hero">
+    <h1>Photo <span class="italic">Gallery</span> <span style="font-size:1rem;color:var(--ink-mute);font-family:JetBrains Mono,monospace;">(46 images)</span></h1>
+    <p class="lead">A visual collection from <strong>Mosavet</strong> — paintings, photography, and visual notes.</p>
+  </header>
+  <div class="gallery-masonry" id="gallery"></div>
+  <a href="index.html" class="back-link">← Back to homepage</a>
+</div>
+
+<div class="lb" id="lb">
+  <button class="lb-close" id="lbClose" aria-label="Close">✕</button>
+  <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous">‹</button>
+  <img id="lbImg" alt="">
+  <button class="lb-nav lb-next" id="lbNext" aria-label="Next">›</button>
+  <div class="lb-caption" id="lbCap"></div>
+</div>
+
+<script>
+var IMAGES = [{"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/b70935cf7c96be96.png", "title": "My Paintings (1/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/54faa91641e97149.png", "title": "My Paintings (2/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/ce0c5df4be0e3561.png", "title": "My Paintings (3/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/aa5161a7091b8ba1.png", "title": "My Paintings (4/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/053040f3d1906f71.png", "title": "My Paintings (5/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/b77eba37e58d7c92.png", "title": "My Paintings (6/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/e997ccae0e63554e.png", "title": "My Paintings (7/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/fdcafbb0ea8c3c65.png", "title": "My Paintings (8/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/8c54432f74447776.png", "title": "My Paintings (9/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/7f032190eda65bb2.png", "title": "My Paintings (10/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/28d895c562d4aa53.png", "title": "My Paintings (11/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/bfabc08d6ee889ba.png", "title": "My Paintings (12/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/e7317db6ef7f0f2f.jpg", "title": "My Paintings (13/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/07c9166affb3de26.jpg", "title": "My Paintings (14/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/470b413e62b617da.jpg", "title": "My Paintings (15/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/b54d4f213cee2c82.jpg", "title": "My Paintings (16/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/1f196e6e5f20aec1.jpg", "title": "My Paintings (17/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/1a4e6f6b5556e309.jpg", "title": "My Paintings (18/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/053e96974b9f35a3.jpg", "title": "My Paintings (19/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/f85c4d67fd862db0.jpg", "title": "My Paintings (20/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/c668352550b0d4fb.jpg", "title": "My Paintings (21/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/d862aac9dde2e212.png", "title": "My Paintings (22/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/d260f7d4c41cee88.jpg", "title": "My Paintings (23/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/8c0dd2b57dacb7de.jpg", "title": "My Paintings (24/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/643d3f0ee7219208.jpg", "title": "My Paintings (25/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/5b2e39bd477edf96.png", "title": "My Paintings (26/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/547751e06f335991.png", "title": "My Paintings (27/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/1e68c299c316cfb4.jpg", "title": "My Paintings (28/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/19ed59d8255b814d.jpg", "title": "My Paintings (29/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/00a8388e9535653c.jpg", "title": "My Paintings (30/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/f063e2be83babb25.png", "title": "My Paintings (31/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/a7d277acf4ebf695.jpg", "title": "My Paintings (32/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/4eff2bef788d0204.jpg", "title": "My Paintings (33/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/e651fdf72c1f5bb8.png", "title": "My Paintings (34/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/edf2bdd8ae56801b.png", "title": "My Paintings (35/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/d5ea6012bb0e2877.png", "title": "My Paintings (36/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/a94c7ebf9fbd1901.png", "title": "My Paintings (37/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/df2fa624af93d2a7.png", "title": "My Paintings (38/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/6594b56d67e4f538.png", "title": "My Paintings (39/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/1b30859e7745496b.png", "title": "My Paintings (40/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/88161649514a00e8.png", "title": "My Paintings (41/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/684a80e43e794f08.png", "title": "My Paintings (42/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/a4e8b2ceeeb085b6.png", "title": "My Paintings (43/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/aec6b20c15544739.png", "title": "My Paintings (44/44)", "post_title": "My Paintings", "date": "2024-10-26"}];
+var grid = document.getElementById('gallery');
+var lb = document.getElementById('lb');
+var lbImg = document.getElementById('lbImg');
+var lbCap = document.getElementById('lbCap');
+var cur = 0;
+
+IMAGES.forEach(function(item, i){
+  var div = document.createElement('div');
+  div.className = 'tile';
+  div.innerHTML = '<img src="' + item.src + '" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'">'
+    + '<div class="cap">' + (item.post_title || item.title) + '</div>';
+  div.onclick = function(){ openLb(i); };
+  grid.appendChild(div);
+});
+
+function openLb(i){
+  cur = i;
+  lbImg.src = IMAGES[i].src;
+  lbCap.textContent = IMAGES[i].title + ' · ' + IMAGES[i].date;
+  lb.classList.add('open');
+}
+function closeLb(){ lb.classList.remove('open'); }
+function nextLb(){ cur = (cur + 1) % IMAGES.length; openLb(cur); }
+function prevLb(){ cur = (cur - 1 + IMAGES.length) % IMAGES.length; openLb(cur); }
+document.getElementById('lbClose').onclick = closeLb;
+document.getElementById('lbNext').onclick = nextLb;
+document.getElementById('lbPrev').onclick = prevLb;
+lb.onclick = function(e){ if(e.target === lb) closeLb(); };
+document.addEventListener('keydown', function(e){
+  if(!lb.classList.contains('open')) return;
+  if(e.key === 'Escape') closeLb();
+  if(e.key === 'ArrowRight') nextLb();
+  if(e.key === 'ArrowLeft') prevLb();
+});
+</script>
+</body>
+</html>

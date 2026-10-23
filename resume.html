@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masoud Azizi — Resume</title>
+<meta name="description" content="Resume — Masoud Azizi, Python Backend Developer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;
+  --page:#fafaf7;
+  --ink:#0f0f0f;
+  --ink-dim:#3a3a3a;
+  --ink-mute:#707070;
+  --accent:#1e5fa8;
+  --accent-soft:rgba(30,95,168,.08);
+  --line:#e2e0d8;
+  --line-strong:#b5b2a8;
+  --code-bg:#f4f2eb;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  background:var(--page);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:400;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  padding:2rem 1rem;
+  padding-top:4.5rem;
+}
+.page{
+  max-width:800px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:2.5rem 2.5rem 2rem;
+}
+
+/* TOPBAR */
+.topbar{
+  position:fixed;
+  top:0;left:0;right:0;
+  background:rgba(250,250,247,.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:.75rem 1.5rem;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.05em;
+}
+.topbar a{color:var(--ink-dim);text-decoration:none;transition:color .2s;}
+.topbar a:hover{color:var(--accent);}
+.topbar .brand{font-weight:700;color:var(--ink);}
+.topbar .brand span{color:var(--accent);}
+.topbar .actions{display:flex;gap:.6rem;align-items:center;flex-wrap:wrap;}
+.topbar .switch{
+  display:flex;
+  background:var(--code-bg);
+  border-radius:100px;
+  padding:2px;
+  font-size:.68rem;
+}
+.topbar .switch a{
+  padding:.35rem .75rem;
+  border-radius:100px;
+  color:var(--ink-mute);
+}
+.topbar .switch a.active{
+  background:#fff;
+  color:var(--ink);
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+.btn-print{
+  background:var(--ink);
+  color:#fff;
+  border:none;
+  padding:.5rem 1rem;
+  border-radius:100px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  letter-spacing:.05em;
+  cursor:pointer;
+  transition:all .2s;
+}
+.btn-print:hover{background:var(--accent);}
+
+/* HEADER */
+.header{
+  border-bottom:2px solid var(--ink);
+  padding-bottom:1rem;
+  margin-bottom:1.5rem;
+}
+.header h1{
+  font-size:2.2rem;
+  font-weight:700;
+  letter-spacing:-.03em;
+  margin-bottom:.2rem;
+  line-height:1;
+}
+.header .role{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;
+  color:var(--accent);
+  font-weight:500;
+  letter-spacing:.02em;
+  margin-bottom:.6rem;
+}
+.header .contact{
+  font-size:.8rem;
+  color:var(--ink-dim);
+  line-height:1.7;
+}
+.header .contact a{color:var(--ink-dim);text-decoration:none;}
+.header .contact a:hover{color:var(--accent);}
+.header .contact .sep{color:var(--line-strong);margin:0 .35rem;}
+
+/* SECTION */
+.section{margin-bottom:1.4rem;}
+.section-head{
+  display:flex;
+  align-items:center;
+  gap:.6rem;
+  margin-bottom:.65rem;
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:.3rem;
+}
+.section-title{
+  font-size:.78rem;
+  font-weight:700;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink);
+  font-family:'JetBrains Mono',monospace;
+}
+.section-title::after{
+  content:'';
+  flex:1;
+  height:1px;
+  background:var(--line);
+  margin-left:.5rem;
+}
+
+/* SUMMARY */
+.summary{
+  font-size:.9rem;
+  color:var(--ink-dim);
+  line-height:1.65;
+}
+.summary strong{color:var(--ink);font-weight:600;}
+
+/* EXPERIENCE */
+.job{
+  margin-bottom:1rem;
+}
+.job:last-child{margin-bottom:0;}
+.job-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:1rem;
+  margin-bottom:.2rem;
+}
+.job-title{
+  font-weight:600;
+  font-size:.95rem;
+  color:var(--ink);
+  line-height:1.3;
+}
+.job-title .company{
+  color:var(--accent);
+  font-weight:500;
+}
+.job-period{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  color:var(--ink-mute);
+  white-space:nowrap;
+}
+.job-sub{
+  font-size:.78rem;
+  color:var(--ink-mute);
+  margin-bottom:.4rem;
+  font-family:'JetBrains Mono',monospace;
+}
+.job ul{
+  list-style:none;
+  padding-left:0;
+}
+.job li{
+  font-size:.85rem;
+  color:var(--ink-dim);
+  line-height:1.55;
+  padding-left:1rem;
+  position:relative;
+  margin-bottom:.2rem;
+}
+.job li::before{
+  content:'▸';
+  position:absolute;
+  left:0;
+  color:var(--accent);
+  font-size:.9rem;
+  line-height:1.4;
+}
+.job li strong{color:var(--ink);font-weight:500;}
+
+/* SKILLS GRID */
+.skill-row{
+  display:grid;
+  grid-template-columns:140px 1fr;
+  gap:.75rem;
+  padding:.35rem 0;
+  align-items:baseline;
+  border-bottom:1px dotted var(--line);
+  font-size:.85rem;
+}
+.skill-row:last-child{border-bottom:none;}
+.skill-label{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  color:var(--ink-mute);
+  letter-spacing:.05em;
+  text-transform:uppercase;
+  font-weight:500;
+}
+.skill-val{
+  color:var(--ink-dim);
+  line-height:1.55;
+}
+.skill-val code{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.78rem;
+  background:var(--code-bg);
+  padding:.1rem .4rem;
+  border-radius:3px;
+  color:var(--ink);
+  margin-right:.15rem;
+}
+.skill-val code.hot{
+  background:var(--accent-soft);
+  color:var(--accent);
+  font-weight:500;
+}
+
+/* PROJECTS COMPACT */
+.projects{
+  display:grid;
+  gap:.4rem;
+}
+.proj{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:.75rem;
+  padding:.4rem 0;
+  align-items:baseline;
+  border-bottom:1px dotted var(--line);
+  font-size:.85rem;
+}
+.proj:last-child{border-bottom:none;}
+.proj-name{
+  color:var(--ink);
+  font-weight:500;
+}
+.proj-name a{color:inherit;text-decoration:none;}
+.proj-name a:hover{color:var(--accent);}
+.proj-desc{
+  color:var(--ink-mute);
+  font-size:.78rem;
+  margin-top:.1rem;
+  line-height:1.4;
+}
+.proj-meta{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--ink-mute);
+  white-space:nowrap;
+}
+.proj-meta .stars{color:var(--accent);font-weight:700;margin-right:.3rem;}
+
+/* EDU */
+.edu-line{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:1rem;
+  font-size:.88rem;
+}
+.edu-line .degree{font-weight:600;color:var(--ink);}
+.edu-line .school{color:var(--ink-mute);font-weight:400;margin-left:.4rem;}
+.edu-line .period{font-family:'JetBrains Mono',monospace;font-size:.72rem;color:var(--ink-mute);white-space:nowrap;}
+
+/* LANG */
+.langs{
+  display:flex;
+  gap:1.25rem;
+  flex-wrap:wrap;
+  font-size:.85rem;
+  color:var(--ink-dim);
+}
+.langs span strong{color:var(--ink);font-weight:500;}
+.langs .dot{color:var(--line-strong);}
+
+/* FOOTER */
+.r-footer{
+  margin-top:1.5rem;
+  padding-top:.85rem;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;
+  color:var(--ink-mute);
+  letter-spacing:.05em;
+}
+.r-footer a{color:var(--accent);text-decoration:none;}
+
+/* PRINT */
+@media print{
+  body{background:#fff;padding:0;padding-top:0;}
+  .topbar{display:none !important;}
+  .page{
+    max-width:100%;
+    border:none;
+    padding:1.2cm 1.4cm;
+  }
+  .header h1{font-size:1.9rem;}
+  .section{margin-bottom:1rem;}
+  .job{margin-bottom:.75rem;}
+  a{color:inherit !important;text-decoration:none !important;}
+  .section-head{border-bottom:1px solid #999;}
+}
+
+/* RESPONSIVE */
+@media(max-width:640px){
+  body{padding:.75rem .5rem;padding-top:4.5rem;}
+  .page{padding:1.5rem 1.25rem;}
+  .topbar{padding:.6rem .8rem;font-size:.66rem;}
+  .topbar .switch{font-size:.62rem;}
+  .topbar .switch a{padding:.3rem .55rem;}
+  .topbar .actions{gap:.4rem;}
+  .header h1{font-size:1.6rem;}
+  .job-head{flex-direction:column;gap:.15rem;}
+  .skill-row{grid-template-columns:1fr;gap:.15rem;}
+  .proj{grid-template-columns:1fr;gap:.15rem;}
+  .edu-line{flex-direction:column;gap:.15rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand">MASOUD<span>.</span></a>
+  <div class="actions">
+    <div class="switch">
+      <a href="cv.html">CV</a>
+      <a href="resume.html" class="active">Resume</a>
+    </div>
+    <button class="btn-print" onclick="window.print()">⤓ PDF</button>
+  </div>
+</div>
+
+<div class="page">
+
+  <header class="header">
+    <h1>Masoud Azizi</h1>
+    <div class="role">Python Backend Developer · Django · Data & AI</div>
+    <div class="contact">
+      <a href="mailto:mablue92@gmail.com">mablue92@gmail.com</a>
+      <span class="sep">·</span>
+      <a href="https://github.com/mablue" target="_blank" rel="noopener">github.com/mablue</a>
+      <span class="sep">·</span>
+      <a href="https://www.linkedin.com/in/mablue" target="_blank" rel="noopener">linkedin.com/in/mablue</a>
+      <span class="sep">·</span>
+      <a href="https://masoudsoft.ir" target="_blank" rel="noopener">masoudsoft.ir</a>
+      <br>
+      Tabriz, Iran · Open to remote · English (Professional)
+    </div>
+  </header>
+
+  <!-- SUMMARY -->
+  <section class="section">
+    <div class="section-head"><span class="section-title">Summary</span></div>
+    <p class="summary">
+      Backend developer with <strong>5+ years</strong> building production systems in Python and Django. Shipped enterprise procurement platforms, reinforcement-learning trading bots, and data-driven tools for clients in energy and finance. Comfortable across the stack — from Django REST backends to Kotlin Android apps and ML pipelines in PyTorch.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <div class="section-head"><span class="section-title">Skills</span></div>
+    <div class="skill-row">
+      <div class="skill-label">Languages</div>
+      <div class="skill-val"><code class="hot">Python</code> <code class="hot">SQL</code> <code>JavaScript</code> <code>TypeScript</code> <code>Kotlin</code> <code>Java</code> <code>C++</code></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-label">Backend</div>
+      <div class="skill-val"><code class="hot">Django</code> <code>Django REST Framework</code> <code>PostgreSQL</code> <code>Redis</code> <code>Celery</code></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-label">Data / ML</div>
+      <div class="skill-val"><code class="hot">PyTorch</code> <code>scikit-learn</code> <code>Pandas</code> <code>NumPy</code> <code>Stable-Baselines3</code> <code>TensorFlow</code></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-label">Mobile</div>
+      <div class="skill-val"><code>Android SDK</code> <code>Kotlin</code> <code>Jetpack</code> <code>Media3</code></div>
+    </div>
+    <div class="skill-row">
+      <div class="skill-label">DevOps</div>
+      <div class="skill-val"><code class="hot">Git</code> <code>Docker</code> <code>Linux</code> <code>GitHub Actions</code> <code>Nginx</code></div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section">
+    <div class="section-head"><span class="section-title">Experience</span></div>
+
+    <div class="job">
+      <div class="job-head">
+        <div class="job-title">Freelance Backend Developer</div>
+        <div class="job-period">2018 — Present</div>
+      </div>
+      <div class="job-sub">Self-employed · Remote · Clients in energy, finance, and public sector</div>
+      <ul>
+        <li>Built a <strong>Django procurement platform</strong> for East Azarbaijan Gas Company (MESC standards, sales workflows, role-based access) — still in production, <strong>29 GitHub stars</strong>.</li>
+        <li>Designed <strong>RL-based trading bot</strong> (MasTrade) using Stable-Baselines3 + PyTorch with custom Gym environments for crypto strategy optimization — <strong>26 stars</strong>.</li>
+        <li>Developed <strong>Freqtrade automation tools</strong> (GodStra Results Feed) for hyperopt parameter tuning and results aggregation.</li>
+        <li>Shipped multiple Android apps (Kotlin) — accessibility app for blind users (Didban), on-device YOLOv9 detection (aiyes), offline music player with behavioral ranking.</li>
+        <li>Built and maintained <strong>Persian OCR / TTS / STT</strong> tools and Telegram bots used by the Persian-speaking community.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SELECTED PROJECTS -->
+  <section class="section">
+    <div class="section-head"><span class="section-title">Selected Projects</span></div>
+    <div class="projects">
+      <div class="proj">
+        <div>
+          <div class="proj-name"><a href="https://github.com/mablue/Specialized-Procurement-and-Sales-Management-System-for-East-Azarbaijan-Gas-Company" target="_blank" rel="noopener">Procurement & Sales System — Gas Company</a></div>
+          <div class="proj-desc">Django · PostgreSQL · JavaScript · enterprise deployment</div>
+        </div>
+        <div class="proj-meta"><span class="stars">★ 29</span></div>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name"><a href="https://github.com/mablue/mastrade" target="_blank" rel="noopener">MasTrade — RL Trading Bot</a></div>
+          <div class="proj-desc">PyTorch · Stable-Baselines3 · Gym · custom crypto environments</div>
+        </div>
+        <div class="proj-meta"><span class="stars">★ 26</span></div>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name"><a href="https://github.com/mablue/GodStraResultsFeed" target="_blank" rel="noopener">GodStra Results Feed</a></div>
+          <div class="proj-desc">Freqtrade · hyperopt automation · results aggregation</div>
+        </div>
+        <div class="proj-meta"><span class="stars">★ 8</span></div>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name"><a href="https://github.com/mablue/cexbot" target="_blank" rel="noopener">CexBot — Crypto Portfolio Tracker</a></div>
+          <div class="proj-desc">Python · Telegram Bot API · live price feeds</div>
+        </div>
+        <div class="proj-meta"><span class="stars">★ 5</span></div>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name"><a href="https://github.com/mablue/aiyes" target="_blank" rel="noopener">Ai Eyes — On-Device Object Detection</a></div>
+          <div class="proj-desc">Kotlin · YOLOv9 · TensorFlow Lite · on-device inference</div>
+        </div>
+        <div class="proj-meta">Android</div>
+      </div>
+      <div class="proj">
+        <div>
+          <div class="proj-name"><a href="https://github.com/mablue/Didban" target="_blank" rel="noopener">Didban — Accessibility App</a></div>
+          <div class="proj-desc">Kotlin · TalkBack integration · designed for blind users</div>
+        </div>
+        <div class="proj-meta">Android</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section">
+    <div class="section-head"><span class="section-title">Education</span></div>
+    <div class="edu-line">
+      <div>
+        <span class="degree">MSc, Software Engineering</span>
+        <span class="school">— Daneshvaran University</span>
+      </div>
+      <div class="period">2018 — 2022</div>
+    </div>
+    <div class="edu-line" style="margin-top:.4rem;">
+      <div>
+        <span class="degree">BSc, Computer Science</span>
+        <span class="school">— University of Tabriz</span>
+      </div>
+      <div class="period">2012 — 2016</div>
+    </div>
+  </section>
+
+  <!-- LANGUAGES -->
+  <section class="section">
+    <div class="section-head"><span class="section-title">Languages</span></div>
+    <div class="langs">
+      <span><strong>Persian</strong> — Native</span>
+      <span class="dot">·</span>
+      <span><strong>Azerbaijani</strong> — Native</span>
+      <span class="dot">·</span>
+      <span><strong>English</strong> — Professional</span>
+    </div>
+  </section>
+
+  <footer class="r-footer">
+    <span>Resume · Masoud Azizi · 2026</span>
+    <span><a href="cv.html">Academic CV →</a></span>
+  </footer>
+
+</div>
+
+</body>
+</html>

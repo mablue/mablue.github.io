@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masoud Azizi — CV</title>
+<meta name="description" content="Curriculum Vitae — Masoud Azizi, Python Backend Developer, Researcher, Artist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fafaf7;
+  --ink:#1a1815;
+  --ink-dim:#4a4640;
+  --ink-mute:#8a857c;
+  --accent:#b87333;   /* copper */
+  --accent-dim:rgba(184,115,51,.08);
+  --line:#e5e2d9;
+  --line-strong:#c9c4b5;
+  --code-bg:#f2efe6;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:400;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  padding:2rem 1rem;
+  min-height:100vh;
+}
+.cv{
+  max-width:820px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--line);
+  padding:3.5rem 3rem 2.5rem;
+  position:relative;
+}
+/* Top bar with actions */
+.topbar{
+  position:fixed;
+  top:0;left:0;right:0;
+  background:rgba(250,250,247,.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);
+  padding:.75rem 1.5rem;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.05em;
+}
+.topbar a{
+  color:var(--ink-dim);
+  text-decoration:none;
+  transition:color .2s;
+}
+.topbar a:hover{color:var(--accent);}
+.topbar .brand{font-weight:700;color:var(--ink);}
+.topbar .brand span{color:var(--accent);}
+.topbar .actions{display:flex;gap:.75rem;align-items:center;}
+.btn-print{
+  background:var(--ink);
+  color:#fff;
+  border:none;
+  padding:.5rem 1rem;
+  border-radius:100px;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  letter-spacing:.05em;
+  cursor:pointer;
+  transition:all .2s;
+}
+.btn-print:hover{background:var(--accent);}
+body{padding-top:4.5rem;}
+
+/* Header */
+.header{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:2rem;
+  padding-bottom:2rem;
+  border-bottom:2px solid var(--ink);
+  margin-bottom:2rem;
+  align-items:start;
+}
+.header h1{
+  font-family:'Instrument Serif',serif;
+  font-size:3.5rem;
+  font-weight:400;
+  line-height:.95;
+  letter-spacing:-.03em;
+  margin-bottom:.5rem;
+}
+.header h1 .italic{font-style:italic;color:var(--accent);}
+.header .role{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.85rem;
+  color:var(--ink-dim);
+  letter-spacing:.02em;
+  margin-bottom:1rem;
+  line-height:1.5;
+}
+.header .role .sep{color:var(--accent);margin:0 .4rem;}
+.header .contact{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  color:var(--ink-mute);
+  line-height:1.9;
+  letter-spacing:.02em;
+}
+.header .contact a{color:var(--ink-dim);text-decoration:none;}
+.header .contact a:hover{color:var(--accent);}
+.header .meta-right{
+  text-align:right;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--ink-mute);
+  letter-spacing:.05em;
+  line-height:1.9;
+}
+.header .meta-right .label{
+  color:var(--accent);
+  font-weight:700;
+  display:block;
+  margin-top:.75rem;
+}
+.header .meta-right .label:first-child{margin-top:0;}
+
+/* Section */
+.section{margin-bottom:2.25rem;}
+.section:last-child{margin-bottom:0;}
+.section-head{
+  display:flex;
+  align-items:baseline;
+  gap:.75rem;
+  margin-bottom:1rem;
+  border-bottom:1px solid var(--line-strong);
+  padding-bottom:.5rem;
+}
+.section-num{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.7rem;
+  color:var(--accent);
+  font-weight:700;
+  letter-spacing:.05em;
+}
+.section-title{
+  font-family:'Instrument Serif',serif;
+  font-size:1.5rem;
+  font-weight:400;
+  letter-spacing:-.01em;
+}
+
+/* Bio */
+.bio{
+  font-size:.95rem;
+  color:var(--ink-dim);
+  line-height:1.75;
+  max-width:100%;
+}
+.bio strong{color:var(--ink);font-weight:500;}
+
+/* Entry (for projects, publications, education) */
+.entry{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:1rem;
+  padding:.85rem 0;
+  border-bottom:1px dotted var(--line);
+  align-items:baseline;
+}
+.entry:last-child{border-bottom:none;}
+.entry-main .title{
+  font-weight:500;
+  color:var(--ink);
+  font-size:.95rem;
+  line-height:1.4;
+  margin-bottom:.15rem;
+}
+.entry-main .title a{color:inherit;text-decoration:none;}
+.entry-main .title a:hover{color:var(--accent);}
+.entry-main .meta{
+  font-size:.82rem;
+  color:var(--ink-mute);
+  line-height:1.5;
+}
+.entry-main .meta strong{color:var(--ink-dim);font-weight:500;}
+.entry-main .meta .sep{color:var(--accent);margin:0 .4rem;}
+.entry-side{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  color:var(--ink-mute);
+  white-space:nowrap;
+  text-align:right;
+  letter-spacing:.02em;
+}
+.entry-side .num{color:var(--accent);font-weight:700;}
+.entry-side .tag{
+  display:inline-block;
+  padding:.1rem .5rem;
+  background:var(--accent-dim);
+  color:var(--accent);
+  border-radius:3px;
+  font-size:.68rem;
+  letter-spacing:.03em;
+  margin-left:.3rem;
+}
+
+/* Skills as code chips */
+.chips{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.4rem;
+}
+.chips .chip{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  padding:.3rem .65rem;
+  background:var(--code-bg);
+  color:var(--ink-dim);
+  border-radius:3px;
+  border:1px solid var(--line);
+  letter-spacing:.02em;
+}
+.chips .chip.primary{
+  background:var(--accent-dim);
+  color:var(--accent);
+  border-color:rgba(184,115,51,.25);
+  font-weight:500;
+}
+
+/* Education block */
+.edu{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:1rem;
+  padding:.9rem 0;
+  align-items:baseline;
+}
+.edu-main .degree{
+  font-weight:600;
+  font-size:1rem;
+  color:var(--ink);
+}
+.edu-main .school{
+  font-size:.85rem;
+  color:var(--ink-dim);
+  margin-top:.15rem;
+}
+.edu-main .school a{color:var(--accent);text-decoration:none;}
+.edu-main .school a:hover{text-decoration:underline;}
+.edu-main .note{
+  font-size:.78rem;
+  color:var(--ink-mute);
+  margin-top:.3rem;
+  font-style:italic;
+}
+.edu-side{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.75rem;
+  color:var(--ink-mute);
+  white-space:nowrap;
+}
+
+/* Languages */
+.langs{
+  display:flex;
+  gap:2rem;
+  flex-wrap:wrap;
+  font-size:.88rem;
+}
+.lang{display:flex;align-items:baseline;gap:.5rem;}
+.lang .name{color:var(--ink);font-weight:500;}
+.lang .level{
+  font-family:'JetBrains Mono',monospace;
+  font-size:.72rem;
+  color:var(--ink-mute);
+}
+.lang .level::before{content:'— ';color:var(--accent);}
+
+/* Footer */
+.cv-footer{
+  margin-top:2.5rem;
+  padding-top:1.5rem;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:'JetBrains Mono',monospace;
+  font-size:.68rem;
+  color:var(--ink-mute);
+  letter-spacing:.05em;
+}
+.cv-footer a{color:var(--accent);text-decoration:none;}
+
+/* Print */
+@media print{
+  body{background:#fff;padding:0;padding-top:0;}
+  .topbar{display:none !important;}
+  .cv{
+    max-width:100%;
+    border:none;
+    padding:1.5cm 1.5cm;
+    box-shadow:none;
+  }
+  .header h1{font-size:2.8rem;}
+  .section{margin-bottom:1.5rem;break-inside:avoid;}
+  .entry{break-inside:avoid;}
+  a{color:inherit !important;text-decoration:none !important;}
+  .section-head{border-bottom:1px solid #999;}
+}
+
+/* Responsive */
+@media(max-width:640px){
+  body{padding:1rem .5rem;padding-top:4rem;}
+  .cv{padding:2rem 1.25rem;}
+  .header{grid-template-columns:1fr;gap:1rem;}
+  .header .meta-right{text-align:left;}
+  .header h1{font-size:2.5rem;}
+  .topbar{padding:.6rem 1rem;}
+  .topbar .brand{font-size:.7rem;}
+  .topbar .actions{gap:.5rem;}
+  .topbar a[href="index.html"]{display:none;}
+  .entry, .edu{grid-template-columns:1fr;gap:.25rem;}
+  .entry-side, .edu-side{text-align:left;}
+  .cv-footer{flex-direction:column;gap:.5rem;text-align:center;}
+}
+
+.topbar .switch{
+  display:flex;
+  background:var(--code-bg);
+  border-radius:100px;
+  padding:2px;
+  font-size:.68rem;
+}
+.topbar .switch a{
+  padding:.35rem .75rem;
+  border-radius:100px;
+  color:var(--ink-mute);
+  text-decoration:none;
+}
+.topbar .switch a.active{
+  background:#fff;
+  color:var(--ink);
+  box-shadow:0 1px 2px rgba(0,0,0,.08);
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="brand">MASOUD<span>.</span></a>
+  <div class="actions">
+    <div class="switch">
+      <a href="cv.html" class="active">CV</a>
+      <a href="resume.html">Resume</a>
+    </div>
+    <button class="btn-print" onclick="window.print()">⤓ PDF</button>
+  </div>
+</div>
+
+<div class="cv">
+
+  <header class="header">
+    <div>
+      <h1>Masoud <span class="italic">Azizi</span></h1>
+      <div class="role">
+        Python Backend Developer<span class="sep">·</span>Django<span class="sep">·</span>Data Mining<span class="sep">·</span>AI / ML<span class="sep">·</span>Researcher & Artist
+      </div>
+      <div class="contact">
+        <a href="mailto:mablue92@gmail.com">mablue92@gmail.com</a> &nbsp;·&nbsp;
+        <a href="https://masoudsoft.ir" target="_blank" rel="noopener">masoudsoft.ir</a> &nbsp;·&nbsp;
+        <a href="https://github.com/mablue" target="_blank" rel="noopener">github.com/mablue</a><br>
+        <a href="https://orcid.org/0000-0002-8864-0533" target="_blank" rel="noopener">ORCID 0000-0002-8864-0533</a> &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/mablue" target="_blank" rel="noopener">linkedin.com/in/mablue</a><br>
+        <a href="https://independent.academia.edu/azizimasoud" target="_blank" rel="noopener">Academia.edu</a> &nbsp;·&nbsp;
+        <a href="https://scholar.google.com/citations?user=rtZohjUAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a> &nbsp;·&nbsp;
+        <a href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22Azizi%2C%20Masoud%22" target="_blank" rel="noopener">Zenodo</a>
+      </div>
+    </div>
+    <div class="meta-right">
+      <span class="label">LOCATION</span>
+      Tabriz, Iran
+      <span class="label">AVAILABILITY</span>
+      Open for remote
+      <span class="label">UPDATED</span>
+      2026
+    </div>
+  </header>
+
+  <!-- PROFILE -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2 class="section-title">Profile</h2>
+    </div>
+    <p class="bio">
+      Python backend developer and researcher with an <strong>MSc in Software Engineering</strong> from Daneshvaran University and research ties to the <strong>Faculty of Computer Science at the University of Tabriz</strong>. I design and ship scalable Django backends, data-mining pipelines, algorithmic-trading systems, and AI-powered Android applications. Current research focuses on <strong>layer-free recurrent architectures</strong> (ModNet) and <strong>complex-valued language models</strong> (Phase-Native LLMs). Beyond engineering, I write philosophy and produce visual art under the name <em>Mosavet</em>.
+    </p>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2 class="section-title">Skills</h2>
+    </div>
+    <div class="chips">
+      <span class="chip primary">Python</span>
+      <span class="chip primary">Django</span>
+      <span class="chip primary">PyTorch</span>
+      <span class="chip primary">Data Mining</span>
+      <span class="chip primary">Machine Learning</span>
+      <span class="chip">TensorFlow</span>
+      <span class="chip">scikit-learn</span>
+      <span class="chip">Pandas</span>
+      <span class="chip">NumPy</span>
+      <span class="chip">Stable-Baselines3</span>
+      <span class="chip">Algorithmic Trading</span>
+      <span class="chip">Freqtrade</span>
+      <span class="chip">Kotlin</span>
+      <span class="chip">Java</span>
+      <span class="chip">C++</span>
+      <span class="chip">JavaScript</span>
+      <span class="chip">SQL / PostgreSQL</span>
+      <span class="chip">Docker</span>
+      <span class="chip">Linux</span>
+      <span class="chip">Git</span>
+      <span class="chip">Android SDK</span>
+      <span class="chip">Unity 3D</span>
+      <span class="chip">REST APIs</span>
+      <span class="chip">Telegram Bot API</span>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2 class="section-title">Education</h2>
+    </div>
+    <div class="edu">
+      <div class="edu-main">
+        <div class="degree">MSc, Software Engineering</div>
+        <div class="school">University of Tabriz</div>
+        <div class="note">Research affiliation: Faculty of Computer Science, University of Tabriz</div>
+      </div>
+      <div class="edu-side">2018 — 2022</div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2 class="section-title">Selected Work</h2>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/Specialized-Procurement-and-Sales-Management-System-for-East-Azarbaijan-Gas-Company" target="_blank" rel="noopener">Specialized Procurement & Sales System</a></div>
+        <div class="meta">Django web application for East Azarbaijan Gas Company — MESC standards, procurement, and sales workflows.</div>
+      </div>
+      <div class="entry-side"><span class="num">★ 29</span> <span class="tag">Django</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/mastrade" target="_blank" rel="noopener">MasTrade</a></div>
+        <div class="meta">Reinforcement-learning trading bot — Stable-Baselines3, PyTorch, Gym. Custom environments for crypto strategy optimization.</div>
+      </div>
+      <div class="entry-side"><span class="num">★ 26</span> <span class="tag">PyTorch</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/GodStraResultsFeed" target="_blank" rel="noopener">GodStra Results Feed</a></div>
+        <div class="meta">Freqtrade hyperopt results feed for GodStra strategy — automation for parameter optimization.</div>
+      </div>
+      <div class="entry-side"><span class="num">★ 8</span> <span class="tag">Freqtrade</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/cexbot" target="_blank" rel="noopener">CexBot</a></div>
+        <div class="meta">Cryptocurrency portfolio tracker with Telegram bot integration.</div>
+      </div>
+      <div class="entry-side"><span class="num">★ 5</span> <span class="tag">Python</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/aiyes" target="_blank" rel="noopener">Ai Eyes (aiyes)</a></div>
+        <div class="meta">On-device YOLOv9 object detection for Android — Kotlin, TensorFlow Lite.</div>
+      </div>
+      <div class="entry-side"><span class="tag">Kotlin · ML</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/Didban" target="_blank" rel="noopener">Didban</a></div>
+        <div class="meta">Accessibility Android app designed for blind and visually impaired users.</div>
+      </div>
+      <div class="entry-side"><span class="tag">Kotlin</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/SmartMusicPlayer" target="_blank" rel="noopener">SmartMusicPlayer</a></div>
+        <div class="meta">Offline Android music player with behavioral-affinity ranking, Media3 playback, synced lyrics HUD.</div>
+      </div>
+      <div class="entry-side"><span class="tag">Kotlin</span></div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/ModNet" target="_blank" rel="noopener">ModNet</a></div>
+        <div class="meta">Self-growing modular recurrent network — a layer-free architecture discovering structure from first principles.</div>
+      </div>
+      <div class="entry-side"><span class="tag">Research</span></div>
+    </div>
+
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">05</span>
+      <h2 class="section-title">Selected Publications</h2>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://github.com/mablue/GMADC" target="_blank" rel="noopener">GMADC: A Comprehensive Graph-Based Algorithm for Software Modularization Using Textual Similarity in Systems with Disconnected Call Graphs</a></div>
+        <div class="meta">Azizi, M.; Izadkhah, H.; Isazadeh, A.</div>
+      </div>
+      <div class="entry-side">2024</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://zenodo.org/records/22814120" target="_blank" rel="noopener">ModNet: A Self-Growing Modular Recurrent Architecture for Layer-Free Computation</a></div>
+        <div class="meta">Masoud Azizi</div>
+      </div>
+      <div class="entry-side">2026</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://www.academia.edu/128741339" target="_blank" rel="noopener">Phase-Native Language Models: A Complex-Valued Alternative to Softmax Attention in Low-Data Regimes</a></div>
+        <div class="meta">Masoud Azizi</div>
+      </div>
+      <div class="entry-side">2026</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://www.academia.edu/128741337" target="_blank" rel="noopener">Drugon: Phase-Encoded Morgan Fingerprints Match Pretrained Chemical Transformers in Low-Data Affinity Prediction</a></div>
+        <div class="meta">Masoud Azizi</div>
+      </div>
+      <div class="entry-side">2026</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://www.academia.edu/128741335" target="_blank" rel="noopener">Frozen Multi-Scale Diffusion Fields as Training-Free Feature Extractors for Texture Classification</a></div>
+        <div class="meta">Masoud Azizi</div>
+      </div>
+      <div class="entry-side">2026</div>
+    </div>
+
+    <div class="entry">
+      <div class="entry-main">
+        <div class="title"><a href="https://independent.academia.edu/azizimasoud" target="_blank" rel="noopener">+ 10 more publications on Academia.edu</a></div>
+        <div class="meta">LLMs, quantum computing, neuroscience, computer vision, and philosophy of mind.</div>
+      </div>
+      <div class="entry-side"><span class="tag">→ Full list</span></div>
+    </div>
+
+  </section>
+
+  <!-- LANGUAGES -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">06</span>
+      <h2 class="section-title">Languages</h2>
+    </div>
+    <div class="langs">
+      <div class="lang"><span class="name">Persian</span><span class="level">Native</span></div>
+      <div class="lang"><span class="name">Azerbaijani (Türkçe)</span><span class="level">Native</span></div>
+      <div class="lang"><span class="name">English</span><span class="level">Professional</span></div>
+    </div>
+  </section>
+
+  <!-- INTERESTS -->
+  <section class="section">
+    <div class="section-head">
+      <span class="section-num">07</span>
+      <h2 class="section-title">Beyond Code</h2>
+    </div>
+    <p class="bio">
+      I write philosophy and produce visual art under the name <strong>Mosavet</strong>. My written work explores perception, abstraction, and the nature of consciousness — the same questions that drive my research in machine cognition. I also host <strong>MasoudSoft Podcast</strong> (Persian audio, tech + AI + software), and maintain a visual gallery of paintings and photography. A lifelong student of <strong>genetic algorithms, optimization, and data processing</strong>.
+    </p>
+  </section>
+
+  <footer class="cv-footer">
+    <span>CV · Masoud Azizi · 2026</span>
+    <span>↗ <a href="https://masoudsoft.ir" target="_blank" rel="noopener">masoudsoft.ir</a></span>
+  </footer>
+
+</div>
+
+</body>
+</html>

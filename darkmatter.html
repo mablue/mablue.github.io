@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Dark Matter: The Missing Mass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="player/player.css?v=20261023-2036">
+<link rel="stylesheet" href="clips/dark-matter/style.css?v=20261023-2036">
+</head>
+<body>
+
+<div id="js-error-banner" style="position:fixed;top:10px;left:10px;background:rgba(200,0,0,0.9);color:#fff;padding:4px 8px;border-radius:4px;z-index:99999;font-family:monospace;font-size:10px;display:none;"></div>
+<canvas id="scene-canvas"></canvas>
+
+<div class="top-bar">
+  <a href="index.html" class="brand">MASOUD<span>.</span></a>
+  <a href="index.html">خانه ←</a>
+</div>
+<!-- Scene 2 chart -->
+<div class="scene-ui hidden" id="chart-2">
+  <div class="chart-panel">
+    <div class="chart-header"><span class="title">ROTATION CURVE</span><span>v vs r</span></div>
+    <div class="chart-canvas-wrap"><canvas></canvas></div>
+    <div class="chart-legend">
+      <div class="item"><span class="line-dashed"></span><span>Kepler</span></div>
+      <div class="item"><span class="line-solid"></span><span>Rubin</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Scene 7 HUD -->
+<div class="scene-ui hidden" id="ui-7">
+  <div class="hud-box hud-tl">
+    <div class="hud-label">DETECTOR</div>
+    <div class="hud-val">XENON-nT</div>
+    <div class="hud-sub">1.4 km underground</div>
+  </div>
+  <div class="hud-box hud-tr">
+    <div class="hud-label">EVENTS</div>
+    <div class="hud-val" id="hud-events">0</div>
+    <div class="hud-sub">last 24h</div>
+  </div>
+  <div class="hud-bottom">
+    <span class="hud-dot"></span>
+    <span id="hud-status">LISTENING...</span>
+  </div>
+</div>
+
+<!-- Scene 3 caption -->
+<div class="scene-ui hidden" id="scene-3-ui">
+  <div id="scene-3-caption"></div>
+</div>
+
+<!-- Scene 4 chart -->
+<div class="scene-ui hidden" id="chart-4">
+  <div class="chart-panel">
+    <div class="chart-header"><span class="title">NFW PROFILE</span><span>ρ vs r</span></div>
+    <div class="chart-canvas-wrap" style="height:140px;"><canvas></canvas></div>
+  </div>
+</div>
+
+<!-- Scene 5 UI -->
+<div class="scene-ui hidden" id="scene-5-ui">
+  <div class="math-container">
+    <span class="math-part" id="eq-rho" style="opacity:0; transition:opacity 0.5s;">&rho;(r)</span>
+    <span id="eq-equals" style="opacity:0; transition:opacity 0.5s;">=</span>
+    <span class="math-fraction" id="eq-fraction" style="opacity:0; transition:opacity 0.5s;">
+      <span class="math-numerator"><span class="math-part" id="eq-rho0">&rho;<sub>0</sub></span></span>
+      <span class="math-denominator" id="eq-denominator">
+        <span id="eq-part-inner" style="opacity:0; transition:opacity 0.5s;">( <span class="math-part" id="eq-r">r</span> / <span class="math-part" id="eq-rs">r<sub>s</sub></span> )</span>
+        <span id="eq-part-outer" style="opacity:0; transition:opacity 0.5s;"> &middot; ( 1 + <span class="math-part" id="eq-r2">r</span> / <span class="math-part" id="eq-rs2">r<sub>s</sub></span> )<sup>2</sup></span>
+      </span>
+    </span>
+  </div>
+  <div id="eq-caption"></div>
+  <div class="chart-panel" style="width:100%;max-width:350px;margin-top:0.5rem;">
+    <div class="chart-header"><span class="title">DENSITY</span><span>&rho;(r)</span></div>
+    <div class="chart-canvas-wrap" style="height:110px;"><canvas></canvas></div>
+  </div>
+</div>
+
+
+<!-- Scene 6: MOND comparison & derivation -->
+<div class="scene-ui hidden" id="scene-6-ui">
+  <div class="mond-header">
+    <div class="mond-header-tag">MODIFIED NEWTONIAN DYNAMICS</div>
+    <h2 class="mond-header-title">What if there is <em>no dark matter</em>?</h2>
+  </div>
+
+  <!-- Comparison row -->
+  <div class="mond-compare">
+    <div class="mond-card newton" id="mond-card-newton">
+      <div class="mond-card-label">NEWTON</div>
+      <svg class="mond-graph" viewBox="0 0 100 50" preserveAspectRatio="none">
+        <path class="mond-curve newton-curve" d="M 2 42 Q 22 8, 98 42"/>
+      </svg>
+      <div class="mond-card-caption">Curve falls &mdash; needs dark matter</div>
+    </div>
+    <div class="mond-card mond" id="mond-card-mond">
+      <div class="mond-card-label">MOND</div>
+      <svg class="mond-graph" viewBox="0 0 100 50" preserveAspectRatio="none">
+        <path class="mond-curve mond-curve-path" d="M 2 42 Q 22 8, 98 8"/>
+      </svg>
+      <div class="mond-card-caption">Curve stays flat &mdash; no dark matter</div>
+    </div>
+  </div>
+
+  <!-- Derivation -->
+  <div class="mond-derivation">
+    <div class="mond-step" id="mond-step-1">
+      <div class="mond-step-num">01</div>
+      <div class="mond-step-body">
+        <div class="mond-step-label">Newton's gravity</div>
+        <div class="mond-step-eq">g<sub>N</sub> = GM / r<sup>2</sup></div>
+      </div>
+    </div>
+    <div class="mond-step" id="mond-step-2">
+      <div class="mond-step-num">02</div>
+      <div class="mond-step-body">
+        <div class="mond-step-label">MOND modification (low acceleration)</div>
+        <div class="mond-step-eq">g = &radic;( a<sub>0</sub> &middot; g<sub>N</sub> )</div>
+      </div>
+    </div>
+    <div class="mond-step" id="mond-step-3">
+      <div class="mond-step-num">03</div>
+      <div class="mond-step-body">
+        <div class="mond-step-label">Orbital speed</div>
+        <div class="mond-step-eq">v<sup>2</sup> = r &middot; g = &radic;( a<sub>0</sub> &middot; GM )</div>
+      </div>
+    </div>
+    <div class="mond-step mond-step-result" id="mond-step-4">
+      <div class="mond-step-num">&there4;</div>
+      <div class="mond-step-body">
+        <div class="mond-step-label">Result</div>
+        <div class="mond-step-eq">v = constant &mdash; flat curve, no dark matter</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="mond-caption"></div>
+</div>
+
+<!-- Scene 6 chart -->
+<div class="scene-ui hidden" id="chart-6">
+  <div class="chart-panel">
+    <div class="chart-header"><span class="title">ROTATION CURVE</span><span>v vs r</span></div>
+    <div class="chart-canvas-wrap" style="height:140px;"><canvas></canvas></div>
+    <div class="chart-legend">
+      <div class="item"><span class="line-dashed"></span><span>Kepler (Newton)</span></div>
+      <div class="item"><span class="line-solid"></span><span>MOND Prediction</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="subtitle-bar" id="subtitle-bar">
+  <button class="sub-nav" data-sub="prev" aria-label="Previous">‹</button>
+  <div class="sub-text" id="sub-text"></div>
+  <button class="sub-nav" data-sub="next" aria-label="Next">›</button>
+</div>
+
+<div class="controls">
+  <button class="play-btn" id="play-btn" aria-label="Play">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+  <div class="progress-section">
+    <div class="chapter-labels" id="chapter-labels"></div>
+    <div class="progress-track" id="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+      <div class="chapter-markers" id="chapter-markers"></div>
+    </div>
+  </div>
+  <span class="time" id="time">0:00 / 0:00</span>
+  <div class="lang-toggle-bottom">
+    <button data-lang="fa" class="active">FA</button>
+    <button data-lang="en">EN</button>
+  </div>
+</div>
+
+<script>
+window.addEventListener('error', function(e) {
+  var b = document.getElementById('js-error-banner');
+  if (b) { b.style.display = 'block'; b.textContent = 'Error: ' + e.message; }
+});
+</script>
+
+<script type="importmap">
+{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}
+</script>
+
+<script type="module">
+import { start } from './clips/dark-matter/main.js';
+start();
+</script>
+</body>
+</html>

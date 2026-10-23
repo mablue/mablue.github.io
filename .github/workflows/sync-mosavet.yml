@@ -1,0 +1,41 @@
+name: Sync Mosavet & Media
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 3 * * *'  # daily at 3am UTC (6:30am Tehran)
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Rebuild data
+        run: python3 scripts/rebuild_data.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: auto-sync $(date -u +%Y-%m-%d_%H:%M)"
+            git push
+            echo "PUSHED=yes" >> $GITHUB_ENV
+          else
+            echo "No changes to commit"
+            echo "PUSHED=no" >> $GITHUB_ENV
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "### Sync Result" >> $GITHUB_STEP_SUMMARY
+          echo "- Status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- Changes pushed: ${{ env.PUSHED }}" >> $GITHUB_STEP_SUMMARY

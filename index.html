@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masoud Azizi — Python, Research, Philosophy</title>
+<meta name="description" content="Python backend developer, researcher, and artist. Django, Data Mining, AI/ML, and Mosavet philosophy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="styles.css?v=20261023-2036" rel="stylesheet">
+<link href="hero-slider.css?v=20261023-2036" rel="stylesheet">
+
+<style>
+.gallery-preview-tiles{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:.5rem;
+}
+.gallery-preview-tiles .gptile{
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:6px;
+  background:#1a1816;
+  border:1px solid var(--line);
+  transition:transform .2s, border-color .2s;
+}
+.gallery-preview-tiles .gptile:hover{
+  transform:scale(1.03);
+  border-color:var(--amber);
+}
+.gallery-preview-tiles .gptile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+</style>
+
+<style id="gpreview-css">
+.gallery-preview-tiles{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr) !important;
+  gap:8px !important;
+  margin-top:.5rem;
+}
+.gallery-preview-tiles .gptile{
+  aspect-ratio:1/1;
+  overflow:hidden;
+  border-radius:6px;
+  background:#1a1816;
+  border:1px solid rgba(240,236,228,.08);
+  transition:transform .2s,border-color .2s;
+}
+.gallery-preview-tiles .gptile:hover{
+  transform:scale(1.03);
+  border-color:#e8b96a;
+}
+.gallery-preview-tiles .gptile img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+@media(max-width:640px){
+  .gallery-preview-tiles{grid-template-columns:repeat(2,1fr) !important;}
+}
+</style>
+</head>
+<body>
+<canvas id="starfield" style="position:fixed;inset:0;z-index:0;pointer-events:none;"></canvas>
+<nav>
+  <a href="index.html" class="brand">MASOUD<span>.</span></a>
+  <div class="links">
+    <a href="#about">about</a>
+    <a href="#work">work</a>
+    <a href="resume.html">resume</a>
+    <a href="#research">research</a>
+    <a href="#mosavet">mosavet</a>
+    <a href="#media">media</a>
+    <a href="darkmatter.html">story</a>
+    <a href="lab.html">lab</a>
+    <a href="#connect">contact</a>
+  </div>
+</nav>
+<!-- Hero Slider -->
+<section class="hero-slider" id="hero-slider">
+  <div class="slider-track">
+    <div class="slide slide-solar active" data-slide="0">
+      <canvas id="solar-canvas"></canvas>
+      <div class="slide-overlay">
+        <div class="slide-label">01 — Featured</div>
+        <h2 class="slide-title">The Solar <span class="italic">System</span></h2>
+        <p class="slide-desc">A procedural export from Blender, rendered live in the browser.</p>
+        <a href="solarsystem.html" class="slide-cta">Explore →</a>
+      </div>
+    </div>
+    <div class="slide slide-film" data-slide="1">
+      <canvas id="galaxy-canvas"></canvas>
+      <div class="slide-overlay">
+        <div class="slide-label">02 — Film</div>
+        <h2 class="slide-title">The Missing <span class="italic">Mass</span></h2>
+        <p class="slide-desc">An 8-chapter interactive film about dark matter.</p>
+        <a href="darkmatter.html" class="slide-cta">Watch →</a>
+      </div>
+    </div>
+    <div class="slide slide-gallery" data-slide="2">
+      <div class="slide-gallery-grid"></div>
+      <div class="slide-overlay">
+        <div class="slide-label">03 — Art</div>
+        <h2 class="slide-title">Paintings <span class="italic">&</span> Notes</h2>
+        <p class="slide-desc">44 pieces from the Mosavet archive.</p>
+        <a href="gallery.html" class="slide-cta">Explore →</a>
+      </div>
+    </div>
+  </div>
+  <button class="slider-arrow prev" aria-label="Previous">‹</button>
+  <button class="slider-arrow next" aria-label="Next">›</button>
+  <div class="slider-nav">
+    <button class="dot active" data-i="0" aria-label="Slide 1"></button>
+    <button class="dot" data-i="1" aria-label="Slide 2"></button>
+    <button class="dot" data-i="2" aria-label="Slide 3"></button>
+  </div>
+</section>
+
+<div class="container">
+  <header class="hero">
+    <div class="hero-label">— Python · Research · Philosophy</div>
+    <h1 class="hero-name">Masoud<br><span class="italic">Azizi</span></h1>
+    <p class="hero-tagline">Backend engineer and researcher building Django systems, data-mining pipelines, algorithmic trading bots, and AI-powered Android apps. Currently exploring layer-free recurrent architectures and complex-valued language models.</p>
+    <div class="hero-meta">
+      <div class="item"><span class="dot"></span> Available for work</div>
+      <div class="item">📍 Tabriz, Iran</div>
+      <div class="item">✦ Mosavet</div>
+    </div>
+    <div class="hero-cta" style="display:flex;gap:.75rem;flex-wrap:wrap;margin-top:2rem;"><a href="resume.html" class="cta-btn">Résumé ↗</a>
+      <a href="lab.html" class="cta-btn">3D Lab ↗</a>
+    </div>
+    <div class="scroll-indicator">SCROLL ↓</div>
+  </header>
+  <section id="about">
+    <div class="section-label">01 — About</div>
+    <h2 class="section-title">Engineering <span class="italic">&</span> inquiry</h2>
+    <p class="about-text" id="bio-text"></p>
+    <div class="skills" id="skills"></div>
+  </section>
+  <section id="work">
+    <div class="section-label">02 — Selected work</div>
+    <h2 class="section-title">Projects <span class="italic">I've shipped</span></h2>
+    <div class="work-grid" id="work-grid"></div>
+  </section>
+  <section id="research">
+    <div class="section-label">03 — Research & writing</div>
+    <h2 class="section-title">Publications <span class="italic">& papers</span></h2>
+    <ul class="research-list" id="research-list"></ul>
+    <div class="cta-row">
+      <a class="cta-btn" href="https://independent.academia.edu/azizimasoud" target="_blank" rel="noopener">Academia ↗</a>
+      <a class="cta-btn" href="https://orcid.org/0000-0002-8864-0533" target="_blank" rel="noopener">ORCID ↗</a>
+      <a class="cta-btn" href="https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22Azizi%2C%20Masoud%22" target="_blank" rel="noopener">Zenodo ↗</a>
+      <a class="cta-btn" href="https://scholar.google.com/citations?user=rtZohjUAAAAJ&hl=en" target="_blank" rel="noopener">Scholar ↗</a>
+    </div>
+  </section>
+  <section id="mosavet">
+    <div class="section-label">04 — Mosavet</div>
+    <h2 class="section-title">Philosophy <span class="italic">& art</span></h2>
+    <p style="color:var(--ink-dim);margin-bottom:1.5rem;">I write and paint under the name <strong>Mosavet</strong>. <strong>1 gallery pieces</strong> and <strong>44 texts</strong> in the archive.</p>
+    <div class="mosavet-split">
+      <div class="mosavet-col">
+        <h3>🖼 Gallery</h3>
+        <div id="gallery-preview"></div>
+        <div class="cta-row"><a class="cta-btn" href="gallery.html">Full gallery ↗</a></div>
+      </div>
+      <div class="mosavet-col">
+        <h3>✍️ Texts</h3>
+        <div id="texts-preview"></div>
+        <div class="cta-row"><a class="cta-btn" href="texts.html">All texts ↗</a></div>
+      </div>
+    </div>
+  </section>
+  <section id="media">
+    <div class="section-label">05 — Listen</div>
+    <h2 class="section-title">Podcast <span class="italic">& music</span></h2>
+    <div class="media-grid">
+      <div class="player podcast">
+        <div class="player-head"><h3>MasoudSoft <span>Podcast</span></h3></div>
+        <div class="custom-player">
+          <button class="play-btn" data-play="podcast" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <div class="progress-bar" data-progress="podcast"><div class="progress-fill" data-fill="podcast"></div></div>
+          <div class="time" data-time="podcast">0:00 / 0:00</div>
+        </div>
+        <ul class="track-list" id="podcast-list"></ul>
+        <audio id="podcast-audio" preload="metadata"></audio>
+      </div>
+      <div class="player music">
+        <div class="player-head"><h3>AI <span>Music</span></h3></div>
+        <div class="custom-player">
+          <button class="play-btn" data-play="music" aria-label="Play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button>
+          <div class="progress-bar" data-progress="music"><div class="progress-fill" data-fill="music"></div></div>
+          <div class="time" data-time="music">0:00 / 0:00</div>
+        </div>
+        <ul class="track-list" id="music-list"></ul>
+        <audio id="music-audio" preload="metadata"></audio>
+      </div>
+    </div>
+  </section>
+  <section id="connect">
+    <div class="section-label">06 — Connect</div>
+    <h2 class="section-title">Find me <span class="italic">online</span></h2>
+    <div class="contact-grid" id="contact-grid"></div>
+  </section>
+  <footer>© 2026 Masoud Azizi · <a href="https://mosavet.wordpress.com/" target="_blank">Mosavet</a></footer>
+</div>
+<script>
+var PROFILE = {"bio": "Python backend developer and researcher with an MSc in Software Engineering from Daneshvaran University and research ties to the Faculty of Computer Science at the University of Tabriz. I build scalable Django backends, data-mining pipelines, and AI-powered applications — and write philosophy under the name Mosavet.", "skills": ["Python", "Django", "Data Mining", "Machine Learning", "PyTorch", "TensorFlow", "scikit-learn", "Pandas", "Kotlin", "Java", "C++", "JavaScript", "Docker", "Linux", "Git", "Algorithmic Trading"], "projects": [{"name": "Specialized Procurement System", "desc": "Django system for East Azarbaijan Gas Company.", "url": "https://github.com/mablue/Specialized-Procurement-and-Sales-Management-System-for-East-Azarbaijan-Gas-Company"}, {"name": "MasTrade", "desc": "RL trading bot with Stable-Baselines3 + PyTorch.", "url": "https://github.com/mablue/mastrade"}, {"name": "GodStraResultsFeed", "desc": "Freqtrade hyperopt results feed.", "url": "https://github.com/mablue/GodStraResultsFeed"}, {"name": "CexBot", "desc": "Crypto portfolio tracker with Telegram bot.", "url": "https://github.com/mablue/cexbot"}, {"name": "aiyes", "desc": "YOLOv9 object detection on Android.", "url": "https://github.com/mablue/aiyes"}, {"name": "Didban", "desc": "App for blind and visually impaired users.", "url": "https://github.com/mablue/Didban"}, {"name": "SmartMusicPlayer", "desc": "Offline Android player with behavioral ranking.", "url": "https://github.com/mablue/SmartMusicPlayer"}, {"name": "ModNet", "desc": "Layer-free recurrent architecture (paper + code).", "url": "https://github.com/mablue/ModNet"}], "contacts": [{"label": "Website", "value": "masoudsoft.ir", "url": "https://masoudsoft.ir"}, {"label": "GitHub", "value": "github.com/mablue", "url": "https://github.com/mablue"}, {"label": "Email", "value": "mablue92@gmail.com", "url": "mailto:mablue92@gmail.com"}, {"label": "ORCID", "value": "0000-0002-8864-0533", "url": "https://orcid.org/0000-0002-8864-0533"}, {"label": "LinkedIn", "value": "in/mablue", "url": "https://www.linkedin.com/in/mablue"}, {"label": "Academia", "value": "azizimasoud", "url": "https://independent.academia.edu/azizimasoud"}, {"label": "Scholar", "value": "Google Scholar", "url": "https://scholar.google.com/citations?user=rtZohjUAAAAJ&hl=en"}, {"label": "Zenodo", "value": "Zenodo", "url": "https://zenodo.org/search?q=metadata.creators.person_or_org.name%3A%22Azizi%2C%20Masoud%22"}, {"label": "Podcast", "value": "@Masoudsoftpodcast", "url": "https://t.me/Masoudsoftpodcast"}, {"label": "Jabe Taghsim", "value": "@jabetagsim", "url": "https://t.me/jabetagsim"}]};
+var PUBLICATIONS = [{"title": "GMADC: A Comprehensive Graph-Based Algorithm for Software Modularization Using Textual Similarity in Systems with Disconnected Call Graphs", "authors": "Azizi, M.; Izadkhah, H.; Isazadeh, A.", "year": "2024", "url": "https://github.com/mablue/GMADC"}, {"title": "ModNet: A Self-Growing Modular Recurrent Architecture for Layer-Free Computation", "authors": "Masoud Azizi", "year": "2026", "url": "https://zenodo.org/records/22814120"}, {"title": "Phase-Native Language Models: A Complex-Valued Alternative to Softmax Attention in Low-Data Regimes", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741339/Phase_Native_Language_Models_A_Complex_Valued_Alternative_to_Softmax_Attention_in_Low_Data_Regimes"}, {"title": "Drugon: Phase-Encoded Morgan Fingerprints Match Pretrained Chemical Transformers in Low-Data Affinity Prediction", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741337/Drugon_Phase_Encoded_Morgan_Fingerprints_Match_Pretrained_Chemical_Transformers_in_Low_Data_Affinity_Prediction"}, {"title": "Frozen Multi-Scale Diffusion Fields as Training-Free Feature Extractors for Texture Classification", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741335/Frozen_Multi_Scale_Diffusion_Fields_as_Training_Free_Feature_Extractors_for_Texture_Classification"}, {"title": "Consciousness as Probabilistic Electron Reception: A Thesis on Quantum Error, Evolutionary Exaptation, and the Architecture of Machine Sentience", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741333/Consciousness_as_Probabilistic_Electron_Reception_A_Thesis_on_Quantum_Error_Evolutionary_Exaptation_and_the_Architecture_of_Machine_Sentience"}, {"title": "Accuracy and Latency Trade-offs in Lightweight Classifiers on Small-Sample MNIST", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741331/Accuracy_and_Latency_Trade_offs_in_Lightweight_Classifiers_on_Small_Sample_MNIST"}, {"title": "The Probability of Atoms Residing Within Human Bodies", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741329/The_Probability_of_Atoms_Residing_Within_Human_Bodies"}, {"title": "A Conceptual Framework for an Abstract Quantum Computer 'The Natural Machine': A Synthesis of Physical, Neuromorphic, and Quantum Principles", "authors": "Masoud Azizi", "year": "2025", "url": "https://www.academia.edu/128741327/A_Conceptual_Framework_for_an_Abstract_Quantum_Computer_The_Natural_Machine_A_Synthesis_of_Physical_Neuromorphic_and_Quantum_Principles"}, {"title": "The Truth Imperative: How a Single Instruction Reshapes Large Language Model Response Quality, Assertiveness, and Bias Resistance", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741325/The_Truth_Imperative_How_a_Single_Instruction_Reshapes_Large_Language_Model_Response_Quality_Assertiveness_and_Bias_Resistance"}, {"title": "Layer-wise Autopoietic Prompt Engineering: Recursive Meta-Instruction Generation for Autonomous LLM Agents", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741323/Layer_wise_Autopoietic_Prompt_Engineering_Recursive_Meta_Instruction_Generation_for_Autonomous_LLM_Agents"}, {"title": "The Subcortical Unconscious Network: A Neurobiological Framework for Collective Nonconscious Processing and Survival-Oriented Behavior", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741321/The_Subcortical_Unconscious_Network_A_Neurobiological_Framework_for_Collective_Nonconscious_Processing_and_Survival_Oriented_Behavior"}, {"title": "When Neural Networks Become Machines: Evolving Physical Structures from Orientation-Based Connectomes", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741319/When_Neural_Networks_Become_Machines_Evolving_Physical_Structures_from_Orientation_Based_Connectomes"}, {"title": "A Locally Connected Orientation-Based Neural Network Inspired by Fish Schooling", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741317/A_Locally_Connected_Orientation_Based_Neural_Network_Inspired_by_Fish_Schooling"}, {"title": "A Novel Circular Periodic Table with Seamless Hexagonal Cells and Similarity-Optimized Arrangement", "authors": "Masoud Azizi", "year": "2026", "url": "https://www.academia.edu/128741315/A_Novel_Circular_Periodic_Table_with_Seamless_Hexagonal_Cells_and_Similarity_Optimized_Arrangement"}];
+var GALLERY_PREVIEW = [{"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/b70935cf7c96be96.png", "title": "My Paintings (1/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/54faa91641e97149.png", "title": "My Paintings (2/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/ce0c5df4be0e3561.png", "title": "My Paintings (3/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/aa5161a7091b8ba1.png", "title": "My Paintings (4/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/053040f3d1906f71.png", "title": "My Paintings (5/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/b77eba37e58d7c92.png", "title": "My Paintings (6/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/e997ccae0e63554e.png", "title": "My Paintings (7/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/fdcafbb0ea8c3c65.png", "title": "My Paintings (8/44)", "post_title": "My Paintings", "date": "2024-10-26"}, {"src": "https://raw.githubusercontent.com/mablue/mosavet-assets/main/images/8c54432f74447776.png", "title": "My Paintings (9/44)", "post_title": "My Paintings", "date": "2024-10-26"}];
+var TEXTS_PREVIEW = [{"title": "There is not a kind atom", "date": "2024-08-01", "text": "Write about a random act of kindness you’ve done for someone. What Do you think about yourself? Are you something more than some atoms? No… You can’t be kind you can’t be awake you can’t be alive and even you can’t be dead. So I didn’t have a kind act for anyone or anthing. If you see me while a kindeness act it’s just an illusion to me and a deception for you."}, {"title": "The world in an abstract view.", "date": "2024-07-26", "text": "After years of thinking about what the world could be in its essence, I came to these three words: difference(disordering), multiplicity, connection. Coupling and cohesion are the results of these three elements. And they create all things and events. If you were a creator in the first moment of the world and you made everything numerous and slightly different or disordered and also capable of being connected or remotely connected, All these events will happen. Increase your marbles to the amount of atoms in the world. And give them the ability to connect with the help of Newton or any quantum forces or rules. And then leave it randomly in space. Over time, you will see marble galaxies. It seems that this world does not need anything extra to become like that."}, {"title": "1) Dubai 2)United States", "date": "2024-07-26", "text": "If you won two free plane tickets, where would you go? You know I am in Iran and I can’t travel to the USA from Iran. So I should first fly to Dubai or Turkey then I’ll fly to the USA. There are good opportunities for writers. And I am writing poems, codes and other philosophic texts. Maybe after a while I can get a USA citizenship and make a verified binance account. To run my crypto trading bots Ideas. I think The world is going to be a good place for cryptocurrency holders. Bitcoin broke the borders and in iran if you have many of these coins you can live in it like a USA citizen…"}];
+var MUSIC_TRACKS = [{"title": "Paper Lanterns 1", "file": "https://raw.githubusercontent.com/mablue/music/main/Paper-Lanterns-1.mp3"}, {"title": "SheidaShodam", "file": "https://raw.githubusercontent.com/mablue/music/main/SheidaShodam.mp3"}];
+var PODCAST_TRACKS = [{"title": "MasoudSoft.E005.QuantumTeleportation", "file": "https://raw.githubusercontent.com/mablue/podcast/main/MasoudSoft.E005.QuantumTeleportation.mp3"}, {"title": "MasoudSoft.E006.Zen", "file": "https://raw.githubusercontent.com/mablue/podcast/main/MasoudSoft.E006.Zen.mp3"}];
+
+document.getElementById('bio-text').innerHTML = PROFILE.bio;
+var skillsEl = document.getElementById('skills');
+PROFILE.skills.forEach(function(s){
+  var sp = document.createElement('span');
+  sp.textContent = s;
+  skillsEl.appendChild(sp);
+});
+var workEl = document.getElementById('work-grid');
+PROFILE.projects.forEach(function(p, i){
+  var a = document.createElement('a');
+  a.className = 'work-card';
+  a.href = p.url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.innerHTML = '<div class="work-num">'+String(i+1).padStart(2,'0')+'</div>' + '<div class="work-title">'+p.name+'</div>' + '<div class="work-desc">'+p.desc+'</div>' + '<div class="work-arrow">↗</div>';
+  workEl.appendChild(a);
+});
+var resEl = document.getElementById('research-list');
+PUBLICATIONS.forEach(function(p, i){
+  var li = document.createElement('li');
+  li.innerHTML = '<div class="research-num">'+String(i+1).padStart(2,'0')+'</div>' + '<div><div class="research-title"><a href="'+p.url+'" target="_blank" rel="noopener">'+p.title+'</a></div><div class="research-authors">'+p.authors+'</div></div>' + '<div class="research-year">'+p.year+'</div>';
+  resEl.appendChild(li);
+});
+var gPrev = document.getElementById('gallery-preview');
+// Render as square tile grid (9 tiles)
+var gGrid = document.createElement('div');
+gGrid.className = 'gallery-preview-tiles';
+GALLERY_PREVIEW.forEach(function(p, i){
+  var tile = document.createElement('div');
+  tile.className = 'gptile';
+  tile.innerHTML = '<img src="' + p.src + '" alt="" loading="lazy" onerror="this.parentNode.style.display=\'none\'">';
+  gGrid.appendChild(tile);
+});
+gPrev.appendChild(gGrid);
+var tPrev = document.getElementById('texts-preview');
+TEXTS_PREVIEW.forEach(function(p){
+  var div = document.createElement('div');
+  div.className = 'preview-item';
+  div.innerHTML = '<div class="meta"><div class="date">'+p.date+'</div><div class="title">'+p.title+'</div>'
+    + '<div class="excerpt">'+(p.text ? p.text.substring(0,90)+'…' : '')+'</div></div>';
+  tPrev.appendChild(div);
+});
+var cEl = document.getElementById('contact-grid');
+PROFILE.contacts.forEach(function(c){
+  var a = document.createElement('a');
+  a.className = 'contact-item';
+  a.href = c.url;
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.innerHTML = '<span class="label">'+c.label+'</span><span class="value">'+c.value+'</span>';
+  cEl.appendChild(a);
+});
+</script>
+<script type="importmap">
+{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}
+</script>
+<script src="script.js?v=20261023-2036"></script>
+<script type="module" src="hero-slider.js?v=20261023-2036"></script>
+</body>
+</html>

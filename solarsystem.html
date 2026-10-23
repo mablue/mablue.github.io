@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Solar System — A Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="player/player.css?v=20261023-2036">
+<link rel="stylesheet" href="clips/solar-system/style.css?v=20261023-2036">
+</head>
+<body>
+
+<canvas id="scene-canvas"></canvas>
+
+<div class="top-bar">
+  <a href="index.html" class="brand">MASOUD<span>.</span></a>
+  <a href="index.html">خانه ←</a>
+</div>
+<div class="subtitle-bar" id="subtitle-bar">
+  <button class="sub-nav" data-sub="prev" aria-label="Previous">‹</button>
+  <div class="sub-text" id="sub-text"></div>
+  <button class="sub-nav" data-sub="next" aria-label="Next">›</button>
+</div>
+
+<div class="controls">
+  <button class="play-btn" id="play-btn" aria-label="Play">
+    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+  </button>
+  <div class="progress-section">
+    <div class="chapter-labels" id="chapter-labels"></div>
+    <div class="progress-track" id="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+      <div class="chapter-markers" id="chapter-markers"></div>
+    </div>
+  </div>
+  <span class="time" id="time">0:00 / 0:00</span>
+  <div class="lang-toggle-bottom">
+    <button data-lang="fa" class="active">FA</button>
+    <button data-lang="en">EN</button>
+  </div>
+</div>
+
+<script>
+window.addEventListener('error', function(e) {
+  var b = document.createElement('div');
+  b.style.cssText = 'position:fixed;top:10px;left:10px;background:rgba(200,0,0,0.9);color:#fff;padding:6px 10px;border-radius:4px;z-index:99999;font-family:monospace;font-size:11px;max-width:80vw;';
+  b.textContent = 'Error: ' + e.message;
+  document.body.appendChild(b);
+});
+</script>
+
+<script type="importmap">
+{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}
+</script>
+
+<script type="module">
+import { start } from './clips/solar-system/main.js';
+start();
+</script>
+</body>
+</html>

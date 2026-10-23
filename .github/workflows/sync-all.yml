@@ -1,0 +1,90 @@
+name: Sync all content
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # every 6 hours
+  workflow_dispatch:        # manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # Each step is independent. A failure logs a warning but doesn't kill the job.
+      - name: Fetch WordPress
+        run: python3 scripts/fetch_wp.py
+        continue-on-error: true
+
+      - name: List mosavet-assets
+        run: python3 scripts/list_assets_images.py
+        continue-on-error: true
+
+      - name: List music
+        run: python3 scripts/list_github_repo.py mablue music _music.json
+        continue-on-error: true
+
+      - name: List podcast
+        run: python3 scripts/list_github_repo.py mablue podcast _podcast.json
+        continue-on-error: true
+
+      - name: Rebuild site data
+        run: python3 scripts/rebuild_data.py
+
+      - name: Validate
+        run: |
+          python3 <<'PY'
+          import re, sys
+          errors = 0
+          for f, var in [('gallery.html', 'IMAGES'), ('texts.html', 'TEXTS'),
+                         ('index.html', 'MUSIC_TRACKS'), ('index.html', 'PODCAST_TRACKS')]:
+              try:
+                  with open(f) as fp:
+                      c = fp.read()
+                  if f'var {var} = [' not in c:
+                      print(f'⚠️  {f}: {var} missing')
+                      errors += 1
+                  else:
+                      print(f'✅ {f}: {var} OK')
+              except FileNotFoundError:
+                  print(f'❌ {f} missing')
+                  errors += 1
+          sys.exit(1 if errors else 0)
+          PY
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "chore: auto-sync $(date -u +%Y-%m-%dT%H:%M)"
+            git push
+          fi
+
+      - name: Summary
+        if: always()
+        run: |
+          echo "## Sync Result" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Trigger:** ${{ github.event_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          for f in _wp_data.json _assets.json _music.json _podcast.json; do
+            if [ -f "$f" ]; then
+              echo "- \`$f\`: $(wc -c < $f) bytes" >> $GITHUB_STEP_SUMMARY
+            else
+              echo "- \`$f\`: not present" >> $GITHUB_STEP_SUMMARY
+            fi
+          done

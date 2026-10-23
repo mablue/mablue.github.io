@@ -1,0 +1,20 @@
+# ── Media library (hosted separately) ──
+/media/
+*.mp3
+*.m4a
+*.flac
+*.wav
+*.aac
+*.ogg
+
+# Keep narration (small, part of clips)
+!/assets/audio/narration/
+!/assets/audio/narration/*.mp3
+
+# ── Local dev / OS ──
+.DS_Store
+*.swp
+__pycache__/
+*.pyc
+.cache/
+.git.old-*/
