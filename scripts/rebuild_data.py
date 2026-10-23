@@ -66,7 +66,7 @@ def scan_media_dir(dir_path, url_prefix):
     if not os.path.isdir(dir_path):
         return out
     for f in sorted(os.listdir(dir_path)):
-        if not f.lower().endswith(('.mp3', '.m4a', '.ogg', '.wav', '.flac')):
+        if not f.lower().endswith(('.mp3', '.m4a', '.ogg', '.wav', '.flac', '.opus', '.oga')):
             continue
         full = os.path.join(dir_path, f)
         if not os.path.isfile(full):
@@ -87,7 +87,7 @@ def scan_media_dir(dir_path, url_prefix):
 def build_media(files, base_url):
     out = []
     for f in (files or []):
-        if f.lower().endswith(('.mp3', '.m4a', '.ogg', '.wav', '.flac')):
+        if f.lower().endswith(('.mp3', '.m4a', '.ogg', '.wav', '.flac', '.opus', '.oga')):
             # URL-encode filename (handles spaces, special chars)
             safe_f = quote(f, safe='')
             # Title: strip extension, replace separators with spaces
