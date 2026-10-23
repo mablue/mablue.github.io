@@ -1,5 +1,4 @@
-# ── Media library (hosted separately) ──
-/media/
+# ── Audio — block by default ──
 *.mp3
 *.m4a
 *.flac
@@ -7,8 +6,9 @@
 *.aac
 *.ogg
 
-# Keep narration (small, part of clips)
-!/assets/audio/narration/
+# ── Allow specific media paths (music mp3 + podcast opus) ──
+!/media/music/*.mp3
+!/media/podcast/*.opus
 !/assets/audio/narration/*.mp3
 
 # ── Local dev / OS ──
