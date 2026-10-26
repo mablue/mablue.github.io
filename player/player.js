@@ -143,8 +143,13 @@ export class Player {
       markers: $('chapter-markers'),
     };
     if (this.ui.play) this.ui.play.onclick = () => {
-      if (this.audio.paused) this.audio.play().catch(() => {});
-      else this.audio.pause();
+      if (this.audio.paused) {
+        this._userPaused = false;
+        this._tryPlay();
+      } else {
+        this._userPaused = true;
+        this.audio.pause();
+      }
     };
     if (this.ui.track) this.ui.track.onclick = e => {
       if (!this.audio.duration) return;
@@ -258,7 +263,7 @@ export class Player {
     if (this.scenes[index]) await this.scenes[index].enter(ch, this.lang);
     this._renderMarkers();
     this._refreshLangButtons();
-    this.audio.play().catch(() => {});
+    this._tryPlay();
   }
 
   setLanguage(lang) {
@@ -270,7 +275,7 @@ export class Player {
     const ch = this.chapters[this.currentIndex];
     if (ch) {
       const src = this._getAudio(ch, lang);
-      if (src) { this.audio.src = src; this.audio.load(); if (wasPlaying) this.audio.play().catch(() => {}); }
+      if (src) { this.audio.src = src; this.audio.load(); if (wasPlaying || !this._userPaused) this._tryPlay(); }
     }
     if (this.scenes[this.currentIndex]) this.scenes[this.currentIndex].onLanguageChange(lang);
   }
