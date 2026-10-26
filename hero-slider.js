@@ -395,10 +395,170 @@ function initGalaxySlide() {
   animate();
 }
 
+function initMLSlide() {
+  const canvas = document.getElementById('ml-canvas');
+  if (!canvas) return;
+
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  renderer.setClearColor(0x05060a, 1);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);
+  camera.position.set(0, 0, 12);
+
+  const TRUE_W = 1.5, TRUE_B = -0.4;
+
+  // Data points (fixed, noisy)
+  const DATA = [];
+  const N_PTS = 30;
+  for (let i = 0; i < N_PTS; i++) {
+    const x = -4.5 + (i / (N_PTS - 1)) * 9;
+    const y = TRUE_W * x + TRUE_B + (Math.random() - 0.5) * 2.2;
+    DATA.push({ x, y });
+  }
+
+  // Data spheres
+  const dotGeom = new THREE.SphereGeometry(0.11, 10, 10);
+  const dots = [];
+  for (let i = 0; i < DATA.length; i++) {
+    const m = new THREE.Mesh(dotGeom, new THREE.MeshBasicMaterial({
+      color: 0xe8b96a, transparent: true, opacity: 0
+    }));
+    m.position.set(DATA[i].x, DATA[i].y, 0);
+    scene.add(m);
+    dots.push(m);
+  }
+
+  // Model line (cylinder scaled to fit)
+  const lineMat = new THREE.MeshBasicMaterial({ color: 0x7df9ff, transparent: true, opacity: 0 });
+  const lineMesh = new THREE.Mesh(
+    new THREE.CylinderGeometry(0.055, 0.055, 1, 8),
+    lineMat
+  );
+  scene.add(lineMesh);
+
+  // Glow behind line (faint vertical gradient)
+  const glowGeom = new THREE.PlaneGeometry(20, 20);
+  const glowMat = new THREE.MeshBasicMaterial({
+    color: 0x7df9ff, transparent: true, opacity: 0.02, depthWrite: false
+  });
+  const glow = new THREE.Mesh(glowGeom, glowMat);
+  glow.position.z = -0.5;
+  scene.add(glow);
+
+  // Background stars
+  const starsGeo = new THREE.BufferGeometry();
+  const starPos = new Float32Array(200 * 3);
+  for (let i = 0; i < 200; i++) {
+    const r = 15 + Math.random() * 30;
+    const th = Math.random() * Math.PI * 2;
+    const ph = Math.acos(2 * Math.random() - 1);
+    starPos[i*3]   = r * Math.sin(ph) * Math.cos(th);
+    starPos[i*3+1] = r * Math.cos(ph);
+    starPos[i*3+2] = r * Math.sin(ph) * Math.sin(th) - 5;
+  }
+  starsGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+  scene.add(new THREE.Points(starsGeo, new THREE.PointsMaterial({
+    size: 1.3, color: 0xffffff, transparent: true, opacity: 0.35, sizeAttenuation: true
+  })));
+
+  // State machine
+  let w = 0, b = 0;
+  let startW = 0, startB = 0;
+  let phase = 'intro';
+  let phaseT = 0;
+  let globalT = 0;
+
+  function newTrainingCycle() {
+    startW = (Math.random() - 0.5) * 6;
+    startB = (Math.random() - 0.5) * 6;
+    w = startW;
+    b = startB;
+    phaseT = 0;
+    phase = 'training';
+  }
+
+  function updateLine() {
+    const x1 = -6, y1 = w * x1 + b;
+    const x2 = 6, y2 = w * x2 + b;
+    const dx = x2 - x1, dy = y2 - y1;
+    const len = Math.sqrt(dx*dx + dy*dy) || 0.001;
+    lineMesh.position.set((x1+x2)/2, (y1+y2)/2, 0);
+    lineMesh.scale.set(1, len, 1);
+    lineMesh.rotation.z = Math.atan2(dy, dx) - Math.PI/2;
+  }
+
+  function resize() {
+    const cw = canvas.clientWidth, ch = canvas.clientHeight;
+    if (cw < 1 || ch < 1) return;
+    const dpr = Math.min(window.devicePixelRatio, 2);
+    if (canvas.width !== Math.floor(cw*dpr) || canvas.height !== Math.floor(ch*dpr)) {
+      renderer.setSize(cw, ch, false);
+      renderer.setPixelRatio(dpr);
+      camera.aspect = cw / ch;
+      camera.updateProjectionMatrix();
+    }
+  }
+  if (window.ResizeObserver) new ResizeObserver(resize).observe(canvas);
+  else window.addEventListener('resize', resize);
+  resize();
+
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    _resizeCheck(canvas, renderer, camera, Math.min(window.devicePixelRatio, 2));
+    if (state.current !== 3) return;
+
+    const dt = Math.min(clock.getDelta(), 0.05);
+    globalT += dt;
+    phaseT += dt;
+
+    if (phase === 'intro') {
+      // Stagger dots fade-in over 1.5s
+      const p = Math.min(1, phaseT / 1.5);
+      const n = dots.length;
+      for (let i = 0; i < n; i++) {
+        const dp = Math.max(0, Math.min(1, (phaseT - (i / n) * 0.9) / 0.4));
+        dots[i].material.opacity = dp;
+      }
+      if (phaseT >= 1.5) {
+        newTrainingCycle();
+        lineMat.opacity = 0.9;
+      }
+    } else if (phase === 'training') {
+      const p = Math.min(1, phaseT / 4.5);
+      const ease = 1 - Math.pow(1 - p, 3);
+      w = startW + (TRUE_W - startW) * ease;
+      b = startB + (TRUE_B - startB) * ease;
+      updateLine();
+      if (p >= 1) {
+        phase = 'hold';
+        phaseT = 0;
+      }
+    } else if (phase === 'hold') {
+      // Pulse slightly
+      if (phaseT > 1.3) {
+        newTrainingCycle();
+      }
+    }
+
+    // Subtle camera drift
+    camera.position.x = Math.sin(globalT * 0.35) * 0.4;
+    camera.position.y = Math.cos(globalT * 0.28) * 0.25;
+    camera.position.z = 12 + Math.sin(globalT * 0.2) * 0.3;
+    camera.lookAt(0, 0, 0);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+}
+
 function init() {
   initSlides();
   initSolarSystem();
   initGalaxySlide();
+  initMLSlide();
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
