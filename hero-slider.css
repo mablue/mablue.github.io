@@ -156,3 +156,93 @@
 @media (max-width: 768px) {
   .slide-ml101-bg { opacity: 0.5; }
 }
+
+
+/* ═══ Slider language toggle ═══ */
+.slider-lang {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 5;
+  display: flex;
+  gap: 2px;
+  background: rgba(5,6,10,0.75);
+  border: 1px solid rgba(240,236,228,0.18);
+  border-radius: 100px;
+  padding: 3px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+}
+.slider-lang button {
+  background: transparent;
+  border: none;
+  color: rgba(240,236,228,0.5);
+  padding: 0.3rem 0.7rem;
+  border-radius: 100px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: 0.05em;
+  transition: all 0.2s;
+}
+.slider-lang button:hover {
+  color: #f0ece4;
+}
+.slider-lang button.active {
+  background: #e8b96a;
+  color: #05060a;
+  font-weight: 600;
+}
+
+/* ═══ FA mode — RTL layout for slide overlay ═══ */
+.hero-slider.lang-fa .slide-overlay {
+  direction: rtl;
+  text-align: right;
+  left: auto;
+  right: 3rem;
+}
+.hero-slider.lang-fa .slide-label {
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+}
+.hero-slider.lang-fa .slide-label::before {
+  margin-left: 0.6rem;
+  margin-right: 0;
+}
+.hero-slider.lang-fa .slide-title,
+.hero-slider.lang-fa .slide-desc,
+.hero-slider.lang-fa .slide-cta {
+  font-family: 'Vazirmatn', 'Inter', sans-serif;
+}
+.hero-slider.lang-fa .slide-title {
+  font-family: 'Vazirmatn', 'Instrument Serif', serif;
+  font-weight: 500;
+}
+.hero-slider.lang-fa .slide-title .italic {
+  font-style: normal;
+  font-weight: 700;
+}
+.hero-slider.lang-fa .slide-desc {
+  font-weight: 400;
+  line-height: 1.85;
+}
+.hero-slider.lang-fa .slide-cta {
+  font-family: 'Vazirmatn', 'JetBrains Mono', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .slider-lang {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 0.62rem;
+  }
+  .slider-lang button {
+    padding: 0.25rem 0.55rem;
+  }
+  .hero-slider.lang-fa .slide-overlay {
+    right: 1.25rem;
+    left: auto;
+  }
+}

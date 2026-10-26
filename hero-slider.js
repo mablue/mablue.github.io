@@ -16,6 +16,97 @@ function _resizeCheck(canvas, renderer, camera, dpr) {
   return false;
 }
 
+const SLIDER_TRANSLATIONS = [
+  // 0 — Solar
+  {
+    label: { en: '01 — Featured', fa: '۰۱ — ویژه' },
+    title: { en: 'The Solar <span class="italic">System</span>',
+             fa: 'منظومه‌ی <span class="italic">شمسی</span>' },
+    desc:  { en: 'A procedural export from Blender, rendered live in the browser.',
+             fa: 'خروجی رویه‌ای از بلندر، به‌صورت زنده در مرورگر رندر می‌شود.' },
+    cta:   { en: 'Explore →', fa: 'کاوش →' }
+  },
+  // 1 — Film
+  {
+    label: { en: '02 — Film', fa: '۰۲ — فیلم' },
+    title: { en: 'The Missing <span class="italic">Mass</span>',
+             fa: '<span class="italic">جرم</span> گمشده' },
+    desc:  { en: 'An 8-chapter interactive film about dark matter.',
+             fa: 'یک فیلم تعاملی هشت‌فصلی درباره‌ی ماده تاریک.' },
+    cta:   { en: 'Watch →', fa: 'تماشا →' }
+  },
+  // 2 — Gallery
+  {
+    label: { en: '03 — Art', fa: '۰۳ — هنر' },
+    title: { en: 'Paintings <span class="italic">&</span> Notes',
+             fa: 'نقاشی‌ها <span class="italic">و</span> یادداشت‌ها' },
+    desc:  { en: '44 pieces from the Mosavet archive.',
+             fa: '۴۴ اثر از آرشیو مسوّت.' },
+    cta:   { en: 'Explore →', fa: 'کاوش →' }
+  },
+  // 3 — ML 101
+  {
+    label: { en: '04 — Learn', fa: '۰۴ — آموزش' },
+    title: { en: 'Build Your <span class="italic">First</span> Model',
+             fa: 'اولین <span class="italic">مدل</span> خود را بسازید' },
+    desc:  { en: 'Linear regression in PyTorch — from data to trained line, in 5 minutes.',
+             fa: 'رگرسیون خطی با PyTorch — از داده تا خط آموزش‌دیده، در ۵ دقیقه.' },
+    cta:   { en: 'Watch →', fa: 'تماشا →' }
+  }
+];
+
+function applySliderLang(lang) {
+  const slider = document.getElementById('hero-slider');
+  if (!slider) return;
+
+  slider.classList.toggle('lang-fa', lang === 'fa');
+  slider.dataset.lang = lang;
+
+  // Update toggle buttons
+  slider.querySelectorAll('[data-slider-lang]').forEach(b => {
+    b.classList.toggle('active', b.dataset.sliderLang === lang);
+  });
+
+  // Update each slide's text
+  const slides = slider.querySelectorAll('.slide');
+  slides.forEach((slide, i) => {
+    const tr = SLIDER_TRANSLATIONS[i];
+    if (!tr) return;
+
+    const labelEl = slide.querySelector('.slide-label');
+    const titleEl = slide.querySelector('.slide-title');
+    const descEl  = slide.querySelector('.slide-desc');
+    const ctaEl   = slide.querySelector('.slide-cta');
+
+    // Labels: only swap the word after em-dash, keep number as-is
+    // Actually just replace whole label for simplicity
+    if (labelEl) labelEl.textContent = tr.label[lang];
+    if (titleEl) titleEl.innerHTML = tr.title[lang];
+    if (descEl)  descEl.textContent  = tr.desc[lang];
+    if (ctaEl)   ctaEl.textContent   = tr.cta[lang];
+  });
+
+  try { localStorage.setItem('hero-lang', lang); } catch (e) {}
+}
+
+function initSliderLang() {
+  const slider = document.getElementById('hero-slider');
+  if (!slider) return;
+
+  // Wire toggle buttons
+  slider.querySelectorAll('[data-slider-lang]').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      applySliderLang(b.dataset.sliderLang);
+    });
+  });
+
+  // Restore saved language
+  let saved = 'en';
+  try { saved = localStorage.getItem('hero-lang') || 'en'; } catch (e) {}
+  applySliderLang(saved);
+}
+
 function initSlides() {
   const slider = document.getElementById('hero-slider');
   if (!slider) return;
@@ -556,6 +647,7 @@ function initMLSlide() {
 
 function init() {
   initSlides();
+  initSliderLang();
   initSolarSystem();
   initGalaxySlide();
   initMLSlide();
