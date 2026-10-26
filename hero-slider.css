@@ -116,3 +116,43 @@
   .slider-arrow { display: none; }
   .hero { min-height: 60vh; padding: 3rem 0 3rem; }
 }
+
+
+/* ═══ ML 101 slide ═══ */
+.slide-ml101 {
+  background: radial-gradient(ellipse at 30% 70%, rgba(125,249,255,0.12), transparent 55%),
+              radial-gradient(ellipse at 80% 20%, rgba(232,185,106,0.15), transparent 50%),
+              #05060a;
+}
+.slide-ml101-bg {
+  position: absolute; inset: 0;
+  background-image:
+    /* scattered data points (amber) */
+    radial-gradient(circle 2px at 15% 30%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 22% 55%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 30% 45%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 38% 70%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 45% 60%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 52% 78%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 60% 68%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 68% 82%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 75% 72%, #e8b96a, transparent 3px),
+    radial-gradient(circle 2px at 82% 88%, #e8b96a, transparent 3px),
+    /* cyan fitted line */
+    linear-gradient(115deg, transparent 40%, rgba(125,249,255,0.4) 42%, rgba(125,249,255,0.4) 44%, transparent 46%);
+  opacity: 0.7;
+}
+.slide-ml101::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0, transparent 39px, rgba(125,249,255,0.04) 40px),
+    repeating-linear-gradient(90deg, transparent 0, transparent 39px, rgba(125,249,255,0.04) 40px);
+  pointer-events: none;
+  mask-image: linear-gradient(to top, black 30%, transparent 90%);
+}
+
+@media (max-width: 768px) {
+  .slide-ml101-bg { opacity: 0.5; }
+}

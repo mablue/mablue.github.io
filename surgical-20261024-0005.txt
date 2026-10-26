@@ -1,0 +1,7 @@
+### git log -5
+ffb3ff1 gitignore
+b709b5f feat(media): original music mp3 + podcast opus
+5d24f2b added musics
+d575f84 chore: fresh start — code only, media moved to archive
+
+### version

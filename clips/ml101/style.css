@@ -1,0 +1,26 @@
+:root { --bg:#05060a; --ink:#f0ece4; --ink-dim:#a8a094; --ink-mute:#6b655c; --amber:#e8b96a; --cyan:#7df9ff; --line:rgba(240,236,228,.08); --line-strong:rgba(240,236,228,.16); }
+.scene-ui { position: fixed; z-index: 50; pointer-events: none; }
+.scene-ui.hidden { display: none !important; }
+#ml-loss-hud { top: 5rem; right: 1.5rem; width: 260px; background: rgba(5,6,10,.85); border: 1px solid rgba(232,185,106,.35); border-radius: 12px; padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace; backdrop-filter: blur(10px); }
+#ml-loss-hud .ml-label { font-size: .6rem; color: var(--ink-mute); letter-spacing: .2em; text-transform: uppercase; margin-bottom: .4rem; }
+#ml-loss-hud .ml-val { font-size: 1.8rem; color: var(--amber); font-weight: 600; line-height: 1; margin-bottom: .4rem; }
+#ml-loss-hud .ml-sub { font-size: .7rem; color: var(--ink-dim); }
+#ml-params-hud { top: 5rem; left: 1.5rem; width: 200px; background: rgba(5,6,10,.85); border: 1px solid rgba(125,249,255,.35); border-radius: 12px; padding: .9rem 1.1rem; font-family: 'JetBrains Mono', monospace; backdrop-filter: blur(10px); }
+#ml-params-hud .row { display: flex; justify-content: space-between; font-size: .78rem; margin-bottom: .25rem; }
+#ml-params-hud .k { color: var(--ink-mute); }
+#ml-params-hud .v { color: var(--cyan); font-weight: 600; }
+#ml-code { bottom: 8rem; left: 50%; transform: translateX(-50%); width: min(560px, 92vw); background: rgba(5,6,10,.94); border: 1px solid rgba(232,185,106,.4); border-radius: 12px; padding: 1rem 1.25rem; font-family: 'JetBrains Mono', monospace; font-size: .7rem; line-height: 1.55; color: var(--ink); backdrop-filter: blur(14px); max-height: 42vh; overflow-y: auto; box-shadow: 0 0 40px rgba(232,185,106,.15); }
+#ml-code .kw { color: #c792ea; } #ml-code .num { color: #f78c6c; } #ml-code .str { color: #c3e88d; } #ml-code .com { color: #6b655c; font-style: italic; } #ml-code .fn { color: #82aaff; }
+#ml-loss-chart { bottom: 8rem; right: 1.5rem; width: 200px; height: 100px; background: rgba(5,6,10,.88); border: 1px solid var(--line-strong); border-radius: 10px; padding: .5rem; }
+#ml-loss-chart canvas { width: 100%; height: 100%; display: block; }
+#ml-progress { bottom: 8rem; left: 50%; transform: translateX(-50%); width: min(420px, 86vw); background: rgba(5,6,10,.85); border: 1px solid var(--line-strong); border-radius: 100px; padding: .5rem 1rem; font-family: 'JetBrains Mono', monospace; font-size: .7rem; display: flex; align-items: center; gap: .75rem; }
+#ml-progress .bar { flex: 1; height: 4px; background: rgba(240,236,228,.1); border-radius: 2px; overflow: hidden; }
+#ml-progress .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--amber), var(--cyan)); transition: width .15s linear; }
+#ml-progress .t { color: var(--ink-dim); }
+@media (max-width: 640px) {
+  #ml-loss-hud, #ml-params-hud { width: calc(50vw - 1rem); padding: .6rem .8rem; top: 4rem; }
+  #ml-loss-hud .ml-val { font-size: 1.3rem; }
+  #ml-code { font-size: .6rem; padding: .75rem 1rem; bottom: 7rem; }
+  #ml-loss-chart { width: 140px; height: 80px; bottom: 7rem; right: .75rem; }
+  #ml-progress { bottom: 7rem; font-size: .62rem; }
+}
