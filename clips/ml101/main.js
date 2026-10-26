@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { Player } from '../../player/player.js';
-import { chapters } from './config.js';
+import { chapters, languages, defaultLang } from './config.js';
 import { Scene1Data } from './scenes/scene1.js';
 import { Scene2Model } from './scenes/scene2.js';
 import { Scene3Loss } from './scenes/scene3.js';
@@ -70,7 +70,7 @@ export function start() {
   const ctx = { THREE, scene, camera, controls, renderer, canvas, lang: 'fa', DATA, TRUE_W, TRUE_B, pointsGroup, dotMeshes };
   const shared = { ...ctx };
 
-  const player = new Player(ctx, chapters);
+  const player = new Player(ctx, chapters, { languages, defaultLang });
   player.registerScene(0, new Scene1Data(ctx, shared));
   player.registerScene(1, new Scene2Model(ctx, shared));
   player.registerScene(2, new Scene3Loss(ctx, shared));
@@ -91,5 +91,5 @@ export function start() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
-  player.start('fa');
+  player.start(defaultLang);
 }
