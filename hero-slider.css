@@ -158,3 +158,40 @@
 }
 
 
+
+
+/* ═══ ML 101 slide — cycling description ═══ */
+.slide-ml-langs {
+  display: inline-flex;
+  gap: 4px;
+  margin-bottom: 0.6rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+}
+.slide-ml-langs span {
+  padding: 0.15rem 0.45rem;
+  border-radius: 3px;
+  color: rgba(240,236,228,0.35);
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+.slide-ml-langs span.active {
+  color: #e8b96a;
+  border-color: rgba(232,185,106,0.5);
+  background: rgba(232,185,106,0.1);
+}
+#slide-ml-desc {
+  min-height: 2.6em;
+  transition: opacity 0.4s ease;
+}
+#slide-ml-desc.fade {
+  opacity: 0.3;
+}
+.slide-ml-desc-fa {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Vazirmatn', sans-serif;
+  font-weight: 400;
+  line-height: 1.85;
+}

@@ -395,6 +395,36 @@ function initGalaxySlide() {
   animate();
 }
 
+function initMLLangCycle() {
+  const desc = document.getElementById('slide-ml-desc');
+  const pills = document.querySelectorAll('.slide-ml-langs span');
+  if (!desc) return;
+
+  const TEXTS = {
+    az: 'Xətti reqressiya PyTorch ilə — datadan öyrədilmiş xəttə, 5 dəqiqədə.',
+    fa: 'رگرسیون خطی با PyTorch — از داده تا خط آموزش‌دیده، در ۵ دقیقه.',
+    en: 'Linear regression in PyTorch — from data to trained line, in 5 minutes.'
+  };
+  const ORDER = ['az', 'fa', 'en'];
+  let idx = 0;
+
+  function apply(lang) {
+    desc.classList.add('fade');
+    setTimeout(() => {
+      desc.textContent = TEXTS[lang];
+      desc.classList.toggle('slide-ml-desc-fa', lang === 'fa');
+      desc.dataset.mlLang = lang;
+      desc.classList.remove('fade');
+      pills.forEach(p => p.classList.toggle('active', p.dataset.mlLang === lang));
+    }, 400);
+  }
+
+  setInterval(() => {
+    idx = (idx + 1) % ORDER.length;
+    apply(ORDER[idx]);
+  }, 3500);
+}
+
 function initMLSlide() {
   const canvas = document.getElementById('ml-canvas');
   if (!canvas) return;
@@ -559,6 +589,7 @@ function init() {
   initSolarSystem();
   initGalaxySlide();
   initMLSlide();
+  initMLLangCycle();
 }
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', init);
