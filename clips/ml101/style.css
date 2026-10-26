@@ -17,10 +17,132 @@
 #ml-progress .bar { flex: 1; height: 4px; background: rgba(240,236,228,.1); border-radius: 2px; overflow: hidden; }
 #ml-progress .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--amber), var(--cyan)); transition: width .15s linear; }
 #ml-progress .t { color: var(--ink-dim); }
+
+/* ═══════════════════════════════════════════════════════════
+   LAYOUT: mobile — no overlaps between any overlays
+   Top:    params (left) + loss (right), gap ≥ 15px
+   Bottom: progress (left) + chart (right), gap ≥ 10px
+   All above subtitle (which sits at bottom: 5.5rem)
+   ═══════════════════════════════════════════════════════════ */
+
+/* Desktop clean base */
+#ml-progress {
+  bottom: 12rem;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: min(420px, 86vw);
+}
+#ml-loss-chart {
+  bottom: 12rem;
+  right: 1.5rem;
+  left: auto;
+  transform: none;
+  width: 200px;
+  height: 100px;
+}
+#ml-code {
+  bottom: 12rem;
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%);
+  width: min(560px, 92vw);
+  max-height: 38vh;
+  overflow-y: auto;
+}
+
+/* ── Mobile ── */
 @media (max-width: 640px) {
-  #ml-loss-hud, #ml-params-hud { width: calc(50vw - 1rem); padding: .6rem .8rem; top: 4rem; }
-  #ml-loss-hud .ml-val { font-size: 1.3rem; }
-  #ml-code { font-size: .6rem; padding: .75rem 1rem; bottom: 7rem; }
-  #ml-loss-chart { width: 140px; height: 80px; bottom: 7rem; right: .75rem; }
-  #ml-progress { bottom: 7rem; font-size: .62rem; }
+  /* Top row — side by side, no overlap */
+  #ml-params-hud {
+    top: 3.5rem;
+    left: 0.5rem;
+    right: auto;
+    width: calc(40vw - 0.5rem);
+    padding: 0.5rem 0.55rem;
+  }
+  #ml-params-hud .row { font-size: 0.68rem; margin-bottom: 0.2rem; }
+  #ml-params-hud .k { font-size: 0.62rem; }
+  #ml-params-hud .v { font-size: 0.7rem; }
+
+  #ml-loss-hud {
+    top: 3.5rem;
+    right: 0.5rem;
+    left: auto;
+    width: calc(55vw - 0.5rem);
+    padding: 0.5rem 0.55rem;
+  }
+  #ml-loss-hud .ml-label { font-size: 0.52rem; margin-bottom: 0.25rem; }
+  #ml-loss-hud .ml-val { font-size: 1.05rem; margin-bottom: 0.2rem; }
+  #ml-loss-hud .ml-sub { font-size: 0.52rem; }
+
+  /* Bottom row — progress left, chart right */
+  #ml-progress {
+    bottom: 12rem;
+    left: 0.5rem;
+    right: auto;
+    width: calc(55vw - 0.5rem);
+    transform: none;
+    font-size: 0.56rem;
+    padding: 0.35rem 0.5rem;
+    gap: 0.4rem;
+  }
+  #ml-progress .t { font-size: 0.55rem; }
+
+  #ml-loss-chart {
+    bottom: 12rem;
+    right: 0.5rem;
+    left: auto;
+    transform: none;
+    width: calc(40vw - 0.5rem);
+    height: 68px;
+    padding: 0.3rem;
+  }
+
+  /* Code panel — full width, above subtitle */
+  #ml-code {
+    bottom: 12rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    width: auto;
+    transform: none;
+    max-height: 28vh;
+    font-size: 0.56rem;
+    padding: 0.6rem 0.75rem;
+    line-height: 1.45;
+  }
+}
+
+/* ── Very narrow (small phones) ── */
+@media (max-width: 360px) {
+  #ml-params-hud { width: calc(38vw - 0.5rem); }
+  #ml-loss-hud   { width: calc(58vw - 0.5rem); }
+  #ml-loss-hud .ml-val { font-size: 0.95rem; }
+  #ml-progress   { width: calc(55vw - 0.5rem); font-size: 0.52rem; }
+  #ml-loss-chart { width: calc(40vw - 0.5rem); height: 60px; }
+}
+
+/* ═══ #ml-code interactivity — allow touch/scroll, block camera ═══ */
+#ml-code {
+  pointer-events: auto !important;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+  user-select: text;
+  -webkit-user-select: text;
+  cursor: auto;
+}
+#ml-code pre {
+  user-select: text;
+  -webkit-user-select: text;
+}
+#ml-code::-webkit-scrollbar {
+  width: 6px;
+}
+#ml-code::-webkit-scrollbar-thumb {
+  background: rgba(232,185,106,0.5);
+  border-radius: 3px;
+}
+#ml-code::-webkit-scrollbar-track {
+  background: rgba(240,236,228,0.05);
 }

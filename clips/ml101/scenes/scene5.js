@@ -30,7 +30,16 @@ export class Scene5Result extends SceneBase {
       if (bEl) bEl.textContent = this.shared.TRUE_B.toFixed(2);
     }
     const code = document.getElementById('ml-code');
-    if (code) code.classList.remove('hidden');
+    if (code) {
+      code.classList.remove('hidden');
+      // Stop touch/mouse from reaching OrbitControls (canvas)
+      if (!code._bound) {
+        ['pointerdown','mousedown','touchstart','click','wheel','pointermove','touchmove'].forEach(ev => {
+          code.addEventListener(ev, e => e.stopPropagation(), { passive: false });
+        });
+        code._bound = true;
+      }
+    }
     const cam = this.ctx.camera, ctl = this.ctx.controls;
     if (cam && ctl) { ctl.autoRotate = false; cam.position.set(0, 3, 17); ctl.target.set(0, 0, 0); }
   }

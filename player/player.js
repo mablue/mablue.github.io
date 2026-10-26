@@ -1,65 +1,107 @@
 export class Player {
-  constructor(ctx, chapters, options = {}) {
-    this.ctx = ctx;
-    this.chapters = chapters;
-    this.scenes = {};
+  constructor(a, b, c) {
+    let opts;
+    if (typeof b !== 'undefined') opts = { ctx: a, chapters: b, ...(c || {}) };
+    else opts = a;
+
+    this.ctx = opts.ctx;
+    this.chapters = opts.chapters || [];
+    this.clip = opts.clip || {};
+    this.scenes = opts.scenes || {};
+    this.container = opts.container || document.body;
+
+    this.languages = opts.languages || this._detectLanguages();
+    this.lang = this.clip.defaultLang || opts.defaultLang || this.languages[0] || 'fa';
+    this.needsLangToggle = this.languages.length > 1;
+
     this.currentIndex = 0;
-    this.audio = new Audio();
-    this.audio.preload = 'auto';
     this.chunks = [];
     this.currentChunk = -1;
-    this.ui = {};
-    this.languages = options.languages || this._detectLanguages();
-    this.lang = options.defaultLang || this.languages[0] || 'fa';
+
+    this.audio = new Audio();
+    this.audio.preload = 'auto';
+
+    this._ensureChrome();
+    this._injectClipUI();
     this._bindUI();
     this._bindAudio();
     this._renderLangButtons();
   }
 
   _detectLanguages() {
-    if (!this.chapters || !this.chapters.length) return ['fa'];
-    const ch = this.chapters[0];
-    if (ch.audio && typeof ch.audio === 'object' && !Array.isArray(ch.audio)) {
-      return Object.keys(ch.audio);
+    if (this.clip.languages && this.clip.languages.length) return this.clip.languages;
+    const s = new Set();
+    for (const ch of this.chapters) {
+      if (ch.audio && typeof ch.audio === 'object') {
+        Object.keys(ch.audio).forEach(k => s.add(k));
+      }
+      if (ch.audioFa) s.add('fa');
+      if (ch.audioEn) s.add('en');
+      if (ch.audioAz) s.add('az');
     }
-    const langs = [];
-    if (ch.audioFa) langs.push('fa');
-    if (ch.audioEn) langs.push('en');
-    if (ch.audioAz) langs.push('az');
-    return langs.length ? langs : ['fa'];
+    return s.size ? [...s] : ['fa'];
   }
 
-  _getAudio(ch, lang) {
-    if (!ch) return '';
-    if (ch.audio && typeof ch.audio === 'object' && !Array.isArray(ch.audio)) {
-      return ch.audio[lang] || ch.audio[this.languages[0]] || '';
-    }
-    const map = { fa: ch.audioFa, en: ch.audioEn, az: ch.audioAz };
-    return map[lang] || ch.audioFa || ch.audioEn || '';
+  _ensureChrome() {
+    if (document.getElementById('sub-text') && document.getElementById('progress-track')) return;
+    const backUrl = this.clip.backUrl || 'index.html';
+    const backText = this.clip.backText || '← back';
+    const brand = this.clip.brand || 'MASOUD<span>.</span>';
+    const html = `
+      <div class="top-bar">
+        <a href="${backUrl}" class="brand">${brand}</a>
+        <a href="${backUrl}">${backText}</a>
+      </div>
+      <div class="subtitle-bar" id="subtitle-bar">
+        <button class="sub-nav" data-sub="prev" aria-label="Previous">‹</button>
+        <div class="sub-text" id="sub-text"></div>
+        <button class="sub-nav" data-sub="next" aria-label="Next">›</button>
+      </div>
+      <div class="controls">
+        <button class="play-btn" id="play-btn" aria-label="Play">
+          <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <div class="progress-section">
+          <div class="chapter-labels" id="chapter-labels"></div>
+          <div class="progress-track" id="progress-track">
+            <div class="progress-fill" id="progress-fill"></div>
+            <div class="chapter-markers" id="chapter-markers"></div>
+          </div>
+        </div>
+        <span class="time" id="time">0:00 / 0:00</span>
+      </div>`;
+    this.container.insertAdjacentHTML('beforeend', html);
   }
 
-  _getChunks(ch, lang) {
-    if (!ch) return [];
-    if (ch.chunks && typeof ch.chunks === 'object' && !Array.isArray(ch.chunks)) {
-      return ch.chunks[lang] || ch.chunks[this.languages[0]] || [];
+  _injectClipUI() {
+    const list = this.clip.ui || [];
+    for (const item of list) {
+      if (!item || !item.id) continue;
+      if (document.getElementById(item.id)) continue;
+      const el = document.createElement('div');
+      el.id = item.id;
+      el.className = 'scene-ui hidden';
+      el.innerHTML = item.html || '';
+      document.body.appendChild(el);
     }
-    const map = { fa: ch.chunksFa, en: ch.chunksEn, az: ch.chunksAz };
-    return map[lang] || ch.chunksFa || ch.chunksEn || [];
-  }
-
-  _isRTL(lang) {
-    return ['fa', 'ar', 'ur', 'he'].indexOf(lang) !== -1;
   }
 
   _renderLangButtons() {
-    const c = document.querySelector('.lang-toggle-bottom');
-    if (!c) return;
+    if (!this.needsLangToggle) return;
+    let c = document.querySelector('.lang-toggle-bottom');
+    if (!c) {
+      const controls = document.querySelector('.controls');
+      if (!controls) return;
+      c = document.createElement('div');
+      c.className = 'lang-toggle-bottom';
+      controls.appendChild(c);
+    }
     c.innerHTML = '';
     this.languages.forEach(lang => {
       const b = document.createElement('button');
       b.dataset.lang = lang;
       b.textContent = lang.toUpperCase();
-      b.classList.toggle('active', lang === this.lang);
+      if (lang === this.lang) b.classList.add('active');
       b.addEventListener('click', e => { e.preventDefault(); this.setLanguage(lang); });
       c.appendChild(b);
     });
@@ -73,28 +115,43 @@ export class Player {
 
   registerScene(i, s) { this.scenes[i] = s; }
 
+  _getAudio(ch, lang) {
+    if (!ch) return '';
+    if (ch.audio && typeof ch.audio === 'object') return ch.audio[lang] || ch.audio[this.languages[0]] || '';
+    const m = { fa: ch.audioFa, en: ch.audioEn, az: ch.audioAz };
+    return m[lang] || ch.audioFa || ch.audioEn || '';
+  }
+
+  _getChunks(ch, lang) {
+    if (!ch) return [];
+    if (ch.chunks && typeof ch.chunks === 'object') return ch.chunks[lang] || ch.chunks[this.languages[0]] || [];
+    const m = { fa: ch.chunksFa, en: ch.chunksEn, az: ch.chunksAz };
+    return m[lang] || ch.chunksFa || ch.chunksEn || [];
+  }
+
+  _isRTL(lang) { return ['fa','ar','ur','he'].indexOf(lang) !== -1; }
+
   _bindUI() {
     const $ = id => document.getElementById(id);
-    this.ui.text = $('sub-text');
-    this.ui.play = $('play-btn');
-    this.ui.fill = $('progress-fill');
-    this.ui.time = $('time');
-    this.ui.track = $('progress-track');
-    this.ui.labels = $('chapter-labels');
-    this.ui.markers = $('chapter-markers');
-
+    this.ui = {
+      text: $('sub-text'),
+      play: $('play-btn'),
+      fill: $('progress-fill'),
+      time: $('time'),
+      track: $('progress-track'),
+      labels: $('chapter-labels'),
+      markers: $('chapter-markers'),
+    };
     if (this.ui.play) this.ui.play.onclick = () => {
       if (this.audio.paused) this.audio.play().catch(() => {});
       else this.audio.pause();
     };
-
     if (this.ui.track) this.ui.track.onclick = e => {
       if (!this.audio.duration) return;
       const r = this.ui.track.getBoundingClientRect();
-      const pct = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
-      this.audio.currentTime = pct * this.audio.duration;
+      const p = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+      this.audio.currentTime = p * this.audio.duration;
     };
-
     document.querySelectorAll('[data-sub]').forEach(b => {
       b.addEventListener('click', () => {
         if (!this.chunks.length) return;
@@ -140,10 +197,7 @@ export class Player {
     if (this.ui.fill) this.ui.fill.style.width = dur ? ((t / dur) * 100) + '%' : '0%';
     if (this.ui.time) this.ui.time.textContent = this._fmt(t) + ' / ' + this._fmt(dur);
     let idx = 0;
-    for (let i = 0; i < this.chunks.length; i++) {
-      if (t >= this.chunks[i].start) idx = i;
-      else break;
-    }
+    for (let i = 0; i < this.chunks.length; i++) { if (t >= this.chunks[i].start) idx = i; else break; }
     if (idx !== this.currentChunk) {
       this.currentChunk = idx;
       if (this.chunks[idx] && this.ui.text) {
@@ -155,10 +209,7 @@ export class Player {
     }
   }
 
-  _fmt(s) {
-    if (!s || !isFinite(s)) return '0:00';
-    return Math.floor(s / 60) + ':' + Math.floor(s % 60).toString().padStart(2, '0');
-  }
+  _fmt(s) { if (!s || !isFinite(s)) return '0:00'; return Math.floor(s/60) + ':' + Math.floor(s%60).toString().padStart(2,'0'); }
 
   _renderMarkers() {
     if (!this.ui.labels || !this.ui.markers) return;
@@ -219,11 +270,7 @@ export class Player {
     const ch = this.chapters[this.currentIndex];
     if (ch) {
       const src = this._getAudio(ch, lang);
-      if (src) {
-        this.audio.src = src;
-        this.audio.load();
-        if (wasPlaying) this.audio.play().catch(() => {});
-      }
+      if (src) { this.audio.src = src; this.audio.load(); if (wasPlaying) this.audio.play().catch(() => {}); }
     }
     if (this.scenes[this.currentIndex]) this.scenes[this.currentIndex].onLanguageChange(lang);
   }

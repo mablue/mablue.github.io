@@ -1,80 +1,21 @@
 <!DOCTYPE html>
-<html lang="az" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>ML 101 — İlk Model</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="player/player.css?v=20261026-2039">
-<link rel="stylesheet" href="clips/ml101/style.css?v=20261026-2039">
+<link rel="stylesheet" href="player/player.css?v=20261026-2124">
+<link rel="stylesheet" href="clips/ml101/style.css?v=20261026-2124">
 </head>
 <body>
 <canvas id="scene-canvas"></canvas>
-<div class="top-bar">
-  <a href="index.html" class="brand">MASOUD<span>.</span></a>
-  <a href="index.html">← Geri</a>
-</div>
-<div class="scene-ui hidden" id="ml-loss-hud">
-  <div class="ml-label">LOSS (MSE)</div>
-  <div class="ml-val">0.00</div>
-  <div class="ml-sub">kiçik = yaxşı</div>
-</div>
-<div class="scene-ui hidden" id="ml-params-hud">
-  <div class="row"><span class="k">w</span><span class="v" data-k="w">—</span></div>
-  <div class="row"><span class="k">b</span><span class="v" data-k="b">—</span></div>
-</div>
-<div class="scene-ui hidden" id="ml-progress">
-  <div class="bar"><div></div></div>
-  <span class="t">step 0 / 200</span>
-</div>
-<div class="scene-ui hidden" id="ml-loss-chart"><canvas></canvas></div>
-<div class="scene-ui hidden" id="ml-code">
-<pre style="margin:0;"><span class="com"># 1. Data</span>
-<span class="kw">import</span> torch
-x = torch.linspace(<span class="num">-4</span>, <span class="num">4</span>, <span class="num">25</span>)
-y = <span class="num">2</span> * x + <span class="num">1</span> + <span class="num">0.8</span> * torch.randn(<span class="num">25</span>)
-
-<span class="com"># 2. Model — just two numbers</span>
-w = torch.randn(<span class="num">1</span>, requires_grad=<span class="kw">True</span>)
-b = torch.randn(<span class="num">1</span>, requires_grad=<span class="kw">True</span>)
-
-<span class="com"># 3. Optimizer</span>
-opt = torch.optim.SGD([w, b], lr=<span class="num">0.05</span>)
-
-<span class="com"># 4. Train</span>
-<span class="kw">for</span> step <span class="kw">in</span> <span class="fn">range</span>(<span class="num">200</span>):
-    y_pred = w * x + b
-    loss = ((y_pred - y) ** <span class="num">2</span>).mean()
-    opt.zero_grad()
-    loss.backward()
-    opt.step()
-
-<span class="fn">print</span>(<span class="str">f"w={w.item():.2f}, b={b.item():.2f}"</span>)</pre>
-</div>
-<div class="subtitle-bar" id="subtitle-bar">
-  <button class="sub-nav" data-sub="prev" aria-label="Previous">‹</button>
-  <div class="sub-text" id="sub-text"></div>
-  <button class="sub-nav" data-sub="next" aria-label="Next">›</button>
-</div>
-<div class="controls">
-  <button class="play-btn" id="play-btn" aria-label="Play">
-    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-  </button>
-  <div class="progress-section">
-    <div class="chapter-labels" id="chapter-labels"></div>
-    <div class="progress-track" id="progress-track">
-      <div class="progress-fill" id="progress-fill"></div>
-      <div class="chapter-markers" id="chapter-markers"></div>
-    </div>
-  </div>
-  <span class="time" id="time">0:00 / 0:00</span>
-</div>
 <script>
-window.addEventListener('error', function(e) {
-  var b = document.createElement('div');
-  b.style.cssText = 'position:fixed;top:10px;left:10px;background:rgba(200,0,0,0.9);color:#fff;padding:6px 10px;border-radius:4px;z-index:99999;font-family:monospace;font-size:11px;max-width:80vw;';
-  b.textContent = 'Error: ' + e.message;
+window.addEventListener('error', function(e){
+  var b=document.createElement('div');
+  b.style.cssText='position:fixed;top:10px;left:10px;background:rgba(200,0,0,.9);color:#fff;padding:6px 10px;border-radius:4px;z-index:99999;font-family:monospace;font-size:11px;max-width:80vw;';
+  b.textContent='Error: '+e.message;
   document.body.appendChild(b);
 });
 </script>
@@ -82,7 +23,7 @@ window.addEventListener('error', function(e) {
 {"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}
 </script>
 <script type="module">
-import { start } from './clips/ml101/main.js';
+import { start } from './clips/ml101/main.js?v=20261026-2124';
 start();
 </script>
 </body>

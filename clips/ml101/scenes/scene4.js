@@ -39,6 +39,17 @@ export class Scene4Train extends SceneBase {
     for (const p of this.shared.DATA) { const d = p.y - (this.w * p.x + this.b); s += d*d; }
     return s / this.shared.DATA.length;
   }
+  _applyLangUI(lang) {
+    const sub = document.querySelector('#ml-loss-hud .ml-sub');
+    if (!sub) return;
+    const texts = {
+      az: 'kiçik = yaxşı',
+      fa: 'کمتر = بهتر',
+      en: 'smaller = better'
+    };
+    sub.textContent = texts[lang] || texts.en;
+  }
+
   async enter(chapter, lang) {
     await super.enter(chapter, lang);
     this._t0 = 0; this.w = 0.4; this.b = 3.5; this._lossHistory = [];
@@ -68,7 +79,6 @@ export class Scene4Train extends SceneBase {
     this._updateLine(); this._updateDrops();
     if (t > 0 && t < 1) {
       this._lossHistory.push({ t, v: this._loss() });
-      if (this._lossHistory.length > 200) this._lossHistory.shift();
     }
     const lossEl = document.querySelector('#ml-loss-hud .ml-val');
     if (lossEl) lossEl.textContent = this._loss().toFixed(2);
@@ -92,16 +102,45 @@ export class Scene4Train extends SceneBase {
     ctx.setTransform(dpr,0,0,dpr,0,0);
     ctx.clearRect(0, 0, w, h);
     if (this._lossHistory.length < 2) return;
-    const maxV = Math.max(...this._lossHistory.map(p => p.v)) || 1;
-    ctx.strokeStyle = '#7df9ff'; ctx.lineWidth = 1.5;
+    const N = this._lossHistory.length;
+    const stride = Math.max(1, Math.floor(N / 300));
+    let maxV = 0;
+    for (let i = 0; i < N; i++) if (this._lossHistory[i].v > maxV) maxV = this._lossHistory[i].v;
+    maxV = maxV || 1;
+    ctx.strokeStyle = 'rgba(240,236,228,0.12)';
+    ctx.lineWidth = 1;
     ctx.beginPath();
-    for (let i = 0; i < this._lossHistory.length; i++) {
+    ctx.moveTo(0, h); ctx.lineTo(w, h);
+    ctx.moveTo(0, 0); ctx.lineTo(0, h);
+    ctx.stroke();
+    ctx.strokeStyle = '#7df9ff';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    let started = false;
+    for (let i = 0; i < N; i += stride) {
       const p = this._lossHistory[i];
-      const x = p.t * w, y = h - (p.v / maxV) * (h - 4) - 2;
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      const x = p.t * w;
+      const y = h - (p.v / maxV) * (h - 6) - 2;
+      if (!started) { ctx.moveTo(x, y); started = true; }
+      else ctx.lineTo(x, y);
+    }
+    if (N > 0) {
+      const last = this._lossHistory[N-1];
+      ctx.lineTo(last.t * w, h - (last.v / maxV) * (h - 6) - 2);
     }
     ctx.stroke();
-    ctx.fillStyle = 'rgba(232,185,106,0.9)'; ctx.font = '9px JetBrains Mono';
+    ctx.fillStyle = 'rgba(232,185,106,0.9)';
+    ctx.font = '9px JetBrains Mono';
     ctx.fillText('LOSS', 4, 10);
+    ctx.fillStyle = 'rgba(240,236,228,0.35)';
+    ctx.font = '8px JetBrains Mono';
+    ctx.textAlign = 'right';
+    ctx.fillText(maxV.toFixed(1), w - 4, 10);
+    ctx.textAlign = 'left';
+  }
+
+
+  onLanguageChange(lang) {
+    this._applyLangUI(lang);
   }
 }

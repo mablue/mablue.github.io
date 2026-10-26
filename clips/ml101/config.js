@@ -1,3 +1,17 @@
+export const clip = {
+  name: 'ML 101',
+  backUrl: 'index.html',
+  backText: '← back',
+  defaultLang: 'az',
+  ui: [
+    { id: 'ml-loss-hud', html: '<div class="ml-label">LOSS (MSE)</div><div class="ml-val">0.00</div><div class="ml-sub">kiçik = yaxşı</div>' },
+    { id: 'ml-params-hud', html: '<div class="row"><span class="k">w</span><span class="v" data-k="w">—</span></div><div class="row"><span class="k">b</span><span class="v" data-k="b">—</span></div>' },
+    { id: 'ml-progress', html: '<div class="bar"><div></div></div><span class="t">step 0 / 200</span>' },
+    { id: 'ml-loss-chart', html: '<canvas></canvas>' },
+    { id: 'ml-code', html: '<pre style="margin:0;"><span class="com"># 1. Data</span>\n<span class="kw">import</span> torch\nx = torch.linspace(<span class="num">-4</span>, <span class="num">4</span>, <span class="num">25</span>)\ny = <span class="num">2</span> * x + <span class="num">1</span> + <span class="num">0.8</span> * torch.randn(<span class="num">25</span>)\n\n<span class="com"># 2. Model</span>\nw = torch.randn(<span class="num">1</span>, requires_grad=<span class="kw">True</span>)\nb = torch.randn(<span class="num">1</span>, requires_grad=<span class="kw">True</span>)\n\n<span class="com"># 3. Optimizer</span>\nopt = torch.optim.SGD([w, b], lr=<span class="num">0.05</span>)\n\n<span class="com"># 4. Train</span>\n<span class="kw">for</span> step <span class="kw">in</span> <span class="fn">range</span>(<span class="num">200</span>):\n    y_pred = w * x + b\n    loss = ((y_pred - y) ** <span class="num">2</span>).mean()\n    opt.zero_grad()\n    loss.backward()\n    opt.step()\n\n<span class="fn">print</span>(<span class="str">f"w={w.item():.2f}, b={b.item():.2f}"</span>)</pre>' },
+  ]
+};
+
 export const languages = ['az', 'fa', 'en'];
 export const defaultLang = 'az';
 
