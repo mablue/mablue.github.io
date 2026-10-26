@@ -146,3 +146,21 @@
 #ml-code::-webkit-scrollbar-track {
   background: rgba(240,236,228,0.05);
 }
+
+
+.code-line {
+  display: block;
+  padding: 1px 5px;
+  border-left: 2px solid transparent;
+  margin: 0 -5px;
+  white-space: pre;
+  transition: background 0.25s, border-left-color 0.25s, opacity 0.25s;
+}
+.code-line.highlight {
+  background: rgba(232,185,106,0.16);
+  border-left-color: #e8b96a;
+  color: #fff;
+}
+.code-line.dimmed {
+  opacity: 0.32;
+}

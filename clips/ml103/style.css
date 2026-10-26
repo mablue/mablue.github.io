@@ -1,0 +1,51 @@
+:root { --bg:#05060a; --ink:#f0ece4; --ink-dim:#a8a094; --ink-mute:#6b655c; --amber:#e8b96a; --cyan:#7df9ff; --line:rgba(240,236,228,.08); --line-strong:rgba(240,236,228,.16); }
+.scene-ui { position: fixed; z-index: 50; pointer-events: none; }
+.scene-ui.hidden { display: none !important; }
+
+#ml-loss-hud { top: 3.5rem; right: 0.5rem; width: 260px; max-width: calc(55vw - 0.5rem); background: rgba(5,6,10,.85); border: 1px solid rgba(232,185,106,.35); border-radius: 12px; padding: 0.7rem 0.9rem; font-family: 'JetBrains Mono', monospace; backdrop-filter: blur(10px); }
+#ml-loss-hud .ml-label { font-size: 0.58rem; color: var(--ink-mute); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 0.3rem; }
+#ml-loss-hud .ml-val { font-size: 1.5rem; color: var(--amber); font-weight: 600; line-height: 1; margin-bottom: 0.3rem; }
+#ml-loss-hud .ml-sub { font-size: 0.65rem; color: var(--ink-dim); }
+
+#ml-params-hud { top: 3.5rem; left: 0.5rem; width: 200px; max-width: calc(40vw - 0.5rem); background: rgba(5,6,10,.85); border: 1px solid rgba(125,249,255,.35); border-radius: 12px; padding: 0.7rem 0.9rem; font-family: 'JetBrains Mono', monospace; backdrop-filter: blur(10px); }
+#ml-params-hud .row { display: flex; justify-content: space-between; font-size: 0.7rem; margin-bottom: 0.2rem; }
+#ml-params-hud .k { color: var(--ink-mute); }
+#ml-params-hud .v { color: var(--cyan); font-weight: 600; }
+
+#ml-code { bottom: 12rem; left: 0.5rem; right: 0.5rem; width: auto; background: rgba(5,6,10,.94); border: 1px solid rgba(232,185,106,.4); border-radius: 12px; padding: 0.7rem 0.9rem; font-family: 'JetBrains Mono', monospace; font-size: 0.62rem; line-height: 1.5; color: var(--ink); max-height: 28vh; overflow-y: auto; pointer-events: auto !important; touch-action: pan-y; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; user-select: text; -webkit-user-select: text; }
+#ml-code .kw { color: #c792ea; } #ml-code .num { color: #f78c6c; } #ml-code .str { color: #c3e88d; } #ml-code .com { color: #6b655c; font-style: italic; } #ml-code .fn { color: #82aaff; }
+
+#ml-loss-chart { bottom: 12rem; right: 0.5rem; left: auto; width: calc(40vw - 0.5rem); max-width: 200px; height: 68px; background: rgba(5,6,10,.88); border: 1px solid var(--line-strong); border-radius: 10px; padding: 0.3rem; }
+#ml-loss-chart canvas { width: 100%; height: 100%; display: block; }
+
+#ml-progress { bottom: 12rem; left: 0.5rem; right: auto; width: calc(55vw - 0.5rem); max-width: 420px; background: rgba(5,6,10,.85); border: 1px solid var(--line-strong); border-radius: 100px; padding: 0.35rem 0.5rem; font-family: 'JetBrains Mono', monospace; font-size: 0.56rem; display: flex; align-items: center; gap: 0.4rem; }
+#ml-progress .bar { flex: 1; height: 4px; background: rgba(240,236,228,.1); border-radius: 2px; overflow: hidden; }
+#ml-progress .bar > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--amber), var(--cyan)); transition: width .15s linear; }
+#ml-progress .t { color: var(--ink-dim); font-size: 0.55rem; white-space: nowrap; }
+
+@media (min-width: 641px) {
+  #ml-loss-hud { width: 260px; max-width: none; padding: 1rem 1.25rem; }
+  #ml-loss-hud .ml-val { font-size: 1.8rem; }
+  #ml-params-hud { width: 200px; max-width: none; padding: 0.9rem 1.1rem; }
+  #ml-code { left: 50%; right: auto; transform: translateX(-50%); width: min(560px, 92vw); font-size: 0.68rem; padding: 1rem 1.25rem; max-height: 38vh; }
+  #ml-loss-chart { width: 200px; height: 100px; left: auto; transform: none; padding: 0.5rem; }
+  #ml-progress { left: 50%; right: auto; transform: translateX(-50%); width: min(420px, 86vw); font-size: 0.7rem; padding: 0.5rem 1rem; }
+  #ml-progress .t { font-size: inherit; }
+}
+
+.code-line {
+  display: block;
+  padding: 1px 5px;
+  border-left: 2px solid transparent;
+  margin: 0 -5px;
+  white-space: pre;
+  transition: background 0.25s, border-left-color 0.25s, opacity 0.25s;
+}
+.code-line.highlight {
+  background: rgba(232,185,106,0.16);
+  border-left-color: #e8b96a;
+  color: #fff;
+}
+.code-line.dimmed {
+  opacity: 0.32;
+}

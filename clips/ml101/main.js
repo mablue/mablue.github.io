@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from '../../player/player.js?v=20261026-2127';
+import { Player } from '../../player/player.v4.js';
 import { clip, chapters } from './config.js';
 import { Scene1Data } from './scenes/scene1.js';
 import { Scene2Model } from './scenes/scene2.js';
