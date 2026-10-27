@@ -1,8 +1,15 @@
-import { SceneBase } from '../../../player/scene-base.js';
+import { SceneBase } from '../../../player/scene-base.js?v=20261027-070017';
+import { updateCurvePositions } from '../../../player/visuals.js?v=20261027-070017';
+import { drawLossChart, updateTrainingHUD } from '../../../player/training.js?v=20261027-070017';
+
 export class Scene4Training extends SceneBase {
   constructor(ctx, shared) {
-    super(ctx); this.THREE = ctx.THREE; this.shared = shared;
-    this._t0 = 0; this._lossHistory = [];
+    super(ctx);
+    this.THREE = ctx.THREE;
+    this.shared = shared;
+    this._t0 = 0;
+    this._lossHistory = [];
+    this._w1 = 0; this._w2 = 0; this._b = 0;
     this._build();
   }
   _build() {
@@ -10,22 +17,14 @@ export class Scene4Training extends SceneBase {
     const N = 80;
     this.N = N;
     this.positions = new Float32Array(N * 3);
-    this.lineMat = new THREE.LineBasicMaterial({ color: 0x7df9ff });
     this.geom = new THREE.BufferGeometry();
     this.geom.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
-    this.lineMesh = new THREE.Line(this.geom, this.lineMat);
+    this.lineMesh = new THREE.Line(this.geom, new THREE.LineBasicMaterial({ color: 0x7df9ff }));
     this.group.add(this.lineMesh);
-    this._w1 = 0; this._w2 = 0; this._b = 0;
     this._updateCurve();
   }
   _updateCurve() {
-    for (let i = 0; i < this.N; i++) {
-      const x = -4 + (i / (this.N - 1)) * 8;
-      const y = this._w1 * x + this._w2 * x * x + this._b;
-      this.positions[i*3] = x;
-      this.positions[i*3+1] = y;
-      this.positions[i*3+2] = 0;
-    }
+    updateCurvePositions(this.positions, this._w1, this._w2, this._b, [-4, 4]);
     this.geom.attributes.position.needsUpdate = true;
   }
   _loss() {
@@ -71,18 +70,14 @@ export class Scene4Training extends SceneBase {
   update(dt) {
     if (!this.group.visible) return;
     this._t0 += dt;
-    const trainStart = 2, trainEnd = 14;
-    const t = Math.max(0, Math.min(1, (this._t0 - trainStart) / (trainEnd - trainStart)));
+    const t = Math.max(0, Math.min(1, (this._t0 - 2) / 12));
     const ease = 1 - Math.pow(1 - t, 3);
-    this._w1 = 0 + (this.shared.TRUE_W1 - 0) * ease;
-    this._w2 = 0 + (this.shared.TRUE_W2 - 0) * ease;
-    this._b = 0 + (this.shared.TRUE_B - 0) * ease;
+    this._w1 = this.shared.TRUE_W1 * ease;
+    this._w2 = this.shared.TRUE_W2 * ease;
+    this._b = this.shared.TRUE_B * ease;
     this._updateCurve();
-    if (t > 0 && t < 1) {
-      this._lossHistory.push({ t, v: this._loss() });
-    }
+    if (t > 0 && t < 1) this._lossHistory.push({ t, v: this._loss() });
     const lossEl = document.querySelector('#ml-loss-hud .ml-val');
-    if (lossEl) lossEl.textContent = this._loss().toFixed(2);
     const w1El = document.querySelector('#ml-params-hud [data-k="w1"]');
     const w2El = document.querySelector('#ml-params-hud [data-k="w2"]');
     const bEl = document.querySelector('#ml-params-hud [data-k="b"]');
@@ -90,35 +85,8 @@ export class Scene4Training extends SceneBase {
     if (w2El) w2El.textContent = this._w2.toFixed(2);
     if (bEl) bEl.textContent = this._b.toFixed(2);
     const barEl = document.querySelector('#ml-progress .bar > div');
-    const tEl = document.querySelector('#ml-progress .t');
-    if (barEl) barEl.style.width = (ease * 100).toFixed(0) + '%';
-    if (tEl) tEl.textContent = 'step ' + Math.round(ease * 400) + ' / 400';
-    this._drawLossChart();
-  }
-  _drawLossChart() {
-    const canvas = document.querySelector('#ml-loss-chart canvas');
-    if (!canvas) return;
-    const dpr = Math.min(window.devicePixelRatio, 2);
-    const w = canvas.clientWidth, h = canvas.clientHeight;
-    if (canvas.width !== w*dpr) { canvas.width = w*dpr; canvas.height = h*dpr; }
-    const ctx = canvas.getContext('2d');
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    ctx.clearRect(0, 0, w, h);
-    if (this._lossHistory.length < 2) return;
-    let maxV = 0;
-    for (const p of this._lossHistory) if (p.v > maxV) maxV = p.v;
-    maxV = maxV || 1;
-    ctx.strokeStyle = '#7df9ff'; ctx.lineWidth = 1.5;
-    ctx.beginPath();
-    for (let i = 0; i < this._lossHistory.length; i++) {
-      const p = this._lossHistory[i];
-      const x = p.t * w;
-      const y = h - (p.v / maxV) * (h - 6) - 2;
-      if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-    }
-    ctx.stroke();
-    ctx.fillStyle = 'rgba(232,185,106,0.9)';
-    ctx.font = '9px JetBrains Mono';
-    ctx.fillText('LOSS', 4, 10);
+    const stepEl = document.querySelector('#ml-progress .t');
+    updateTrainingHUD({ ease, totalSteps: 400, loss: this._loss(), lossEl, barEl, stepEl });
+    drawLossChart(document.querySelector('#ml-loss-chart canvas'), this._lossHistory);
   }
 }
