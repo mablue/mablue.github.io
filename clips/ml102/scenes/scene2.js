@@ -1,37 +1,35 @@
-import { SceneBase } from '../../../player/scene-base.js';
+import { SceneBase } from '../../../player/scene-base.js?v=20261027-070226';
+import { updateCurvePositions } from '../../../player/visuals.js?v=20261027-070226';
+
 export class Scene2AddX2 extends SceneBase {
   constructor(ctx, shared) {
-    super(ctx); this.THREE = ctx.THREE; this.shared = shared;
-    this._t0 = 0; this._build();
+    super(ctx);
+    this.THREE = ctx.THREE;
+    this.shared = shared;
+    this._t0 = 0;
+    this._w1 = 2.0; this._w2 = 0.0; this._b = 0.5;
+    this._build();
   }
   _build() {
     const THREE = this.THREE;
     const N = 80;
     this.N = N;
     this.positions = new Float32Array(N * 3);
-    this.lineMat = new THREE.LineBasicMaterial({ color: 0x7df9ff, transparent: true, opacity: 0.9 });
     this.geom = new THREE.BufferGeometry();
     this.geom.setAttribute('position', new THREE.BufferAttribute(this.positions, 3));
-    this.lineMesh = new THREE.Line(this.geom, this.lineMat);
+    this.lineMesh = new THREE.Line(this.geom, new THREE.LineBasicMaterial({ color: 0x7df9ff, transparent: true, opacity: 0.9 }));
     this.group.add(this.lineMesh);
-    this._w1 = 2.0; this._w2 = 0.0; this._b = 0.5;
-    this._updateCurve();
+    this._update();
   }
-  _updateCurve() {
-    for (let i = 0; i < this.N; i++) {
-      const x = -4 + (i / (this.N - 1)) * 8;
-      const y = this._w1 * x + this._w2 * x * x + this._b;
-      this.positions[i*3] = x;
-      this.positions[i*3+1] = y;
-      this.positions[i*3+2] = 0;
-    }
+  _update() {
+    updateCurvePositions(this.positions, this._w1, this._w2, this._b, [-4, 4]);
     this.geom.attributes.position.needsUpdate = true;
   }
   async enter(chapter, lang) {
     await super.enter(chapter, lang);
     this._t0 = 0;
     this._w1 = 2.0; this._w2 = 0.0; this._b = 0.5;
-    this._updateCurve();
+    this._update();
     this.shared.pointsGroup.visible = true;
     for (const m of this.shared.dotMeshes) m.material.opacity = 1;
     const cam = this.ctx.camera, ctl = this.ctx.controls;
@@ -46,7 +44,7 @@ export class Scene2AddX2 extends SceneBase {
       this._w1 = 2.0 * (1 - ease) + 0.0 * ease;
       this._w2 = 0.0 * (1 - ease) + 0.5 * ease;
       this._b = 0.5 + (this.shared.TRUE_B - 0.5) * ease;
-      this._updateCurve();
+      this._update();
     }
   }
 }
