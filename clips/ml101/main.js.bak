@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from '../../player/player.js';
-import { chapters, languages, defaultLang } from './config.js';
+import { Player } from '../../player/player.v4.js';
+import { clip, chapters } from './config.js';
 import { Scene1Data } from './scenes/scene1.js';
 import { Scene2Model } from './scenes/scene2.js';
 import { Scene3Loss } from './scenes/scene3.js';
@@ -70,14 +70,14 @@ export function start() {
   const ctx = { THREE, scene, camera, controls, renderer, canvas, lang: 'fa', DATA, TRUE_W, TRUE_B, pointsGroup, dotMeshes };
   const shared = { ...ctx };
 
-  const player = new Player(ctx, chapters, { languages, defaultLang });
-  player.registerScene(0, new Scene1Data(ctx, shared));
-  player.registerScene(1, new Scene2Model(ctx, shared));
-  player.registerScene(2, new Scene3Loss(ctx, shared));
-  player.registerScene(3, new Scene4Train(ctx, shared));
-  player.registerScene(4, new Scene5Result(ctx, shared));
+  const scenes = {};
+  chapters.forEach((_, i) => {
+    const SceneClass = [Scene1Data, Scene2Model, Scene3Loss, Scene4Train, Scene5Result][i];
+    if (SceneClass) scenes[i] = new SceneClass(ctx, shared);
+  });
 
-  const clock = new THREE.Clock();
+  const player = new Player({ ctx, chapters, clip, scenes });
+            const clock = new THREE.Clock();
   function tick() {
     requestAnimationFrame(tick);
     const dt = Math.min(clock.getDelta(), 0.05);
@@ -91,5 +91,5 @@ export function start() {
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
   });
-  player.start(defaultLang);
+  player.start();
 }
