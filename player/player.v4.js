@@ -177,7 +177,11 @@ export class Player {
     this.audio.addEventListener('timeupdate', () => this._onTimeUpdate());
     this.audio.addEventListener('loadedmetadata', () => this._computeChunks());
     this.audio.addEventListener('ended', () => {
-      if (this.currentIndex + 1 < this.chapters.length) this.loadChapter(this.currentIndex + 1);
+      if (this.currentIndex + 1 < this.chapters.length) {
+        this.loadChapter(this.currentIndex + 1);
+      } else if (this.clip.nextClip) {
+        this._showNextClipButton();
+      }
     });
   }
 
@@ -229,6 +233,27 @@ export class Player {
     };
     document.addEventListener('pointerdown', handler, true);
     document.addEventListener('touchstart', handler, true);
+  }
+
+  _showNextClipButton() {
+    if (!this.clip.nextClip || document.getElementById('next-clip-btn')) return;
+    if (!document.getElementById('next-clip-style')) {
+      const st = document.createElement('style');
+      st.id = 'next-clip-style';
+      st.textContent = '@keyframes nextFadeIn{from{opacity:0;transform:translateX(-50%) translateY(8px);}to{opacity:1;transform:translateX(-50%) translateY(0);}}';
+      document.head.appendChild(st);
+    }
+    const btn = document.createElement('a');
+    btn.id = 'next-clip-btn';
+    btn.href = this.clip.nextClip;
+    btn.textContent = this.clip.nextClipLabel || 'Next →';
+    btn.style.cssText = 'position:fixed;bottom:8rem;left:50%;transform:translateX(-50%);padding:0.75rem 1.5rem;background:rgba(232,185,106,0.95);color:#05060a;font-family:"JetBrains Mono",monospace;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;border-radius:100px;text-decoration:none;z-index:9999;box-shadow:0 4px 24px rgba(232,185,106,0.5);animation:nextFadeIn 0.5s ease-out;display:inline-flex;align-items:center;gap:0.5rem;';
+    document.body.appendChild(btn);
+  }
+
+  _hideNextClipButton() {
+    const b = document.getElementById('next-clip-btn');
+    if (b && b.parentNode) b.parentNode.removeChild(b);
   }
 
   _computeChunks() {
@@ -300,6 +325,7 @@ export class Player {
   async loadChapter(index) {
     const ch = this.chapters[index];
     if (!ch || !ch.built) return;
+    this._hideNextClipButton();
     document.querySelectorAll('.scene-ui').forEach(el => el.classList.add('hidden'));
     if (this.scenes[this.currentIndex]) {
       try { await this.scenes[this.currentIndex].exit(); }
