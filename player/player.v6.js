@@ -1,3 +1,33 @@
+// ===== ON-SCREEN DEBUG (mobile-friendly) =====
+function _debugSetup() {
+  if (window._debugEl) return;
+  const el = document.createElement('div');
+  el.id = 'debug-panel';
+  el.style.cssText = 'position:fixed;top:0;left:0;right:0;max-height:40vh;overflow-y:auto;background:rgba(0,0,0,0.85);color:#0f0;font-family:monospace;font-size:10px;padding:4px;z-index:999999;white-space:pre-wrap;pointer-events:auto;border-bottom:2px solid #0f0;';
+  el.textContent = 'DEBUG PANEL\n';
+  el.onclick = () => { el.style.display = 'none'; };
+  document.body.appendChild(el);
+  window._debugEl = el;
+}
+function _debugLog(...args) {
+  _debugSetup();
+  const msg = args.map(a => {
+    if (typeof a === 'object') return JSON.stringify(a);
+    return String(a);
+  }).join(' ');
+  const time = new Date().toLocaleTimeString();
+  const el = window._debugEl;
+  if (el) {
+    el.textContent += `[${time}] ${msg}\n`;
+    el.scrollTop = el.scrollHeight;
+  }
+  console.log(...args);
+}
+window._debugLog = _debugLog;
+_debugSetup();
+_debugLog('Player loaded, waiting for audio...');
+// ============================================
+
 export class Player {
   constructor(a, b, c) {
     let opts;
@@ -342,7 +372,7 @@ export class Player {
     document.querySelectorAll('.scene-ui').forEach(el => el.classList.add('hidden'));
     if (this.scenes[this.currentIndex]) {
       try { await this.scenes[this.currentIndex].exit(); }
-      catch (e) { console.warn('scene exit failed:', e); }
+      catch (e) { _debugLog('scene exit failed:', e); }
     }
     this.currentIndex = index;
     const src = this._getAudio(ch, this.lang);
@@ -382,11 +412,11 @@ export class Player {
 
   _subtitleNav(dir) {
     if (!this.chunks || this.chunks.length === 0) {
-      console.warn('[sub-nav] chunks not ready. readyState=' + this.audio.readyState);
+      _debugLog('[sub-nav] chunks not ready. readyState=' + this.audio.readyState);
       return;
     }
     if (!this.audio.duration || this.audio.readyState < 1) {
-      console.warn('[sub-nav] audio not ready');
+      _debugLog('[sub-nav] audio not ready');
       return;
     }
 
