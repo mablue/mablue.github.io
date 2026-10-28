@@ -18,3 +18,4 @@ __pycache__/
 *.pyc
 .cache/
 .git.old-*/
+*.bak
