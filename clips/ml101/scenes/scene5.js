@@ -1,7 +1,7 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261028-202332';
-import { buildCodeUI, applyCodeChunk } from '../../../player/walkthrough.js?v=20261028-202332';
-import { updateLine } from '../../../player/visuals.js?v=20261028-202332';
-import { langText } from '../../../player/i18n.js?v=20261028-202332';
+import { SceneBase } from '../../../player/scene-base.js?v=20261028-204517';
+import { buildCodeUI, applyCodeChunk } from '../../../player/walkthrough.js?v=20261028-204517';
+import { updateLine } from '../../../player/visuals.js?v=20261028-204517';
+import { langText } from '../../../player/i18n.js?v=20261028-204517';
 
 export class Scene5Result extends SceneBase {
   constructor(ctx, shared) {

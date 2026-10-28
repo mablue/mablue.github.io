@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from './player.v7.js?v=20261028-202332';
+import { Player } from './player.v7.js?v=20261028-204517';
 
 export { THREE };
 
@@ -81,6 +81,7 @@ export function startClip({
   chapters, clip,
   SceneClasses,
   makeData,
+  extraSetup,
   trueValues = {},
   cameraPos, cameraTarget, minDistance, maxDistance,
   starCount = 500,
@@ -104,6 +105,16 @@ export function startClip({
     pointsGroup, dotMeshes,
   };
   const shared = { ...ctx };
+
+  if (typeof extraSetup === 'function') {
+    try {
+      const extra = extraSetup(ctx, shared) || {};
+      Object.assign(shared, extra);
+      Object.assign(ctx, extra);
+    } catch (e) {
+      console.error('[setup] extraSetup failed:', e);
+    }
+  }
 
   const sceneInstances = {};
   chapters.forEach((_, i) => {
