@@ -395,6 +395,12 @@ export class Player {
       const texts = this._getChunks(qch, this.lang);
       this.chunks = texts.map((t, i) => ({ start: i, text: t }));
       this.currentChunk = this.audioQueueIndex;
+      if (texts[this.audioQueueIndex] && this.ui.text) {
+        this.ui.text.textContent = texts[this.audioQueueIndex];
+        const rtl = this._isRTL(this.lang);
+        this.ui.text.classList.toggle('rtl', rtl);
+        this.ui.text.classList.toggle('ltr', !rtl);
+      }
       return;
     }
     const ch = this.chapters[this.currentIndex];

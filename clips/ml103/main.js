@@ -1,11 +1,11 @@
-import { startClip } from '../../player/setup.js?v=20261028-184048';
-import { clip, chapters } from './config.js?v=20261028-184048';
-import { timings } from './timings.js?v=20261028-184048';
-import { Scene1Hard } from './scenes/scene1.js?v=20261028-184048';
-import { Scene2Hidden } from './scenes/scene2.js?v=20261028-184048';
-import { Scene3Relu } from './scenes/scene3.js?v=20261028-184048';
-import { Scene4Training } from './scenes/scene4.js?v=20261028-184048';
-import { Scene5Result } from './scenes/scene5.js?v=20261028-184048';
+import { startClip } from '../../player/setup.js?v=20261028-202332';
+import { clip, chapters } from './config.js?v=20261028-202332';
+import { timings } from './timings.js?v=20261028-202332';
+import { Scene1Hard } from './scenes/scene1.js?v=20261028-202332';
+import { Scene2Hidden } from './scenes/scene2.js?v=20261028-202332';
+import { Scene3Relu } from './scenes/scene3.js?v=20261028-202332';
+import { Scene4Training } from './scenes/scene4.js?v=20261028-202332';
+import { Scene5Result } from './scenes/scene5.js?v=20261028-202332';
 
 const TRUE_AMP = 2.0, TRUE_FREQ = 1.5;
 
