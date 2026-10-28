@@ -1,6 +1,6 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261027-070017';
-import { updateCurvePositions } from '../../../player/visuals.js?v=20261027-070017';
-import { drawLossChart, updateTrainingHUD } from '../../../player/training.js?v=20261027-070017';
+import { SceneBase } from '../../../player/scene-base.js?v=20261027-201954';
+import { updateCurvePositions } from '../../../player/visuals.js?v=20261027-201954';
+import { drawLossChart, updateTrainingHUD } from '../../../player/training.js?v=20261027-201954';
 
 export class Scene4Training extends SceneBase {
   constructor(ctx, shared) {

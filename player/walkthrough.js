@@ -7,22 +7,45 @@ export function buildCodeUI(pre, lines) {
 
 export function applyCodeChunk(pre, chapter, chunk) {
   if (!pre || !chapter || !chapter.code || !chapter.code.highlights) return;
-  const range = chapter.code.highlights[chunk];
+  const entry = chapter.code.highlights[chunk];
   const lines = pre.querySelectorAll('.code-line');
-  if (!range) {
-    lines.forEach(el => el.classList.remove('highlight', 'dimmed'));
+
+  lines.forEach(el => el.classList.remove('highlight', 'dimmed'));
+  pre.querySelectorAll('.tok-highlight').forEach(t => t.classList.remove('tok-highlight'));
+
+  if (entry === undefined || entry === null) return;
+
+  let startLine, endLine, tokens = [];
+  if (Array.isArray(entry)) {
+    startLine = entry[0];
+    endLine = entry[1];
+  } else if (typeof entry === 'object' && entry.line !== undefined) {
+    startLine = endLine = entry.line;
+    if (entry.tokens) tokens = entry.tokens;
+  } else {
     return;
   }
-  const start = range[0], end = range[1];
+
   lines.forEach(el => {
     const n = parseInt(el.dataset.line, 10);
-    const inRange = n >= start && n <= end;
+    const inRange = n >= startLine && n <= endLine;
     el.classList.toggle('highlight', inRange);
     el.classList.toggle('dimmed', !inRange);
   });
+
+  if (tokens.length > 0) {
+    const lineEl = pre.querySelector('[data-line="' + startLine + '"]');
+    if (lineEl) {
+      tokens.forEach(tokName => {
+        const tok = lineEl.querySelector('[data-tok="' + tokName + '"]');
+        if (tok) tok.classList.add('tok-highlight');
+      });
+    }
+  }
+
   const container = pre.closest('#ml-code') || pre.parentElement;
   if (!container) return;
-  const firstLine = pre.querySelector('[data-line="' + start + '"]');
+  const firstLine = pre.querySelector('[data-line="' + startLine + '"]');
   if (firstLine) {
     const targetScroll = firstLine.offsetTop - container.clientHeight / 2 + firstLine.offsetHeight / 2;
     container.scrollTo({ top: Math.max(0, targetScroll), behavior: 'smooth' });
@@ -34,4 +57,5 @@ export function clearCodeHighlight(pre) {
   pre.querySelectorAll('.code-line').forEach(el => {
     el.classList.remove('highlight', 'dimmed');
   });
+  pre.querySelectorAll('.tok-highlight').forEach(t => t.classList.remove('tok-highlight'));
 }

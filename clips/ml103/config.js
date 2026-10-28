@@ -2,6 +2,8 @@ export const clip = {
   name: 'ML 103',
   backUrl: 'index.html',
   backText: '← back',
+  nextClip: 'ml104.html',
+  nextClipLabel: 'Continue to ML 104 →',
   defaultLang: 'az',
   ui: [
     { id: 'ml-loss-hud', html: '<div class="ml-label">LOSS (MSE)</div><div class="ml-val">0.00</div><div class="ml-sub" id="ml-loss-sub">kiçik = yaxşı</div>' },

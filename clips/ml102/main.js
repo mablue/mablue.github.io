@@ -1,10 +1,10 @@
-import { startClip } from '../../player/setup.js?v=20261027-065407';
-import { clip, chapters } from './config.js?v=20261027-065407';
-import { Scene1Curve } from './scenes/scene1.js?v=20261027-065407';
-import { Scene2AddX2 } from './scenes/scene2.js?v=20261027-065407';
-import { Scene3Model } from './scenes/scene3.js?v=20261027-065407';
-import { Scene4Training } from './scenes/scene4.js?v=20261027-065407';
-import { Scene5Result } from './scenes/scene5.js?v=20261027-065407';
+import { startClip } from '../../player/setup.js?v=20261027-201954';
+import { clip, chapters } from './config.js?v=20261027-201954';
+import { Scene1Curve } from './scenes/scene1.js?v=20261027-201954';
+import { Scene2AddX2 } from './scenes/scene2.js?v=20261027-201954';
+import { Scene3Model } from './scenes/scene3.js?v=20261027-201954';
+import { Scene4Training } from './scenes/scene4.js?v=20261027-201954';
+import { Scene5Result } from './scenes/scene5.js?v=20261027-201954';
 
 const TRUE_W1 = 0.0;
 const TRUE_W2 = 0.5;

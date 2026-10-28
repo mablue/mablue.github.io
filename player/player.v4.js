@@ -158,11 +158,12 @@ export class Player {
       this.audio.currentTime = p * this.audio.duration;
     };
     document.querySelectorAll('[data-sub]').forEach(b => {
-      b.addEventListener('click', () => {
-        if (!this.chunks.length) return;
-        const d = b.dataset.sub === 'prev' ? -1 : 1;
-        const t = Math.max(0, Math.min(this.chunks.length - 1, this.currentChunk + d));
-        this.audio.currentTime = this.chunks[t].start;
+      b.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        this._subtitleNav(b.dataset.sub);
+        b.style.transform = 'scale(0.85)';
+        setTimeout(() => { b.style.transform = ''; }, 120);
       });
     });
   }
@@ -247,7 +248,7 @@ export class Player {
     btn.id = 'next-clip-btn';
     btn.href = this.clip.nextClip;
     btn.textContent = this.clip.nextClipLabel || 'Next →';
-    btn.style.cssText = 'position:fixed;bottom:8rem;left:50%;transform:translateX(-50%);padding:0.75rem 1.5rem;background:rgba(232,185,106,0.95);color:#05060a;font-family:"JetBrains Mono",monospace;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;border-radius:100px;text-decoration:none;z-index:9999;box-shadow:0 4px 24px rgba(232,185,106,0.5);animation:nextFadeIn 0.5s ease-out;display:inline-flex;align-items:center;gap:0.5rem;';
+    btn.style.cssText = 'position:fixed;bottom:14rem;left:50%;transform:translateX(-50%);padding:0.75rem 1.5rem;background:rgba(232,185,106,0.95);color:#05060a;font-family:"JetBrains Mono",monospace;font-size:0.85rem;font-weight:600;letter-spacing:0.05em;border-radius:100px;text-decoration:none;z-index:9999;box-shadow:0 4px 24px rgba(232,185,106,0.5);animation:nextFadeIn 0.5s ease-out;display:inline-flex;align-items:center;gap:0.5rem;';
     document.body.appendChild(btn);
   }
 
