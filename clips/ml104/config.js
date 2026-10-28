@@ -16,9 +16,9 @@ export const clip = {
 export const chapters = [
   { n: 1, title: 'Two Tribes', duration: 14, built: true,
     audio: {
-      az: './clips/ml104/audio/az/1-tribes.mp3?v=20261027-193652',
-      fa: './clips/ml104/audio/fa/1-tribes.mp3?v=20261027-193652',
-      en: './clips/ml104/audio/en/1-tribes.mp3?v=20261027-193652',
+      az: './clips/ml104/audio/az/1-tribes.mp3?v=20261028-183005',
+      fa: './clips/ml104/audio/fa/1-tribes.mp3?v=20261028-183005',
+      en: './clips/ml104/audio/en/1-tribes.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Bu dəfə data iki dairədir.', 'İçdə amber nöqtələr. Xaricdə mavi nöqtələr.', 'Maşın bunları necə ayırd edəcək?'],
@@ -28,9 +28,9 @@ export const chapters = [
   },
   { n: 2, title: 'The Circle', duration: 16, built: true,
     audio: {
-      az: './clips/ml104/audio/az/2-circle.mp3?v=20261027-193652',
-      fa: './clips/ml104/audio/fa/2-circle.mp3?v=20261027-193652',
-      en: './clips/ml104/audio/en/2-circle.mp3?v=20261027-193652',
+      az: './clips/ml104/audio/az/2-circle.mp3?v=20261028-183005',
+      fa: './clips/ml104/audio/fa/2-circle.mp3?v=20261028-183005',
+      en: './clips/ml104/audio/en/2-circle.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Düz xətt işə yaramaz.', 'Çünki iç və xaric bir-birinə qarışıb.', 'Gizli qat əyri yaradır.', 'Sərhəd bir dairə olur.'],
@@ -40,9 +40,9 @@ export const chapters = [
   },
   { n: 3, title: 'Sigmoid', duration: 14, built: true,
     audio: {
-      az: './clips/ml104/audio/az/3-sigmoid.mp3?v=20261027-193652',
-      fa: './clips/ml104/audio/fa/3-sigmoid.mp3?v=20261027-193652',
-      en: './clips/ml104/audio/en/3-sigmoid.mp3?v=20261027-193652',
+      az: './clips/ml104/audio/az/3-sigmoid.mp3?v=20261028-183005',
+      fa: './clips/ml104/audio/fa/3-sigmoid.mp3?v=20261028-183005',
+      en: './clips/ml104/audio/en/3-sigmoid.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Hər nöqtə üçün bir xal.', 'Sigmoid onu sıfırla bir arasına sıxır.', 'Artıq ehtimaldır.', 'Sərhədə yaxın nöqtələr qeyri-müəyyəndir.'],
@@ -52,9 +52,9 @@ export const chapters = [
   },
   { n: 4, title: 'Training', duration: 20, built: true,
     audio: {
-      az: './clips/ml104/audio/az/4-train.mp3?v=20261027-193652',
-      fa: './clips/ml104/audio/fa/4-train.mp3?v=20261027-193652',
-      en: './clips/ml104/audio/en/4-train.mp3?v=20261027-193652',
+      az: './clips/ml104/audio/az/4-train.mp3?v=20261028-183005',
+      fa: './clips/ml104/audio/fa/4-train.mp3?v=20261028-183005',
+      en: './clips/ml104/audio/en/4-train.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Loss — BCE. Cross-entropy.', 'Sərhədi yerinə qoyur.', 'Nöqtələr tədricən düzgün tərəfə keçir.', 'Dəqiqlik artır.', 'Beş yüz addım.'],
@@ -64,9 +64,9 @@ export const chapters = [
   },
   { n: 5, title: 'Code', duration: 42, built: true,
     audio: {
-      az: './clips/ml104/audio/az/5-code.mp3?v=20261027-193652',
-      fa: './clips/ml104/audio/fa/5-code.mp3?v=20261027-193652',
-      en: './clips/ml104/audio/en/5-code.mp3?v=20261027-193652',
+      az: './clips/ml104/audio/az/5-code.mp3?v=20261028-183005',
+      fa: './clips/ml104/audio/fa/5-code.mp3?v=20261028-183005',
+      en: './clips/ml104/audio/en/5-code.mp3?v=20261028-183005',
     },
     chunks: {
       az: [

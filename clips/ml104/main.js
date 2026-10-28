@@ -1,10 +1,11 @@
-import { startClip } from '../../player/setup.js?v=20261028-063539';
-import { clip, chapters } from './config.js?v=20261028-063539';
-import { Scene1Tribes } from './scenes/scene1.js?v=20261028-063539';
-import { Scene2Circle } from './scenes/scene2.js?v=20261028-063539';
-import { Scene3Sigmoid } from './scenes/scene3.js?v=20261028-063539';
-import { Scene4Training } from './scenes/scene4.js?v=20261028-063539';
-import { Scene5Result } from './scenes/scene5.js?v=20261028-063539';
+import { startClip } from '../../player/setup.js?v=20261028-184048';
+import { clip, chapters } from './config.js?v=20261028-184048';
+import { timings } from './timings.js?v=20261028-184048';
+import { Scene1Tribes } from './scenes/scene1.js?v=20261028-184048';
+import { Scene2Circle } from './scenes/scene2.js?v=20261028-184048';
+import { Scene3Sigmoid } from './scenes/scene3.js?v=20261028-184048';
+import { Scene4Training } from './scenes/scene4.js?v=20261028-184048';
+import { Scene5Result } from './scenes/scene5.js?v=20261028-184048';
 
 const TARGET_R = 2.5;
 
@@ -25,7 +26,7 @@ function makeData() {
 
 export function start() {
   startClip({
-    chapters, clip,
+    chapters, clip: { ...clip, timings },
     SceneClasses: [Scene1Tribes, Scene2Circle, Scene3Sigmoid, Scene4Training, Scene5Result],
     trueValues: { TARGET_R },
     cameraPos: [0, 0, 14],

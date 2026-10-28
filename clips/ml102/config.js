@@ -17,9 +17,9 @@ export const clip = {
 export const chapters = [
   { n: 1, title: 'Curve', duration: 14, built: true,
     audio: {
-      az: './clips/ml102/audio/az/1-curve.mp3?v=20261026-223720',
-      fa: './clips/ml102/audio/fa/1-curve.mp3?v=20261026-223720',
-      en: './clips/ml102/audio/en/1-curve.mp3?v=20261026-223720',
+      az: './clips/ml102/audio/az/1-curve.mp3?v=20261028-183005',
+      fa: './clips/ml102/audio/fa/1-curve.mp3?v=20261028-183005',
+      en: './clips/ml102/audio/en/1-curve.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Bu nöqtələr düz xətt deyil.', 'Bir əyridir.', 'Düz xətt heç vaxt uyğun gəlməyəcək.'],
@@ -29,9 +29,9 @@ export const chapters = [
   },
   { n: 2, title: 'Add x²', duration: 16, built: true,
     audio: {
-      az: './clips/ml102/audio/az/2-add-x2.mp3?v=20261026-223720',
-      fa: './clips/ml102/audio/fa/2-add-x2.mp3?v=20261026-223720',
-      en: './clips/ml102/audio/en/2-add-x2.mp3?v=20261026-223720',
+      az: './clips/ml102/audio/az/2-add-x2.mp3?v=20261028-183005',
+      fa: './clips/ml102/audio/fa/2-add-x2.mp3?v=20261028-183005',
+      en: './clips/ml102/audio/en/2-add-x2.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Modelə ikinci bir giriş verək: x kvadratı.', 'İndi iki giriş var — x və x².', 'İki çəki. İki yamac.', 'Və düz xətt əyriyə çevrilir.'],
@@ -41,9 +41,9 @@ export const chapters = [
   },
   { n: 3, title: 'Model', duration: 12, built: true,
     audio: {
-      az: './clips/ml102/audio/az/3-model.mp3?v=20261026-223720',
-      fa: './clips/ml102/audio/fa/3-model.mp3?v=20261026-223720',
-      en: './clips/ml102/audio/en/3-model.mp3?v=20261026-223720',
+      az: './clips/ml102/audio/az/3-model.mp3?v=20261028-183005',
+      fa: './clips/ml102/audio/fa/3-model.mp3?v=20261028-183005',
+      en: './clips/ml102/audio/en/3-model.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Y bərabərdir W₁ vur X, üstəgəl W₂ vur X kvadrat, üstəgəl B.', 'Üç ədəd. Hamısı budur.'],
@@ -53,9 +53,9 @@ export const chapters = [
   },
   { n: 4, title: 'Training', duration: 18, built: true,
     audio: {
-      az: './clips/ml102/audio/az/4-training.mp3?v=20261026-223720',
-      fa: './clips/ml102/audio/fa/4-training.mp3?v=20261026-223720',
-      en: './clips/ml102/audio/en/4-training.mp3?v=20261026-223720',
+      az: './clips/ml102/audio/az/4-training.mp3?v=20261028-183005',
+      fa: './clips/ml102/audio/fa/4-training.mp3?v=20261028-183005',
+      en: './clips/ml102/audio/en/4-training.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Eyni dövrə.', 'Xəta geriyə axır.', 'Hər üç çəki yenilənir.', 'Əyri yerinə oturur.', 'Dörd yüz addım.'],
@@ -65,9 +65,9 @@ export const chapters = [
   },
   { n: 5, title: 'Code', duration: 42, built: true,
     audio: {
-      az: './clips/ml102/audio/az/5-walkthrough.mp3?v=20261026-223720',
-      fa: './clips/ml102/audio/fa/5-walkthrough.mp3?v=20261026-223720',
-      en: './clips/ml102/audio/en/5-walkthrough.mp3?v=20261026-223720',
+      az: './clips/ml102/audio/az/5-walkthrough.mp3?v=20261028-183005',
+      fa: './clips/ml102/audio/fa/5-walkthrough.mp3?v=20261028-183005',
+      en: './clips/ml102/audio/en/5-walkthrough.mp3?v=20261028-183005',
     },
     chunks: {
       az: [

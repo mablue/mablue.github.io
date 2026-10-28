@@ -17,9 +17,9 @@ export const clip = {
 export const chapters = [
   { n: 1, title: 'Too Hard', duration: 14, built: true,
     audio: {
-      az: './clips/ml103/audio/az/1-hard.mp3?v=20261026-222850',
-      fa: './clips/ml103/audio/fa/1-hard.mp3?v=20261026-222850',
-      en: './clips/ml103/audio/en/1-hard.mp3?v=20261026-222850',
+      az: './clips/ml103/audio/az/1-hard.mp3?v=20261028-183005',
+      fa: './clips/ml103/audio/fa/1-hard.mp3?v=20261028-183005',
+      en: './clips/ml103/audio/en/1-hard.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Bu nöqtələr sinus dalğasıdır.', 'Nə düz xətt, nə də əyri — heç biri uyğun gəlmir.', 'Daha çox giriş lazımdır. Amma hansı?'],
@@ -29,9 +29,9 @@ export const chapters = [
   },
   { n: 2, title: 'Hidden Layer', duration: 16, built: true,
     audio: {
-      az: './clips/ml103/audio/az/2-hidden.mp3?v=20261026-222850',
-      fa: './clips/ml103/audio/fa/2-hidden.mp3?v=20261026-222850',
-      en: './clips/ml103/audio/en/2-hidden.mp3?v=20261026-222850',
+      az: './clips/ml103/audio/az/2-hidden.mp3?v=20261028-183005',
+      fa: './clips/ml103/audio/fa/2-hidden.mp3?v=20261028-183005',
+      en: './clips/ml103/audio/en/2-hidden.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Gizli qat əlavə edək.', 'Səkkiz neyron. Hər biri öz xüsusiyyətini kəşf edir.', 'Biri yamac, biri zirvə, biri çuxur.', 'Xüsusiyyətləri əl ilə yazmırıq — şəbəkə özü tapır.'],
@@ -41,9 +41,9 @@ export const chapters = [
   },
   { n: 3, title: 'ReLU', duration: 14, built: true,
     audio: {
-      az: './clips/ml103/audio/az/3-relu.mp3?v=20261026-222850',
-      fa: './clips/ml103/audio/fa/3-relu.mp3?v=20261026-222850',
-      en: './clips/ml103/audio/en/3-relu.mp3?v=20261026-222850',
+      az: './clips/ml103/audio/az/3-relu.mp3?v=20261028-183005',
+      fa: './clips/ml103/audio/fa/3-relu.mp3?v=20261028-183005',
+      en: './clips/ml103/audio/en/3-relu.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Amma bir şey çatışmır.', 'İki xətti qat qatsaq, yenə xəttdir.', 'ReLU lazımdır. Mənfi sıfır olur, müsbət olduğu kimi qalır.', 'Bu kiçik qırılma şəbəkəyə əyri yaratmaq gücü verir.'],
@@ -53,9 +53,9 @@ export const chapters = [
   },
   { n: 4, title: 'Training', duration: 18, built: true,
     audio: {
-      az: './clips/ml103/audio/az/4-training.mp3?v=20261026-222850',
-      fa: './clips/ml103/audio/fa/4-training.mp3?v=20261026-222850',
-      en: './clips/ml103/audio/en/4-training.mp3?v=20261026-222850',
+      az: './clips/ml103/audio/az/4-training.mp3?v=20261028-183005',
+      fa: './clips/ml103/audio/fa/4-training.mp3?v=20261028-183005',
+      en: './clips/ml103/audio/en/4-training.mp3?v=20261028-183005',
     },
     chunks: {
       az: ['Eyni dövrə.', 'Xəta geriyə axır.', 'Səkkiz neyron birlikdə işləyir.', 'Dalğa tədricən formalaşır.', 'Min addım.'],
@@ -65,9 +65,9 @@ export const chapters = [
   },
   { n: 5, title: 'Code', duration: 42, built: true,
     audio: {
-      az: './clips/ml103/audio/az/5-walkthrough.mp3?v=20261026-222850',
-      fa: './clips/ml103/audio/fa/5-walkthrough.mp3?v=20261026-222850',
-      en: './clips/ml103/audio/en/5-walkthrough.mp3?v=20261026-222850',
+      az: './clips/ml103/audio/az/5-walkthrough.mp3?v=20261028-183005',
+      fa: './clips/ml103/audio/fa/5-walkthrough.mp3?v=20261028-183005',
+      en: './clips/ml103/audio/en/5-walkthrough.mp3?v=20261028-183005',
     },
     chunks: {
       az: [

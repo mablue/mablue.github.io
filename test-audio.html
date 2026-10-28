@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head><title>Audio Seek Test</title>
+<style>
+body{font-family:monospace;padding:20px;background:#111;color:#0f0;font-size:14px;}
+button{font-size:18px;padding:10px 20px;margin:5px;background:#333;color:#0f0;border:1px solid #0f0;cursor:pointer;}
+button:active{background:#0f0;color:#111;}
+#log{white-space:pre-wrap;background:#000;padding:10px;margin-top:15px;height:300px;overflow:auto;border:1px solid #0f0;font-size:13px;}
+.status{background:#222;padding:8px;margin:10px 0;border-left:3px solid #0f0;}
+</style>
+</head>
+<body>
+<h3>Audio Seek Test</h3>
+<div>
+<button onclick="load('az')">Load AZ</button>
+<button onclick="load('fa')">Load FA</button>
+<button onclick="load('en')">Load EN</button>
+</div>
+<div>
+<button onclick="play()">▶ Play</button>
+<button onclick="seek(5)">Seek 5s</button>
+<button onclick="seek(15)">Seek 15s</button>
+<button onclick="seek(25)">Seek 25s</button>
+</div>
+<audio id="a" controls style="width:100%;margin:10px 0;"></audio>
+<div class="status" id="status">no audio loaded</div>
+<div id="log"></div>
+<script>
+const a = document.getElementById('a');
+const log = document.getElementById('log');
+const st = document.getElementById('status');
+let cur = 'none';
+function p(m) { log.textContent += m + '\n'; log.scrollTop = log.scrollHeight; }
+function upd() {
+  st.textContent = 'lang=' + cur + '  t=' + a.currentTime.toFixed(2) + '  dur=' + (a.duration||0).toFixed(2) + '  paused=' + a.paused + '  rs=' + a.readyState;
+}
+a.addEventListener('loadedmetadata', () => { p('[' + cur + '] loadedmetadata dur=' + a.duration.toFixed(2)); upd(); });
+a.addEventListener('durationchange', () => { p('[' + cur + '] durationchange dur=' + (a.duration||0).toFixed(2)); upd(); });
+a.addEventListener('seeked', () => { p('[' + cur + '] seeked at ' + a.currentTime.toFixed(2)); upd(); });
+a.addEventListener('play', () => { p('[' + cur + '] play'); upd(); });
+a.addEventListener('pause', () => { p('[' + cur + '] pause'); upd(); });
+a.addEventListener('error', () => { p('[' + cur + '] ERROR ' + (a.error?.code||'?') + ' ' + (a.error?.message||'')); });
+setInterval(upd, 200);
+function load(l) {
+  cur = l;
+  p('--- LOAD ' + l + ' ---');
+  a.src = 'clips/ml101/audio/' + l + '/data.mp3';
+  a.load();
+}
+function play() { a.play().then(()=>p('play OK')).catch(e=>p('play FAIL ' + e.name)); }
+function seek(t) { p('--- seek to ' + t + ' ---'); a.currentTime = t; setTimeout(upd, 100); }
+p('Test page ready. Tap "Load AZ", play, seek to 15. Then FA. Then EN.');
+p('Watch for: does seeked fire? does t reach target?');
+</script>
+</body>
+</html>

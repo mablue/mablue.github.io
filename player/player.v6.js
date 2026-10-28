@@ -191,7 +191,39 @@ export class Player {
       b.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        this._subtitleNav(b.dataset.sub);
+        if (!this.chunks || this.chunks.length === 0) return;
+        if (!this.audio.duration || this.audio.readyState < 1) return;
+        const t = this.audio.currentTime || 0;
+        let current = this.currentChunk;
+        if (current < 0 || current >= this.chunks.length) {
+          current = 0;
+          for (let i = 0; i < this.chunks.length; i++) {
+            if (t >= this.chunks[i].start) current = i;
+            else break;
+          }
+        }
+        const dir = b.dataset.sub;
+        const d = dir === 'prev' ? -1 : 1;
+        let target = Math.max(0, Math.min(this.chunks.length - 1, current + d));
+        if (target === current) {
+          b.style.transform = 'scale(0.9)';
+          setTimeout(() => { b.style.transform = ''; }, 100);
+          return;
+        }
+        const exactStart = this.chunks[target].start;
+        const seekTo = Math.max(0, exactStart - 0.4);
+        const wasPlaying = !this.audio.paused;
+        this._lockedSub = target;
+        this._lockedUntil = exactStart;
+        if (this._lockTimer) clearTimeout(this._lockTimer);
+        this._lockTimer = setTimeout(() => { this._lockedSub = null; }, 1500);
+        if (wasPlaying) this.audio.pause();
+        this.audio.currentTime = seekTo;
+        this.currentChunk = target;
+        if (this.ui.text) this.ui.text.textContent = this.chunks[target].text;
+        if (wasPlaying) {
+          this.audio.addEventListener('seeked', () => this.audio.play().catch(() => {}), { once: true });
+        }
         b.style.transform = 'scale(0.85)';
         setTimeout(() => { b.style.transform = ''; }, 120);
       });
@@ -289,8 +321,21 @@ export class Player {
 
   _computeChunks() {
     const ch = this.chapters[this.currentIndex];
+    if (!ch) return;
     const chunks = this._getChunks(ch, this.lang);
+    if (!chunks || !chunks.length) return;
     const dur = this.audio.duration || ch.duration || 10;
+
+    if (this.clip && this.clip.timings && this.clip.timings[this.lang] && this.clip.timings[this.lang][this.currentIndex]) {
+      const t = this.clip.timings[this.lang][this.currentIndex];
+      if (t.length === chunks.length) {
+        this.chunks = chunks.map((c, i) => ({ start: t[i] || 0, text: c }));
+        this.currentChunk = -1;
+        if (window._debugLog) window._debugLog('[computeChunks] EXACT ' + this.lang + ' ch' + this.currentIndex + ': ' + t.map(x => x.toFixed(1)).join(','));
+        return;
+      }
+    }
+
     const tot = chunks.reduce((s, c) => s + c.split(/\s+/).length, 0) || 1;
     let acc = 0;
     this.chunks = chunks.map(c => {
@@ -300,6 +345,7 @@ export class Player {
       return { start: st, text: c };
     });
     this.currentChunk = -1;
+    if (window._debugLog) window._debugLog('[computeChunks] FALLBACK ' + this.lang);
   }
 
   _onTimeUpdate() {
@@ -308,12 +354,13 @@ export class Player {
     if (this.ui.fill) this.ui.fill.style.width = dur ? ((t / dur) * 100) + '%' : '0%';
     if (this.ui.time) this.ui.time.textContent = this._fmt(t) + ' / ' + this._fmt(dur);
 
-    if (this._pendingSeekTo !== null && this._pendingSeekTo !== undefined) {
-      if (Math.abs(t - this._pendingSeekTo) > 0.3) {
+    if (this._lockedSub !== null && this._lockedSub !== undefined) {
+      if (t >= this._lockedUntil) {
+        this._lockedSub = null;
+        if (this._lockTimer) clearTimeout(this._lockTimer);
+      } else {
         return;
       }
-      this._pendingSeekTo = null;
-      clearTimeout(this._pendingSeekTimeout);
     }
 
     let idx = 0;
@@ -400,8 +447,28 @@ export class Player {
   }
 
   update(dt) {
-    const s = this.scenes[this.currentIndex];
-    if (s) s.update(dt, this.audio.currentTime, this.audio.duration, this.currentChunk);
+    const scene = this.scenes[this.currentIndex];
+    if (!scene) return;
+    const audioTime = this.audio.currentTime || 0;
+    const isPlaying = !this.audio.paused && audioTime > 0.05;
+    const dur = this.audio.duration || (this.chapters[this.currentIndex]?.duration || 30);
+    if (isPlaying) {
+      this._fallbackStart = 0;
+      scene.update(dt, audioTime, dur, this.currentChunk);
+      return;
+    }
+    if (this._userPaused) {
+      scene.update(dt, audioTime, dur, this.currentChunk);
+      return;
+    }
+    if (!this._fallbackStart) this._fallbackStart = performance.now();
+    const elapsed = (performance.now() - this._fallbackStart) / 1000;
+    if (elapsed < 0.3) {
+      scene.update(dt, audioTime, dur, this.currentChunk);
+      return;
+    }
+    const fakeTime = Math.min(elapsed, dur);
+    scene.update(dt, fakeTime, dur, this.currentChunk);
   }
 
   start(initialLang) {
