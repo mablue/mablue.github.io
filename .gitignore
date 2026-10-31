@@ -19,3 +19,6 @@ __pycache__/
 .cache/
 .git.old-*/
 *.bak
+
+# ── Allow clip audio-chunks (chunk-based audio) ──
+!clips/**/audio-chunks/**/*.mp3
