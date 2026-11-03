@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from './player.v7.js?v=20261028-204517';
+import { Player } from './player.v7.js?v=20261103-114008';
 
 export { THREE };
 

@@ -1,5 +1,5 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261028-204517';
-import { updateLine, updateDrops } from '../../../player/visuals.js?v=20261028-204517';
+import { SceneBase } from '../../../player/scene-base.js?v=20261103-114008';
+import { updateLine, updateDrops } from '../../../player/visuals.js?v=20261103-114008';
 
 export class Scene3Loss extends SceneBase {
   constructor(ctx, shared) {
