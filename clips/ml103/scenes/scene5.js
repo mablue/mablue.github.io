@@ -1,5 +1,5 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261103-114008';
-import { buildCodeUI, applyCodeChunk } from '../../../player/walkthrough.js?v=20261103-114008';
+import { SceneBase } from '../../../player/scene-base.js?v=20261109-030020';
+import { buildCodeUI, applyCodeChunk } from '../../../player/walkthrough.js?v=20261109-030020';
 
 export class Scene5Result extends SceneBase {
   constructor(ctx, shared) {

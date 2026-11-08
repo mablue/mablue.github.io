@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from '../../player/player.v4.js';
+import { Player } from '../../player/player.v7.js';
 import { chapters } from './config.js';
 import { PlanetScene } from './scenes/planetscene.js';
 
