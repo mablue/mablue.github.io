@@ -1,5 +1,5 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261109-030020';
-import { updateCurvePositions } from '../../../player/visuals.js?v=20261109-030020';
+import { SceneBase } from '../../../player/scene-base.js?v=20261113-073431';
+import { updateCurvePositions } from '../../../player/visuals.js?v=20261113-073431';
 
 export class Scene2AddX2 extends SceneBase {
   constructor(ctx, shared) {
