@@ -1,5 +1,6 @@
 // ===== ON-SCREEN DEBUG (mobile-friendly) =====
 function _debugSetup() {
+    return; // debug-disabled
   if (window._debugEl) return;
   const el = document.createElement('div');
   el.id = 'debug-panel';

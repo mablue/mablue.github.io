@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from '../../player/player.v7.js?v=20261113-091047';
-import { chapters } from './config.js?v=20261113-091047';
-import { PlanetScene } from './scenes/planetscene.js?v=20261113-091047';
+import { Player } from '../../player/player.v7.js?v=20261113-091543';
+import { chapters } from './config.js?v=20261113-091543';
+import { PlanetScene } from './scenes/planetscene.js?v=20261113-091543';
 
 export function start() {
   const canvas = document.getElementById('scene-canvas');
