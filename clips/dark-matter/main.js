@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from '../../player/player.v7.js?v=20261113-080037';
-import { chapters } from './config.js?v=20261113-080037';
-import { GalaxyScene } from './scenes/scene1.js?v=20261113-080037';
-import { RotationCurveScene } from './scenes/scene2.js?v=20261113-080037';
-import { BulletClusterScene } from './scenes/scene3.js?v=20261113-080037';
-import { DarkHaloScene } from './scenes/scene4.js?v=20261113-080037';
-import { NfwEquationScene } from './scenes/scene5.js?v=20261113-080037';
-import { MondScene } from './scenes/scene6.js?v=20261113-080037';
-import { HuntersScene } from './scenes/scene7.js?v=20261113-080037';
-import { TensionScene } from './scenes/scene8.js?v=20261113-080037';
+import { Player } from '../../player/player.v7.js?v=20261113-080604';
+import { chapters } from './config.js?v=20261113-080604';
+import { GalaxyScene } from './scenes/scene1.js?v=20261113-080604';
+import { RotationCurveScene } from './scenes/scene2.js?v=20261113-080604';
+import { BulletClusterScene } from './scenes/scene3.js?v=20261113-080604';
+import { DarkHaloScene } from './scenes/scene4.js?v=20261113-080604';
+import { NfwEquationScene } from './scenes/scene5.js?v=20261113-080604';
+import { MondScene } from './scenes/scene6.js?v=20261113-080604';
+import { HuntersScene } from './scenes/scene7.js?v=20261113-080604';
+import { TensionScene } from './scenes/scene8.js?v=20261113-080604';
 
 function makeGlow(stops) {
   const s = 512;
@@ -190,8 +190,22 @@ void main() {
   };
 
   const shared = { ...ctx };
+  // تبدیل فرمت قدیمی (audioEn/chunksEn) به فرمت جدید (audio/chunks)
+  const normalizedChapters = chapters.map(ch => {
+    const out = { ...ch };
+    out.audio = { ...(ch.audio || {}) };
+    out.chunks = { ...(ch.chunks || {}) };
+    ['en','fa','az'].forEach(l => {
+      const ak = 'audio' + l.charAt(0).toUpperCase() + l.slice(1);
+      const ck = 'chunks' + l.charAt(0).toUpperCase() + l.slice(1);
+      if (ch[ak] && !out.audio[l]) out.audio[l] = ch[ak];
+      if (ch[ck] && !out.chunks[l]) out.chunks[l] = ch[ck];
+    });
+    return out;
+  });
 
-  const player = new Player(ctx, chapters, { suppressTapHint: true });
+
+  const player = new Player(ctx, normalizedChapters, { suppressTapHint: true });
   player.registerScene(0, new GalaxyScene(ctx, shared));
   player.registerScene(1, new RotationCurveScene(ctx, shared));
   player.registerScene(2, new BulletClusterScene(ctx, shared));
