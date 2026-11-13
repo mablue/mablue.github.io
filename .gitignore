@@ -23,3 +23,5 @@ __pycache__/
 # ── Allow clip audio-chunks (chunk-based audio) ──
 !clips/**/audio-chunks/**/*.mp3
 !clips/**/audio/**/*.mp3
+!clips/**/audio/**/*.ogg
+!clips/**/audio-chunks/**/*.ogg

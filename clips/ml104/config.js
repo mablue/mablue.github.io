@@ -39,19 +39,19 @@ export const chapters = [
     "built": true,
     "audio": {
       "az": [
-        "./clips/ml104/audio-chunks/az/ch1/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch1/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch1/02.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/az/ch1/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch1/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch1/02.ogg?v=20261113-083919"
       ],
       "fa": [
-        "./clips/ml104/audio-chunks/fa/ch1/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch1/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch1/02.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/fa/ch1/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch1/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch1/02.ogg?v=20261113-083919"
       ],
       "en": [
-        "./clips/ml104/audio-chunks/en/ch1/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch1/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch1/02.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/en/ch1/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch1/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch1/02.ogg?v=20261113-083919"
       ]
     },
     "chunks": {
@@ -96,22 +96,22 @@ export const chapters = [
     "built": true,
     "audio": {
       "az": [
-        "./clips/ml104/audio-chunks/az/ch2/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch2/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch2/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch2/03.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/az/ch2/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch2/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch2/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch2/03.ogg?v=20261113-083919"
       ],
       "fa": [
-        "./clips/ml104/audio-chunks/fa/ch2/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch2/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch2/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch2/03.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/fa/ch2/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch2/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch2/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch2/03.ogg?v=20261113-083919"
       ],
       "en": [
-        "./clips/ml104/audio-chunks/en/ch2/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch2/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch2/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch2/03.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/en/ch2/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch2/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch2/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch2/03.ogg?v=20261113-083919"
       ]
     },
     "chunks": {
@@ -162,22 +162,22 @@ export const chapters = [
     "built": true,
     "audio": {
       "az": [
-        "./clips/ml104/audio-chunks/az/ch3/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch3/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch3/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch3/03.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/az/ch3/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch3/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch3/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch3/03.ogg?v=20261113-083919"
       ],
       "fa": [
-        "./clips/ml104/audio-chunks/fa/ch3/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch3/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch3/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch3/03.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/fa/ch3/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch3/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch3/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch3/03.ogg?v=20261113-083919"
       ],
       "en": [
-        "./clips/ml104/audio-chunks/en/ch3/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch3/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch3/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch3/03.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/en/ch3/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch3/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch3/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch3/03.ogg?v=20261113-083919"
       ]
     },
     "chunks": {
@@ -228,25 +228,25 @@ export const chapters = [
     "built": true,
     "audio": {
       "az": [
-        "./clips/ml104/audio-chunks/az/ch4/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch4/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch4/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch4/03.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch4/04.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/az/ch4/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch4/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch4/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch4/03.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch4/04.ogg?v=20261113-083919"
       ],
       "fa": [
-        "./clips/ml104/audio-chunks/fa/ch4/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch4/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch4/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch4/03.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch4/04.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/fa/ch4/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch4/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch4/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch4/03.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch4/04.ogg?v=20261113-083919"
       ],
       "en": [
-        "./clips/ml104/audio-chunks/en/ch4/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch4/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch4/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch4/03.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch4/04.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/en/ch4/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch4/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch4/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch4/03.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch4/04.ogg?v=20261113-083919"
       ]
     },
     "chunks": {
@@ -303,28 +303,28 @@ export const chapters = [
     "built": true,
     "audio": {
       "az": [
-        "./clips/ml104/audio-chunks/az/ch5/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch5/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch5/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch5/03.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch5/04.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/az/ch5/05.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/az/ch5/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch5/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch5/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch5/03.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch5/04.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/az/ch5/05.ogg?v=20261113-083919"
       ],
       "fa": [
-        "./clips/ml104/audio-chunks/fa/ch5/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch5/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch5/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch5/03.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch5/04.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/fa/ch5/05.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/fa/ch5/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch5/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch5/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch5/03.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch5/04.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/fa/ch5/05.ogg?v=20261113-083919"
       ],
       "en": [
-        "./clips/ml104/audio-chunks/en/ch5/00.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch5/01.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch5/02.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch5/03.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch5/04.mp3?v=20261028-203424",
-        "./clips/ml104/audio-chunks/en/ch5/05.mp3?v=20261028-203424"
+        "./clips/ml104/audio-chunks/en/ch5/00.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch5/01.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch5/02.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch5/03.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch5/04.ogg?v=20261113-083919",
+        "./clips/ml104/audio-chunks/en/ch5/05.ogg?v=20261113-083919"
       ]
     },
     "chunks": {
