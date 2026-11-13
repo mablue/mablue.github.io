@@ -1,6 +1,6 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261113-075611';
-import { buildCodeUI, applyCodeChunk } from '../../../player/walkthrough.js?v=20261113-075611';
-import { updateCurvePositions } from '../../../player/visuals.js?v=20261113-075611';
+import { SceneBase } from '../../../player/scene-base.js?v=20261113-080037';
+import { buildCodeUI, applyCodeChunk } from '../../../player/walkthrough.js?v=20261113-080037';
+import { updateCurvePositions } from '../../../player/visuals.js?v=20261113-080037';
 
 export class Scene5Result extends SceneBase {
   constructor(ctx, shared) {
