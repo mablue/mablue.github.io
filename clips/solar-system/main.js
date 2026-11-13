@@ -1,8 +1,8 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from '../../player/player.v7.js?v=20261113-080604';
-import { chapters } from './config.js?v=20261113-080604';
-import { PlanetScene } from './scenes/planetscene.js?v=20261113-080604';
+import { Player } from '../../player/player.v7.js?v=20261113-081622';
+import { chapters } from './config.js?v=20261113-081622';
+import { PlanetScene } from './scenes/planetscene.js?v=20261113-081622';
 
 export function start() {
   const canvas = document.getElementById('scene-canvas');
@@ -43,7 +43,7 @@ export function start() {
   });
 
 
-  const player = new Player(ctx, normalizedChapters, { suppressTapHint: true });
+  const player = new Player(ctx, normalizedChapters);
   chapters.forEach((ch, i) => {
     if (ch.built) {
       player.registerScene(i, new PlanetScene(ctx, shared, ch));

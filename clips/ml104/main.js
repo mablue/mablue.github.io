@@ -1,11 +1,11 @@
-import { startClip } from '../../player/setup.js?v=20261113-080604';
-import { clip, chapters } from './config.js?v=20261113-080604';
-import { timings } from './timings.js?v=20261113-080604';
-import { Scene1Tribes } from './scenes/scene1.js?v=20261113-080604';
-import { Scene2Circle } from './scenes/scene2.js?v=20261113-080604';
-import { Scene3Sigmoid } from './scenes/scene3.js?v=20261113-080604';
-import { Scene4Training } from './scenes/scene4.js?v=20261113-080604';
-import { Scene5Result } from './scenes/scene5.js?v=20261113-080604';
+import { startClip } from '../../player/setup.js?v=20261113-081622';
+import { clip, chapters } from './config.js?v=20261113-081622';
+import { timings } from './timings.js?v=20261113-081622';
+import { Scene1Tribes } from './scenes/scene1.js?v=20261113-081622';
+import { Scene2Circle } from './scenes/scene2.js?v=20261113-081622';
+import { Scene3Sigmoid } from './scenes/scene3.js?v=20261113-081622';
+import { Scene4Training } from './scenes/scene4.js?v=20261113-081622';
+import { Scene5Result } from './scenes/scene5.js?v=20261113-081622';
 
 const TARGET_R = 2.5;
 

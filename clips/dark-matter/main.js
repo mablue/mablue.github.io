@@ -1,15 +1,15 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { Player } from '../../player/player.v7.js?v=20261113-080604';
-import { chapters } from './config.js?v=20261113-080604';
-import { GalaxyScene } from './scenes/scene1.js?v=20261113-080604';
-import { RotationCurveScene } from './scenes/scene2.js?v=20261113-080604';
-import { BulletClusterScene } from './scenes/scene3.js?v=20261113-080604';
-import { DarkHaloScene } from './scenes/scene4.js?v=20261113-080604';
-import { NfwEquationScene } from './scenes/scene5.js?v=20261113-080604';
-import { MondScene } from './scenes/scene6.js?v=20261113-080604';
-import { HuntersScene } from './scenes/scene7.js?v=20261113-080604';
-import { TensionScene } from './scenes/scene8.js?v=20261113-080604';
+import { Player } from '../../player/player.v7.js?v=20261113-081622';
+import { chapters } from './config.js?v=20261113-081622';
+import { GalaxyScene } from './scenes/scene1.js?v=20261113-081622';
+import { RotationCurveScene } from './scenes/scene2.js?v=20261113-081622';
+import { BulletClusterScene } from './scenes/scene3.js?v=20261113-081622';
+import { DarkHaloScene } from './scenes/scene4.js?v=20261113-081622';
+import { NfwEquationScene } from './scenes/scene5.js?v=20261113-081622';
+import { MondScene } from './scenes/scene6.js?v=20261113-081622';
+import { HuntersScene } from './scenes/scene7.js?v=20261113-081622';
+import { TensionScene } from './scenes/scene8.js?v=20261113-081622';
 
 function makeGlow(stops) {
   const s = 512;
@@ -205,7 +205,7 @@ void main() {
   });
 
 
-  const player = new Player(ctx, normalizedChapters, { suppressTapHint: true });
+  const player = new Player(ctx, normalizedChapters);
   player.registerScene(0, new GalaxyScene(ctx, shared));
   player.registerScene(1, new RotationCurveScene(ctx, shared));
   player.registerScene(2, new BulletClusterScene(ctx, shared));
