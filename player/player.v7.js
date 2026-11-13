@@ -37,6 +37,7 @@ export class Player {
     this.ctx = opts.ctx;
     this.chapters = opts.chapters || [];
     this.clip = opts.clip || {};
+    this.suppressTapHint = opts.suppressTapHint || this.clip.suppressTapHint || false;
     this.scenes = opts.scenes || {};
     this.container = opts.container || document.body;
 
@@ -334,7 +335,7 @@ export class Player {
   }
 
   _showTapHint() {
-    if (this.clip && this.clip.suppressTapHint) return;
+    if (this.suppressTapHint) return;
     if (this._hintEl) return;
     if (!document.getElementById('player-hint-styles')) {
       const st = document.createElement('style');

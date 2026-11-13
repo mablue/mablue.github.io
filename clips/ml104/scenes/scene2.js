@@ -1,4 +1,4 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261113-075352';
+import { SceneBase } from '../../../player/scene-base.js?v=20261113-075611';
 
 export class Scene2Circle extends SceneBase {
   constructor(ctx, shared) {

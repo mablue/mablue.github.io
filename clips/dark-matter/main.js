@@ -191,7 +191,7 @@ void main() {
 
   const shared = { ...ctx };
 
-  const player = new Player(ctx, chapters);
+  const player = new Player(ctx, chapters, { suppressTapHint: true });
   player.registerScene(0, new GalaxyScene(ctx, shared));
   player.registerScene(1, new RotationCurveScene(ctx, shared));
   player.registerScene(2, new BulletClusterScene(ctx, shared));

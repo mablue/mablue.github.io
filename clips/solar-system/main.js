@@ -29,7 +29,7 @@ export function start() {
   const ctx = { THREE, scene, camera, controls, renderer, canvas, lang: 'fa' };
   const shared = { ...ctx };
 
-  const player = new Player(ctx, chapters);
+  const player = new Player(ctx, chapters, { suppressTapHint: true });
   chapters.forEach((ch, i) => {
     if (ch.built) {
       player.registerScene(i, new PlanetScene(ctx, shared, ch));
