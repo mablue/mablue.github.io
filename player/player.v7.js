@@ -334,6 +334,7 @@ export class Player {
   }
 
   _showTapHint() {
+    if (this.clip && this.clip.suppressTapHint) return;
     if (this._hintEl) return;
     if (!document.getElementById('player-hint-styles')) {
       const st = document.createElement('style');
