@@ -6,8 +6,8 @@
 <title>Solar System — A Tour</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Vazirmatn:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="player/player.css?v=20261113-083919">
-<link rel="stylesheet" href="clips/solar-system/style.css?v=20261113-083919">
+<link rel="stylesheet" href="player/player.css?v=20261113-091047">
+<link rel="stylesheet" href="clips/solar-system/style.css?v=20261113-091047">
 </head>
 <body>
 
@@ -79,53 +79,8 @@ window.addEventListener('error', function(e){
 </script>
 
 <script type="module">
-import { start } from './clips/solar-system/main.js?v=20261113-083919';
+import { start } from './clips/solar-system/main.js?v=20261113-091047';
 start();
-</script>
-<script>
-(function(){
-  var ERRORS=[];
-  window.addEventListener('error',function(e){ERRORS.push('ERR: '+e.message+' @ '+((e.filename||'').split('/').pop())+':'+e.lineno);refresh()});
-  window.addEventListener('unhandledrejection',function(e){ERRORS.push('REJ: '+((e.reason&&e.reason.message)||e.reason));refresh()});
-  var audioHook=null;
-  var OA=window.Audio;
-  window.Audio=function(s){var a=new OA(s);if(!audioHook)audioHook=a;return a};
-  window.Audio.prototype=OA.prototype;
-  function refresh(){
-    var info=[];
-    info.push('=== DIAG '+new Date().toLocaleTimeString()+' ===');
-    info.push('path: '+location.pathname);
-    info.push('readyState: '+document.readyState);
-    info.push('');
-    info.push('canvas:       '+(document.querySelector('canvas')?'✓':'✗'));
-    info.push('controls:     '+(document.querySelector('.controls')?'✓':'✗'));
-    info.push('subtitle-bar: '+(document.querySelector('.subtitle-bar')?'✓':'✗'));
-    info.push('#sub-text:    '+(document.querySelector('#sub-text')?'✓':'✗'));
-    info.push('#play-btn:    '+(document.querySelector('#play-btn')?'✓':'✗'));
-    info.push('total btns:   '+document.querySelectorAll('button').length);
-    info.push('audio el:     '+(audioHook?'✓ (hooked)':(document.querySelector('audio')?'✓ (in DOM)':'✗')));
-    if(audioHook){
-      info.push('');
-      info.push('src:      '+(audioHook.src||'(empty)'));
-      info.push('paused:   '+audioHook.paused);
-      info.push('ready:    '+audioHook.readyState);
-      info.push('time:     '+audioHook.currentTime.toFixed(2));
-      info.push('duration: '+(audioHook.duration||0).toFixed(2));
-    }
-    info.push('');
-    info.push('errors: '+ERRORS.length);
-    if(ERRORS.length){info.push('---');ERRORS.forEach(function(e){info.push(e)})}
-    var p=document.getElementById('dpanel');
-    if(!p){
-      p=document.createElement('div');p.id='dpanel';
-      p.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:#000f;color:#0f0;font-family:monospace;font-size:13px;padding:12px;z-index:2147483647;overflow:auto;white-space:pre-wrap;line-height:1.55';
-      p.onclick=function(){p.remove()};
-      document.body.appendChild(p);
-    }
-    p.textContent=info.join('\n')+'\n\n[tap to dismiss]';
-  }
-  [800,1500,2500,4000].forEach(function(t){setTimeout(refresh,t)});
-})();
 </script>
 </body>
 </html>

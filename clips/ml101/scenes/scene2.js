@@ -1,5 +1,5 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261113-083919';
-import { updateLine } from '../../../player/visuals.js?v=20261113-083919';
+import { SceneBase } from '../../../player/scene-base.js?v=20261113-091047';
+import { updateLine } from '../../../player/visuals.js?v=20261113-091047';
 
 export class Scene2Model extends SceneBase {
   constructor(ctx, shared) {

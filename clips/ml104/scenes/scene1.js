@@ -1,4 +1,4 @@
-import { SceneBase } from '../../../player/scene-base.js?v=20261113-083919';
+import { SceneBase } from '../../../player/scene-base.js?v=20261113-091047';
 
 export class Scene1Tribes extends SceneBase {
   constructor(ctx, shared) {
